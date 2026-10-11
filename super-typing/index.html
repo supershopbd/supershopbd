@@ -10,9 +10,6 @@
     <!-- Google Fonts for Bengali Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- FontAwesome for Icons (Stable Version 5.15.4 for guaranteed display) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
     <style>
         /* --- Root Variables for Colors --- */
         :root {
@@ -46,21 +43,26 @@
             background-color: var(--bg-light); /* Default fallback */
             color: var(--text-dark);
             zoom: 0.9; 
+            overflow-x: hidden;
         }
 
-        /* Section Background Helpers to fix the hover glitch */
-        .theme-dark {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-        }
-        .theme-light {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+        /* The Ultimate Gradient Transition Fix */
+        .gradient-bg-wrapper {
+            background: linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-dark) 65%, var(--bg-light) 65%, var(--bg-light) 100%);
         }
 
         a { text-decoration: none; color: inherit; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; } 
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; } 
         .text-center { text-align: center; }
+
+        /* --- SVG Icon Helpers --- */
+        .svg-icon {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+        }
+        .icon-danger { color: var(--danger); }
+        .icon-primary { color: var(--primary); }
 
         /* --- Navbar (Dark Theme) --- */
         header {
@@ -91,7 +93,7 @@
         }
         .hero-banner-container {
             position: relative;
-            max-width: 1100px;
+            max-width: 1200px; /* Fixed the white space issue */
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
@@ -117,8 +119,8 @@
         .os-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.2);}
 
         /* --- Video Demo Section (Dark Theme) --- */
-        .video-section { padding: 60px 0; }
-        .section-title-dark { font-size: 32px; font-weight: 700; margin-bottom: 12px; }
+        .video-section { padding: 60px 0; color: var(--text-light); }
+        .section-title-dark { font-size: 32px; font-weight: 700; margin-bottom: 12px; color: var(--text-light);}
         .section-subtitle-dark { color: var(--text-muted-dark); font-size: 15px; margin-bottom: 40px; }
         
         .youtube-container {
@@ -158,26 +160,36 @@
             font-size: 16px;
             backdrop-filter: blur(5px);
             transition: 0.3s;
+            display: flex; align-items: center; justify-content: center;
         }
         .control-btn:hover { background: var(--primary); border-color: var(--primary); }
 
-        /* --- Pain Points Section (Dark Theme, Gradient Transition End) --- */
-        /* This section ends the dark theme and smoothly transitions to light */
-        .pain-points { 
-            padding: 60px 0 100px; /* Extra bottom padding for smooth transition */
-            background: linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-dark) 70%, var(--bg-light) 100%);
-            color: var(--text-light);
-        }
+        /* --- Pain Points Section (Dark Theme ending here) --- */
+        .pain-points { padding: 60px 0 120px; color: var(--text-light); }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .pain-card { background-color: var(--bg-card-dark); padding: 30px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.05); text-align: left; transition: 0.3s;}
-        .pain-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.05); box-shadow: 0 10px 25px rgba(0,0,0,0.3);}
+        
+        /* The Card Fix - ensuring it stays on top of the gradient */
+        .pain-card { 
+            background-color: var(--bg-card-dark); 
+            padding: 30px; 
+            border-radius: 14px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            text-align: left; 
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            position: relative;
+            z-index: 2; /* Forces card to be above the gradient background */
+        }
+        .pain-card:hover { 
+            transform: translateY(-8px); 
+            background-color: #233145; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
         
         .pain-card .icon-wrapper {
             width: 50px; height: 50px; margin-bottom: 18px;
             background: rgba(239, 68, 68, 0.1); border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
         }
-        .pain-card .icon-wrapper i { font-size: 24px; color: var(--danger); }
 
         .pain-card h3 { margin-bottom: 12px; font-size: 20px; }
         .pain-card p { color: var(--text-muted-dark); font-size: 15px; margin: 0; }
@@ -188,15 +200,28 @@
 
         /* --- AI Features Section (Light Theme) --- */
         .features { padding: 40px 0 60px; }
-        .feature-card { background-color: var(--bg-card-light); padding: 30px; border-radius: 14px; text-align: left; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;}
-        .feature-card:hover { transform: translateY(-4px); box-shadow: 0 8px 15px rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3);}
+        .feature-card { 
+            background-color: var(--bg-card-light); 
+            padding: 30px; 
+            border-radius: 14px; 
+            text-align: left; 
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03); 
+            border: 1px solid #e2e8f0;
+            position: relative;
+            z-index: 2;
+        }
+        .feature-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15); 
+            border-color: rgba(59, 130, 246, 0.4);
+        }
         
         .feature-card .icon-wrapper {
             width: 50px; height: 50px; margin-bottom: 18px;
             background: rgba(59, 130, 246, 0.1); border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
         }
-        .feature-card .icon-wrapper i { font-size: 24px; color: var(--primary); }
 
         .feature-card h3 { font-size: 20px; margin-bottom: 12px; }
         .feature-card p { color: var(--text-muted-light); font-size: 15px; margin: 0; }
@@ -205,8 +230,8 @@
         /* --- Target Audience (Light Theme) --- */
         .audience { padding: 60px 0; }
         .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
-        .aud-card { background: var(--bg-card-light); padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; text-align: left; cursor: pointer; transition: 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.02);}
-        .aud-card:hover { border-color: var(--primary); box-shadow: 0 8px 15px rgba(59, 130, 246, 0.08); }
+        .aud-card { background: var(--bg-card-light); padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; text-align: left; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.02);}
+        .aud-card:hover { border-color: var(--primary); box-shadow: 0 8px 20px rgba(59, 130, 246, 0.1); transform: translateY(-3px);}
         .aud-card h3 { font-size: 16px; margin: 0; display: flex; align-items: center; justify-content: space-between; }
         .aud-card h3 span { display: flex; align-items: center; gap: 8px; }
         .aud-card i.arrow { color: #94a3b8; transition: 0.3s; }
@@ -258,17 +283,71 @@
         .pay-bkash { background: rgba(226, 19, 110, 0.1); color: var(--bkash); border: 1px solid rgba(226, 19, 110, 0.2); }
         .pay-nagad { background: rgba(247, 148, 29, 0.1); color: var(--nagad); border: 1px solid rgba(247, 148, 29, 0.2); }
 
-        /* --- Final Download Section (Light Theme) --- */
-        .final-download-section { padding: 60px 0 80px; }
-        .final-download-section h2 { font-size: 28px; margin-bottom: 10px; }
-        .free-trial-text { font-weight: 600; font-size: 16px; color: var(--primary); margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .final-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; font-size: 18px; font-weight: 700; padding: 16px 40px; border-radius: 10px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3); }
-        .final-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4); color: white; }
-        .final-os-badge { margin-top: 18px; color: var(--text-muted-light); font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px;}
-        .final-os-badge i { color: #0078d7; }
+        /* --- FINAL DOWNLOAD SECTION (FIXED AS REQUESTED) --- */
+        .final-download-section { 
+            padding: 60px 0 80px; 
+            text-align: center;
+        }
+        .fd-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card-light);
+            padding: 50px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            border: 1px solid #e2e8f0;
+        }
+        .fd-box h2 { 
+            font-size: 32px; 
+            color: var(--text-dark); 
+            margin-top: 0;
+            margin-bottom: 15px; 
+            line-height: 1.3;
+        }
+        .fd-box p {
+            font-size: 18px;
+            color: var(--text-muted-light);
+            margin-bottom: 30px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+        .fd-box p strong {
+            color: var(--primary);
+        }
+        .final-btn { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 10px; 
+            background: linear-gradient(135deg, var(--primary), var(--accent)); 
+            color: white; 
+            font-size: 20px; 
+            font-weight: 700; 
+            padding: 18px 45px; 
+            border-radius: 50px; 
+            transition: transform 0.3s, box-shadow 0.3s; 
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); 
+            margin-bottom: 20px;
+        }
+        .final-btn:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4); 
+            color: white; 
+        }
+        .final-os-badge { 
+            color: var(--text-muted-light); 
+            font-size: 14px; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 6px;
+        }
+        .final-os-badge svg { width: 16px; height: 16px; fill: #0078d7; }
 
         /* --- Footer (Dark Theme) --- */
-        footer { padding: 25px 0; border-top: 1px solid rgba(255,255,255,0.05); }
+        footer { padding: 25px 0; border-top: 1px solid rgba(255,255,255,0.05); background-color: var(--bg-dark); color: var(--text-light);}
         .footer-container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
         .footer-logo { height: 22px; opacity: 0.8; }
         .footer-links a { color: var(--text-muted-dark); font-size: 13px; transition: 0.3s; }
@@ -278,13 +357,17 @@
             .hero-overlay-content { position: relative; bottom: 0; right: 0; padding: 20px; }
             .footer-container { flex-direction: column; gap: 12px; text-align: center; }
             body { zoom: 1; } /* Reset zoom on mobile */
+            .gradient-bg-wrapper { background: linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-dark) 45%, var(--bg-light) 45%, var(--bg-light) 100%); }
+            .fd-box h2 { font-size: 24px; }
+            .final-btn { font-size: 16px; padding: 15px 30px; }
         }
     </style>
 </head>
 <body>
 
+<div class="gradient-bg-wrapper">
     <!-- Header (Dark Theme) -->
-    <header class="theme-dark">
+    <header>
         <div class="nav-container container">
             <a href="#" class="logo-area">
                 <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
@@ -295,20 +378,26 @@
     </header>
 
     <!-- Hero Section (Dark Theme) -->
-    <section class="hero theme-dark container">
+    <section class="hero container">
         <div class="hero-banner-container">
             <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.outerHTML='<div style=\'padding:180px 20px;background:#1e293b;color:#94a3b8;text-align:center;\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png নামে আপলোড করুন।]</div>'">
             
             <div class="hero-overlay-content">
-                <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="download-btn"><i class="fas fa-download"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
+                <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="download-btn">
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px;height:20px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন
+                </a>
                 <br>
-                <div class="os-badge"><i class="fab fa-windows" style="color: #4ade80;"></i> Windows 10 & 11 (100% Optimized)</div>
+                <div class="os-badge">
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="fill:#4ade80; width:14px; height:14px;"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>
+                    Windows 10 & 11 (100% Optimized)
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Video Demo Section (Dark Theme) -->
-    <section class="video-section theme-dark text-center">
+    <section class="video-section text-center">
         <div class="container">
             <h2 class="section-title-dark">নিজের চোখেই দেখুন <span style="color: var(--primary);">AI</span> ম্যাজিক!</h2>
             <p class="section-subtitle-dark">কীভাবে কথা বললেই নিখুঁত টাইপিং হয়, দেখে নিন এক নজরে</p>
@@ -316,10 +405,10 @@
             <div class="youtube-container">
                 <div class="custom-video-controls">
                     <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()" title="Play/Pause">
-                        <i class="fas fa-pause"></i>
+                        <svg class="svg-icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <button class="control-btn" id="muteUnmuteBtn" onclick="toggleMute()" title="Mute/Unmute">
-                        <i class="fas fa-volume-up"></i>
+                        <svg class="svg-icon" viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                     </button>
                 </div>
                 <div id="ytplayer"></div>
@@ -327,7 +416,7 @@
         </div>
     </section>
 
-    <!-- Pain Points (Gradient Transition: Dark to Light) -->
+    <!-- Pain Points (Dark Theme) -->
     <section class="pain-points text-center">
         <div class="container">
             <h2 class="section-title-dark">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
@@ -336,21 +425,24 @@
             <div class="grid-3">
                 <div class="pain-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-keyboard"></i>
+                        <!-- Keyboard SVG -->
+                        <svg class="svg-icon icon-danger" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
                     </div>
                     <h3>কঠিন ও ধীরগতির বাংলা টাইপিং</h3>
                     <p>বিভিন্ন কিবোর্ড সফটওয়্যার ব্যবহার করার পরও বাংলা টাইপ করা যথেষ্ট কষ্টকর। স্পেলিং মেলাতে গিয়ে প্রচুর সময় নষ্ট হয়।</p>
                 </div>
                 <div class="pain-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-user-injured"></i>
+                        <!-- Accessibility/Health SVG -->
+                        <svg class="svg-icon icon-danger" viewBox="0 0 24 24"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
                     </div>
                     <h3>শারীরিক ক্লান্তি ও চোখের ক্ষতি</h3>
                     <p>ঘণ্টার পর ঘণ্টা স্ক্রিনের দিকে ঝুঁকে টাইপ করতে গিয়ে ঘাড় ও পিঠে ব্যথা শুরু হয়, যা দীর্ঘমেয়াদে মারাত্মক ক্ষতিকর।</p>
                 </div>
                 <div class="pain-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-hourglass-half"></i>
+                        <!-- Hourglass SVG -->
+                        <svg class="svg-icon icon-danger" viewBox="0 0 24 24"><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zm-4-5l-4-4V4h8v3.5l-4 4z"/></svg>
                     </div>
                     <h3>সময় নষ্ট ও কাজের ধীরগতি</h3>
                     <p>নতুন কম্পিউটার ব্যবহারকারী হোন বা প্রফেশনাল, বিশাল আকারের নথিপত্র হাতে টাইপ করতে গিয়ে কাজের প্রোডাক্টিভিটি একদম কমে যায়।</p>
@@ -360,7 +452,7 @@
     </section>
 
     <!-- AI Features (Light Theme) -->
-    <section class="features theme-light text-center">
+    <section class="features text-center">
         <div class="container">
             <h2 class="section-title-light">আপনার জন্য Super AI এর <span style="color: var(--accent);">এক্সক্লুসিভ ফিচারসমূহ</span></h2>
             <p class="section-subtitle-light">যে কারণে এটি প্রতিটি উইন্ডোজ পিসি ইউজারের জন্য অপরিহার্য</p>
@@ -368,42 +460,48 @@
             <div class="grid-3">
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-microphone-alt"></i>
+                        <!-- Microphone SVG -->
+                        <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
                     </div>
                     <h3>AI Voice Typing</h3>
                     <p>মুখে কথা বলে সবচেয়ে <span class="highlight-text">দ্রুত ও নিখুঁত</span> বাংলা টাইপিং করুন। সিস্টেম আপনার কথা ঠিকই বুঝে নেবে।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-language"></i>
+                        <!-- Translate SVG -->
+                        <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
                     </div>
                     <h3>AI Live Translation</h3>
                     <p>বাংলায় কথা বলুন, আর এআই সাথে সাথে ইংরেজি, আরবি, হিন্দি, ফ্রেঞ্চসহ পৃথিবীর <span class="highlight-text">যেকোনো ভাষায়</span> ট্রান্সলেট করে টাইপ করে দেবে।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-comments"></i>
+                        <!-- Chat/Mix SVG -->
+                        <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
                     </div>
                     <h3>Mix Mode ও Banglish</h3>
                     <p>বাংলা-ইংরেজি <span class="highlight-text">মিশিয়ে বলুন</span> অথবা সোশ্যাল মিডিয়ার জন্য 'Banglish' এ চ্যাট করুন, সবই সম্ভব।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-mobile-alt"></i>
+                        <!-- Mobile/Cloud SVG -->
+                        <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
                     </div>
                     <h3>Cloud Mic (ক্লাউড মাইক)</h3>
                     <p>পিসিতে মাইক নেই? কোনো চিন্তা নেই। নিজের <span class="highlight-text">স্মার্টফোনকেই বানিয়ে ফেলুন</span> কম্পিউটারের শক্তিশালী ওয়্যারলেস মাইক!</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-mouse-pointer"></i>
+                        <!-- Hotkey/Mouse SVG -->
+                        <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M13 1.07V9h7c0-4.08-3.05-7.44-7-7.93zM4 15c0 4.42 3.58 8 8 8s8-3.58 8-8v-4H4v4zm7-13.93C7.05 1.56 4 4.92 4 9h7V1.07z"/></svg>
                     </div>
                     <h3>Floating Mic ও Hotkeys</h3>
                     <p>স্ক্রিনের ভাসমান মাইকে <span class="highlight-text">এক ক্লিক</span> অথবা কীবোর্ড শর্টকাট (Hotkey) চেপে মুহূর্তেই টাইপিং শুরু করুন।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <i class="fas fa-quote-right"></i>
+                        <!-- Quote/Punctuation SVG -->
+                        <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
                     </div>
                     <h3>Auto Punctuation</h3>
                     <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবে না। কথার ধরন বুঝে এআই নিজ দায়িত্বে <span class="highlight-text">যতিচিহ্ন বসিয়ে</span> দেবে।</p>
@@ -412,8 +510,10 @@
         </div>
     </section>
 
+</div> <!-- End of gradient wrapper -->
+
     <!-- Target Audience (Light Theme) -->
-    <section class="audience theme-light text-center">
+    <section class="audience text-center">
         <div class="container">
             <h2 class="section-title-light">Super AI Typing কার জন্য সেরা সমাধান?</h2>
             <p class="section-subtitle-light">যাদের প্রতিদিন কম্পিউটারে কাজ করতে হয়, তাদের সবার জন্য। বিস্তারিত জানতে ক্লিক করুন:</p>
@@ -456,7 +556,7 @@
     </section>
 
     <!-- Screenshot Slider (Light Theme) -->
-    <section class="screenshot-section theme-light text-center">
+    <section class="screenshot-section text-center">
         <div class="container">
             <h2 class="section-title-light">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
             <p class="section-subtitle-light">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
@@ -472,7 +572,7 @@
     </section>
 
     <!-- Reviews Section (Light Theme) -->
-    <section class="review-section theme-light text-center">
+    <section class="review-section text-center">
         <div class="container">
             <h2 class="section-title-light">আমাদের ইউজাররা কী বলছেন?</h2>
             <p class="section-subtitle-light">সারা বাংলাদেশ থেকে হাজারো সন্তুষ্ট ইউজারের মতামত</p>
@@ -547,7 +647,7 @@
     </div>
 
     <!-- Pricing Section (Light Theme) -->
-    <section class="pricing theme-light">
+    <section class="pricing">
         <div class="container">
             <h2 class="section-title-light">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
             <p class="section-subtitle-light" style="margin-bottom: 30px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
@@ -557,20 +657,39 @@
                 <div class="price">৳ ৯৯ <span>/ মাস</span></div>
                 <p class="pkg-info">এছাড়াও থাকছে: ৬ মাস - ২৯০ টাকা | ১ বছর - ৪৯০ টাকা</p>
                 <div class="payment-methods">
-                    <div class="pay-badge pay-bkash"><i class="fas fa-check-circle"></i> বিকাশ সাপোর্ট</div>
-                    <div class="pay-badge pay-nagad"><i class="fas fa-check-circle"></i> নগদ সাপোর্ট</div>
+                    <div class="pay-badge pay-bkash">
+                        <svg class="svg-icon" viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg> 
+                        বিকাশ সাপোর্ট
+                    </div>
+                    <div class="pay-badge pay-nagad">
+                        <svg class="svg-icon" viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        নগদ সাপোর্ট
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Final Download Section (Light Theme) -->
-    <section id="download-section" class="final-download-section theme-light">
+    <!-- Final Download Section (Light Theme - REDESIGNED EXACTLY AS REQUESTED) -->
+    <section id="download-section" class="final-download-section">
         <div class="container">
-            <h2 class="section-title-light">আজই আপনার টাইপিংয়ের কষ্ট দূর করুন!</h2>
-            <p class="free-trial-text">কেনার আগে ২৪ ঘণ্টা আনলিমিটেড ফ্রি ব্যবহার করে ম্যাজিক যাচাই করুন!</p>
-            <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="final-btn"><i class="fas fa-cloud-download-alt"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
-            <div class="final-os-badge"><i class="fab fa-windows"></i> Windows 10 & 11 এর জন্য ১০০% অপ্টিমাইজড</div>
+            <div class="fd-box">
+                <h2>আজই আপনার পুরানো টাইপিং এর কষ্ট দূর করুন! ডাউনলোড করুন সুপার এআই টাইপিং।</h2>
+                <p>
+                    <strong>কেনার আগে ৩টি ফ্রি ট্রায়াল!</strong><br>
+                    সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন। আপনি এই তিনটি ফ্রি ট্রায়াল ব্যবহার করে যাচাই করুন, তারপরে যেকোনো একটি সাবস্ক্রিপশন কিনে আনলিমিটেড ভয়েস টাইপিং ও ট্রান্সলেশন ব্যবহার করুন।
+                </p>
+                
+                <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="final-btn">
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:24px;height:24px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন
+                </a>
+                
+                <div class="final-os-badge">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>
+                    Windows 10 & 11 এর জন্য ১০০% অপ্টিমাইজড
+                </div>
+            </div>
         </div>
     </section>
 
@@ -653,25 +772,29 @@
         function onPlayerReady(event) { event.target.playVideo(); }
 
         function togglePlayPause() {
-            var playBtnIcon = document.querySelector('#playPauseBtn i');
+            var playBtnIcon = document.querySelector('#playPauseBtn svg path');
             if (player.getPlayerState() == YT.PlayerState.PLAYING) {
                 player.pauseVideo();
-                playBtnIcon.className = 'fas fa-play';
+                // Play Icon Path
+                playBtnIcon.setAttribute('d', 'M8 5v14l11-7z');
             } else {
                 player.playVideo();
-                playBtnIcon.className = 'fas fa-pause';
+                // Pause Icon Path
+                playBtnIcon.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z');
             }
         }
 
         function toggleMute() {
-            var muteBtnIcon = document.querySelector('#muteUnmuteBtn i');
+            var muteBtnIcon = document.querySelector('#muteUnmuteBtn svg path');
             if (player.isMuted()) {
                 player.unMute();
                 player.setVolume(100);
-                muteBtnIcon.className = 'fas fa-volume-up';
+                // Volume Up Path
+                muteBtnIcon.setAttribute('d', 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
             } else {
                 player.mute();
-                muteBtnIcon.className = 'fas fa-volume-mute';
+                // Mute Path
+                muteBtnIcon.setAttribute('d', 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z');
             }
         }
     </script>
