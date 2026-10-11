@@ -3,149 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super AI Typing - আপনার পার্সোনাল AI টাইপিং অ্যাসিস্ট্যান্ট</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Super AI Typing - আপনার পার্সোনাল AI Assistant</title>
+    <!-- Browser Tab Logo (Favicon) -->
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <!-- Google Fonts for Bengali Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Modern Premium CSS Variables */
+        /* Base Styles & Root Variables */
         :root {
-            --bg-deep: #080f1e;
-            --bg-secondary: #111a2f;
-            --text-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --bg-card: #ffffff;
             --text-dark: #1e293b;
+            --text-light: #f8fafc;
             --text-muted: #94a3b8;
             --primary: #3b82f6;
-            --ai-glow: #8b5cf6;
-            --white-card: #ffffff;
+            --accent: #8b5cf6;
             --bkash: #e2136e;
             --nagad: #f7941d;
         }
 
         body {
-            font-family: 'Noto Sans Bengali', sans-serif;
-            background-color: var(--bg-deep);
+            font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
+            background-color: var(--bg-dark);
             color: var(--text-light);
-            margin: 0; padding: 0; line-height: 1.7;
-            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
         }
-        
-        a { text-decoration: none; }
+
+        a { text-decoration: none; color: inherit; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
         
-        /* Premium Header */
+        /* Navbar */
         header {
-            background: rgba(8, 15, 30, 0.85);
-            backdrop-filter: blur(12px);
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
             position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 75px; }
-        .logo img { height: 45px; object-fit: contain; }
-        
-        /* AI Glowing Button */
-        .btn-glow {
-            background: linear-gradient(135deg, var(--primary), var(--ai-glow));
-            color: white; padding: 12px 28px; border-radius: 50px; font-weight: 600; font-size: 15px;
-            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4); border: none; cursor: pointer; transition: 0.3s;
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center; height: 70px;
         }
-        .btn-glow:hover { box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6); transform: translateY(-2px); }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-area img { height: 35px; }
+        .logo-text { font-size: 20px; font-weight: 700; color: white; }
+        .logo-text span { color: var(--primary); }
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; padding: 10px 24px; border-radius: 8px; font-weight: 600; font-size: 15px;
+            transition: 0.3s;
+        }
+        .nav-btn:hover { opacity: 0.9; }
 
         /* Hero Section */
-        .hero { padding: 140px 0 60px; position: relative; }
-        .hero::before {
-            content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 600px; background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%); z-index: -1;
+        .hero { padding: 140px 0 80px; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; font-weight: 700; line-height: 1.2; }
+        .hero p { font-size: 18px; color: var(--text-muted); max-width: 800px; margin: 0 auto 30px; }
+        .download-btn {
+            display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white; font-size: 18px; font-weight: 700; padding: 16px 40px; border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); transition: transform 0.3s; margin-bottom: 15px;
         }
-        .hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 20px; background: linear-gradient(to right, #fff, #a5b4fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.3; }
-        .hero p { font-size: 20px; color: #cbd5e1; max-width: 800px; margin: 0 auto 30px; }
-        
-        /* Image Slider (Hero) */
-        .slider-container {
-            max-width: 900px; margin: 50px auto 0; border-radius: 16px; overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
-            position: relative; aspect-ratio: 16/9; background: #000;
-        }
-        .slide-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1s ease-in-out; }
-        .slide-img.active { opacity: 1; }
+        .download-btn:hover { transform: translateY(-3px); }
+        .os-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 20px; font-size: 13px; color: #cbd5e1; }
+        .hero-banner { margin-top: 50px; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
+        .hero-banner img { width: 100%; display: block; }
 
-        /* Section Headers */
-        .sec-title { font-size: 36px; font-weight: 700; margin-bottom: 15px; }
-        .sec-sub { font-size: 18px; color: var(--text-muted); margin-bottom: 50px; }
+        /* Video Demo Section */
+        .video-section { padding: 80px 0; background: linear-gradient(to bottom, var(--bg-dark), #0b1121); }
+        .video-wrapper { max-width: 900px; margin: 40px auto 0; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .video-wrapper video { width: 100%; display: block; }
 
-        /* Video Loop Section */
-        .video-sec { padding: 80px 0; background: var(--bg-secondary); }
-        .video-box { max-width: 800px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); background: #000; }
-        .video-box video { width: 100%; display: block; }
-        .video-status { padding: 10px; text-align: center; background: #1e293b; color: #94a3b8; font-size: 14px; }
-
-        /* White Elegant Cards (Target Audience & Pain Points) */
-        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        /* Pain Points Section */
+        .section-title { font-size: 36px; font-weight: 700; margin-bottom: 15px; }
+        .section-subtitle { color: var(--text-muted); font-size: 16px; margin-bottom: 50px; }
+        .pain-points { padding: 80px 0; background-color: #0b1121; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        
-        .white-card {
-            background: var(--white-card); color: var(--text-dark); padding: 30px; border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: 0.3s; border-bottom: 4px solid transparent;
-        }
-        .white-card:hover { transform: translateY(-5px); border-bottom-color: var(--primary); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.2); }
-        .white-card i { font-size: 32px; margin-bottom: 20px; color: var(--primary); }
-        .white-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 15px; color: #0f172a; }
-        .white-card p { font-size: 15px; color: #475569; }
+        .pain-card { background-color: rgba(255,255,255,0.03); padding: 35px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
+        .pain-card i { font-size: 32px; color: #ef4444; margin-bottom: 20px; }
+        .pain-card h3 { margin-bottom: 15px; font-size: 22px; color: white; }
+        .pain-card p { color: var(--text-muted); font-size: 16px; margin: 0; }
 
-        /* Feature Section (Dark & Neon) */
-        .features { padding: 100px 0; }
-        .feat-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 30px; border-radius: 16px; transition: 0.3s; }
-        .feat-card:hover { background: rgba(255,255,255,0.05); border-color: var(--ai-glow); }
-        .feat-card i { font-size: 32px; color: var(--ai-glow); margin-bottom: 20px; }
+        /* AI Features */
+        .features { padding: 80px 0; }
+        .feature-card { background-color: var(--bg-card); padding: 35px; border-radius: 16px; text-align: left; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15); }
+        .feature-card i { font-size: 32px; color: var(--primary); margin-bottom: 20px; background: rgba(59, 130, 246, 0.1); padding: 15px; border-radius: 12px; }
+        .feature-card h3 { font-size: 22px; color: var(--text-dark); margin-bottom: 15px; }
+        .feature-card p { color: #475569; font-size: 16px; margin: 0; }
+
+        /* Target Audience (White Cards) */
+        .audience { padding: 80px 0; background-color: #f1f5f9; color: var(--text-dark); }
+        .audience .section-title { color: var(--text-dark); }
+        .audience .section-subtitle { color: #64748b; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .aud-card { background: white; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; text-align: left; cursor: pointer; transition: 0.3s; }
+        .aud-card:hover { border-color: var(--primary); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .aud-card h3 { font-size: 18px; margin: 0; display: flex; align-items: center; justify-content: space-between; color: #1e293b; }
+        .aud-card h3 span { display: flex; align-items: center; gap: 10px; }
+        .aud-card i.arrow { color: #94a3b8; transition: 0.3s; }
+        .aud-card.active i.arrow { transform: rotate(180deg); color: var(--primary); }
+        .aud-card .content { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9; color: #475569; font-size: 15px; }
+        .aud-card.active .content { display: block; }
+
+        /* Screenshot Slider */
+        .screenshot-section { padding: 80px 0; background-color: var(--bg-dark); }
+        .slider-container { max-width: 900px; margin: 0 auto; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .slides img { width: 100%; display: none; }
+        .slides img.active { display: block; animation: fade 1s; }
+        @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
 
         /* Review Section */
-        .reviews { padding: 80px 0; background: var(--bg-secondary); overflow: hidden; }
-        .review-track { display: flex; gap: 20px; animation: scrollReviews 40s linear infinite; width: max-content; }
-        .review-track:hover { animation-play-state: paused; }
-        .review-card { background: var(--white-card); color: var(--text-dark); width: 350px; padding: 25px; border-radius: 12px; white-space: normal; }
-        .review-card p { font-size: 15px; font-style: italic; color: #334155; margin-bottom: 15px; }
-        .reviewer-info { border-top: 1px solid #e2e8f0; padding-top: 15px; display: flex; flex-direction: column; }
-        .reviewer-name { font-weight: 700; color: #0f172a; font-size: 16px; }
-        .reviewer-meta { font-size: 13px; color: #64748b; font-weight: 500; }
-        @keyframes scrollReviews { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .review-section { padding: 60px 0; background-color: #0b1121; overflow: hidden; position: relative; }
+        .review-container { display: flex; gap: 20px; animation: scrollLeft 40s linear infinite; white-space: nowrap; padding: 20px 0; }
+        .review-container:hover { animation-play-state: paused; }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .review-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; min-width: 350px; display: inline-block; white-space: normal; vertical-align: top; }
+        .reviewer-info { margin-bottom: 10px; }
+        .reviewer-name { font-weight: 700; color: white; font-size: 16px; display: block; }
+        .reviewer-meta { font-size: 13px; color: var(--primary); display: block; }
+        .review-text { font-size: 14px; color: var(--text-muted); font-style: italic; }
+        .add-review-btn { display: inline-block; margin-top: 30px; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .add-review-btn:hover { background: rgba(59, 130, 246, 0.1); }
 
-        /* Pricing Section (Separated) */
-        .pricing { padding: 80px 0; }
-        .price-box { max-width: 600px; margin: 0 auto; background: linear-gradient(180deg, #1e293b, #0f172a); border: 1px solid rgba(255,255,255,0.1); padding: 50px 30px; border-radius: 20px; position: relative; text-align: center; }
-        .price-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: linear-gradient(90deg, var(--primary), var(--ai-glow)); padding: 8px 20px; border-radius: 30px; font-weight: bold; letter-spacing: 1px; font-size: 14px; }
-        .amount { font-size: 56px; font-weight: 800; color: white; margin: 20px 0; }
-        .amount span { font-size: 20px; color: var(--text-muted); font-weight: 500; }
-        .other-packages { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; font-size: 15px; color: #cbd5e1; margin-bottom: 25px; }
+        /* Fake Review Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-content { background: var(--bg-card); padding: 30px; border-radius: 12px; width: 90%; max-width: 400px; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 15px; color: #94a3b8; cursor: pointer; font-size: 20px; }
+        .modal-content input, .modal-content textarea { width: 100%; padding: 10px; margin-bottom: 15px; background: rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-radius: 5px; color: #1e293b; box-sizing: border-box; }
+        .modal-submit { background: var(--primary); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+        /* Pricing & Download */
+        .pricing { padding: 100px 0; background: linear-gradient(135deg, #0b1121, #1e293b); text-align: center; }
+        .price-box { max-width: 500px; margin: 0 auto; background: white; padding: 50px 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); position: relative; }
+        .price-box .section-title { color: var(--text-dark); margin-bottom: 10px; font-size: 28px; }
+        .price { font-size: 56px; font-weight: 700; color: var(--text-dark); margin: 20px 0; font-family: 'Inter', sans-serif; }
+        .price span { font-size: 18px; color: #64748b; font-weight: 400; }
+        .pkg-info { color: #475569; font-size: 15px; margin-bottom: 30px; }
         
-        .pay-methods { display: flex; justify-content: center; gap: 15px; margin-top: 25px; }
-        .pay-tag { padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; color: white; }
-        .pay-bkash { background-color: var(--bkash); }
-        .pay-nagad { background-color: var(--nagad); }
-
-        /* Huge Download Section */
-        .download-sec { padding: 100px 0; background: linear-gradient(135deg, #111a2f, #080f1e); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .dl-box { max-width: 800px; margin: 0 auto; }
-        .dl-title { font-size: 42px; font-weight: 800; color: white; margin-bottom: 20px; }
-        .dl-text { font-size: 22px; color: #34d399; font-weight: 600; margin-bottom: 40px; }
-        .btn-mega { font-size: 22px; padding: 20px 50px; background: white; color: var(--bg-deep); font-weight: 800; border-radius: 50px; display: inline-flex; align-items: center; gap: 15px; transition: 0.3s; text-transform: uppercase; box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
-        .btn-mega:hover { transform: scale(1.05); box-shadow: 0 15px 40px rgba(255,255,255,0.3); }
-
-        /* Footer & Fake Modal */
-        footer { padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--text-muted); }
-        .write-review-btn { background: none; border: none; color: var(--primary); text-decoration: underline; cursor: pointer; font-size: 15px; margin-top: 15px; }
+        .payment-methods { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .pay-badge { padding: 8px 16px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .pay-bkash { background: rgba(226, 19, 110, 0.1); color: var(--bkash); border: 1px solid rgba(226, 19, 110, 0.2); }
+        .pay-nagad { background: rgba(247, 148, 29, 0.1); color: var(--nagad); border: 1px solid rgba(247, 148, 29, 0.2); }
         
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .modal-content { background: var(--white-card); color: var(--text-dark); padding: 40px; border-radius: 16px; width: 90%; max-width: 500px; position: relative; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #64748b; border: none; background: none; }
-        .modal-content input, .modal-content textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 8px; font-family: inherit; font-size: 15px; box-sizing: border-box; }
-        .modal-content button { width: 100%; background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
+        .free-trial-text { font-weight: 700; font-size: 16px; color: var(--primary); margin-bottom: 20px; }
+        .final-download { display: block; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; font-size: 20px; font-weight: 700; padding: 18px; border-radius: 12px; transition: transform 0.3s; }
+        .final-download:hover { transform: translateY(-3px); color: white; }
+
+        /* Footer Fixed */
+        footer { padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.05); background-color: var(--bg-dark); }
+        .footer-container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .footer-logo { height: 25px; opacity: 0.8; }
+        .footer-links a { color: var(--text-muted); font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: white; text-decoration: underline; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 32px; }
-            .hero p { font-size: 16px; }
-            .dl-title { font-size: 28px; }
-            .amount { font-size: 42px; }
+            .hero h1 { font-size: 36px; }
+            .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -153,272 +172,336 @@
 
     <!-- Header -->
     <header>
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <img src="logo.png" alt="Super Shop Logo" onerror="this.outerHTML='<h2 style=\'margin:0;color:white;font-size:24px;font-weight:800;\'>Super<span style=\'color:#3b82f6\'>Shop</span></h2>'">
+        <div class="nav-container container">
+            <a href="#" class="logo-area">
+                <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+                <div class="logo-text">Super AI <span>Typing</span></div>
             </a>
-            <a href="#download-sec" class="btn-glow">ডাউনলোড করুন</a>
+            <a href="#download" class="nav-btn">ফ্রি ট্রায়াল নিন</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero container text-center">
-        <h1>আপনার কম্পিউটারের জন্য পার্সোনাল AI টাইপিং অ্যাসিস্ট্যান্ট!</h1>
-        <p>বাংলা ভয়েস টাইপিং এখন আর কঠিন নয়! সুপার এআই (Super AI) এর জাদুতে মুখে কথা বললেই নিখুঁত টাইপ হবে। বাঁচান আপনার সময় ও পরিশ্রম।</p>
+    <section class="hero container">
+        <h1>আপনার উইন্ডোজ পিসির জন্য পার্সোনাল AI Typing Assistant!</h1>
+        <p>কঠিন বাংলা টাইপিংয়ের দিন শেষ। কোনো কিবোর্ডের ঝামেলা ছাড়াই সুপার এআই ব্যবহার করে কথা বলেই টাইপ করুন ঝড়ের গতিতে, বাঁচান আপনার মূল্যবান সময়।</p>
         
-        <!-- Automated Image Slider (Changes every 5 seconds) -->
-        <div class="slider-container" id="hero-slider">
-            <!-- Upload these images to github: slide1.png, slide2.png, slide3.png -->
-            <img src="slide1.png" class="slide-img active" alt="Interface 1" onerror="this.src='https://via.placeholder.com/900x500/1e293b/ffffff?text=Upload+slide1.png+to+GitHub'">
-            <img src="slide2.png" class="slide-img" alt="Interface 2" onerror="this.src='https://via.placeholder.com/900x500/0f172a/ffffff?text=Upload+slide2.png+to+GitHub'">
-            <img src="slide3.png" class="slide-img" alt="Interface 3" onerror="this.src='https://via.placeholder.com/900x500/111a2f/3b82f6?text=Upload+slide3.png+to+GitHub'">
+        <a href="#download" class="download-btn"><i class="fas fa-download"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন (৩টি ফ্রি ট্রায়াল)</a>
+        <br>
+        <div class="os-badge"><i class="fab fa-windows"></i> Windows 10 & 11 (100% Optimized)</div>
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <img src="hero-banner.png" alt="Super AI Typing Interface" onerror="this.outerHTML='<div style=\'padding:100px 20px;background:#1e293b;color:#94a3b8;\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png নামে আপলোড করুন]</div>'">
         </div>
     </section>
 
-    <!-- Video Demo Section (Playlist Loop) -->
-    <section class="video-sec text-center">
+    <!-- Video Demo -->
+    <section class="video-section text-center">
         <div class="container">
-            <h2 class="sec-title">নিজের চোখেই দেখুন AI ম্যাজিক!</h2>
-            <p class="sec-sub">সফটওয়্যারটি কীভাবে আপনার কাজের গতি বাড়ায়, তার প্র্যাক্টিক্যাল ডেমো দেখুন</p>
-            
-            <div class="video-box">
-                <!-- Video player that loops through an array of videos via JS -->
-                <video id="demo-video" controls autoplay muted poster="video-poster.png">
+            <h2 class="section-title">নিজের চোখেই দেখুন AI ম্যাজিক!</h2>
+            <p class="section-subtitle">কীভাবে কথা বললেই নিখুঁত টাইপিং হয়, দেখে নিন এক নজরে</p>
+            <div class="video-wrapper">
+                <!-- Video will be handled by JS loop -->
+                <video id="demoVideo" controls autoplay muted playsinline poster="video-thumbnail.jpg">
                     আপনার ব্রাউজার ভিডিও সাপোর্ট করছে না।
                 </video>
-                <div class="video-status" id="video-indicator">Playing: Video 1 of 3</div>
             </div>
         </div>
     </section>
 
-    <!-- Target Audience (8 Professional Elegant Cards) -->
-    <section class="container text-center" style="padding: 100px 0;">
-        <h2 class="sec-title">সুপার এআই টাইপিং কাদের জন্য সেরা সমাধান?</h2>
-        <p class="sec-sub">যাদের প্রতিদিন কম্পিউটারে প্রচুর কাজ করতে হয়, তাদের প্রত্যেকের কাজের গতি বহুগুণ বাড়িয়ে দেবে এই এআই।</p>
-        
-        <div class="grid-4">
-            <div class="white-card">
-                <i class="fas fa-gavel"></i>
-                <h3>আইনজীবী</h3>
-                <p>কোর্টের বড় বড় কেস ফাইল, ড্রাফট ও আইনি দলিল এখন আর হাতে টাইপ করতে হবে না। মুখে বলেই নিখুঁতভাবে রেডি করুন।</p>
-            </div>
-            <div class="white-card">
-                <i class="fas fa-building"></i>
-                <h3>অফিস ম্যানেজমেন্ট</h3>
-                <p>MS Word বা Excel-এ প্রজেক্ট রিপোর্ট, ইমেইল এবং বড় নথিপত্র দ্রুত রেডি করে অফিসের কাজে সময় বাঁচান।</p>
-            </div>
-            <div class="white-card">
-                <i class="fas fa-user-graduate"></i>
-                <h3>শিক্ষার্থী</h3>
-                <p>ঘণ্টার পর ঘণ্টা ব্যয় না করে ২ ঘণ্টার অ্যাসাইনমেন্ট, থিসিস বা রিসার্চ পেপারের নোটস মুখে বলে ৫ মিনিটে তৈরি করুন।</p>
-            </div>
-            <div class="white-card">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <h3>শিক্ষক</h3>
-                <p>পরীক্ষার প্রশ্নপত্র তৈরি, লেকচার শিট বানানো বা স্টুডেন্টদের জন্য গাইডলাইন রেডি করুন খুব সহজেই।</p>
-            </div>
-            <div class="white-card">
-                <i class="fas fa-briefcase"></i>
-                <h3>ব্যবসায়ী</h3>
-                <p>দ্রুত কাস্টমার সাপোর্ট দেওয়া, হিসাব-নিকাশ মেইনটেইন করা এবং প্রফেশনাল মেইল লেখার সেরা হাতিয়ার।</p>
-            </div>
-            <div class="white-card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>ফ্রিল্যান্সার</h3>
-                <p>লাইভ ট্রান্সলেশন ব্যবহার করে বিদেশি ক্লায়েন্টের সাথে যেকোনো ভাষায় দ্রুত ও প্রফেশনাল কমিউনিকেশন করুন।</p>
-            </div>
-            <div class="white-card">
-                <i class="fas fa-store"></i>
-                <h3>কম্পিউটারের দোকানদার</h3>
-                <p>কাস্টমারের সিভি, দরখাস্ত বা যেকোনো বড় টাইপিংয়ের কাজ চোখের পলকে শেষ করে ইনকাম দ্বিগুণ করুন।</p>
-            </div>
-            <div class="white-card">
-                <i class="fas fa-shopping-cart"></i>
-                <h3>ই-কমার্স উদ্যোক্তা</h3>
-                <p>ফেসবুক বা মেসেঞ্জারে শত শত কাস্টমারের মেসেজের রিপ্লাই দিন ঝড়ের গতিতে, বাংলিশ মোড ব্যবহার করে।</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- AI Features (Dark Neon Style) -->
-    <section class="features text-center" style="background: var(--bg-secondary);">
+    <!-- Pain Points (Restored) -->
+    <section class="pain-points text-center">
         <div class="container">
-            <h2 class="sec-title">একটি সফটওয়্যারে অসাধারণ সব AI ফিচার!</h2>
-            <p class="sec-sub">যা আপনার প্রতিদিনের পিসি ব্যবহারের অভিজ্ঞতাকে সম্পূর্ণ বদলে দেবে</p>
+            <h2 class="section-title">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
+            <p class="section-subtitle">ম্যানুয়াল টাইপিংয়ের সাধারণ কিছু ভোগান্তি, যা আপনার কাজের গতি কমিয়ে দেয়</p>
             
             <div class="grid-3">
-                <div class="feat-card">
-                    <i class="fas fa-microphone-alt"></i>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">অ্যাডভান্সড বাংলা ভয়েস টাইপিং</h3>
-                    <p style="color: var(--text-muted);">কোনো কিবোর্ডের ঝামেলা ছাড়া শুধু মুখে বলে দ্রুততম বাংলা টাইপিং করুন যেকোনো সফটওয়্যারে।</p>
+                <div class="pain-card">
+                    <i class="fas fa-keyboard"></i>
+                    <h3>কঠিন ও ধীরগতির বাংলা টাইপিং</h3>
+                    <p>বিভিন্ন কিবোর্ড সফটওয়্যার ব্যবহার করার পরও বাংলা টাইপ করা যথেষ্ট কষ্টকর। স্পেলিং মেলাতে গিয়ে প্রচুর সময় নষ্ট হয়।</p>
                 </div>
-                <div class="feat-card">
-                    <i class="fas fa-language"></i>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">AI লাইভ ট্রান্সলেশন</h3>
-                    <p style="color: var(--text-muted);">আপনি বাংলায় কথা বলবেন, আর এআই সেটাকে আরবি, ইংরেজি, ফ্রেঞ্চ, চাইনিজসহ যেকোনো ভাষায় ট্রান্সলেট করে টাইপ করে দেবে!</p>
+                <div class="pain-card">
+                    <i class="fas fa-user-injured"></i>
+                    <h3>শারীরিক ক্লান্তি ও চোখের ক্ষতি</h3>
+                    <p>ঘণ্টার পর ঘণ্টা স্ক্রিনের দিকে ঝুঁকে টাইপ করতে গিয়ে ঘাড় ও পিঠে ব্যথা শুরু হয়, যা দীর্ঘমেয়াদে মারাত্মক ক্ষতিকর।</p>
                 </div>
-                <div class="feat-card">
-                    <i class="fas fa-comments"></i>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">মিক্স মোড ও বাংলিশ</h3>
-                    <p style="color: var(--text-muted);">বাংলা-ইংলিশ একসাথে মিলিয়ে বলা কিংবা ইন্টারনেটের 'Banglish' ভাষায় চ্যাট করার জন্য পারফেক্ট।</p>
-                </div>
-                <div class="feat-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">ক্লাউড মাইক (Cloud Mic)</h3>
-                    <p style="color: var(--text-muted);">পিসিতে আলাদা মাইক কেনার দরকার নেই! নিজের স্মার্টফোনকেই বানিয়ে ফেলুন কম্পিউটারের ওয়্যারলেস মাইক।</p>
-                </div>
-                <div class="feat-card">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">ভাসমান মাইক ও হটকি</h3>
-                    <p style="color: var(--text-muted);">স্ক্রিনের ভাসমান মাইকে এক ক্লিক অথবা কীবোর্ড শর্টকাট (Hotkey) দিয়ে মুহূর্তেই ভয়েস টাইপিং শুরু করুন।</p>
-                </div>
-                <div class="feat-card">
-                    <i class="fas fa-quote-right"></i>
-                    <h3 style="font-size: 22px; margin-bottom: 10px;">অটো-পাংচুয়েশন</h3>
-                    <p style="color: var(--text-muted);">দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবে না। কথা বলার স্টাইল বুঝে এআই নিজ দায়িত্বে বসিয়ে দেবে।</p>
+                <div class="pain-card">
+                    <i class="fas fa-hourglass-half"></i>
+                    <h3>সময় নষ্ট ও কাজের ধীরগতি</h3>
+                    <p>নতুন কম্পিউটার ব্যবহারকারী হোন বা প্রফেশনাল, বিশাল আকারের নথিপত্র হাতে টাইপ করতে গিয়ে কাজের প্রোডাক্টিভিটি একদম কমে যায়।</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section (Separated from Download) -->
-    <section class="pricing container text-center">
-        <h2 class="sec-title">কী ভাবছেন, পেমেন্ট করতে হবে ডলার বা কার্ডে?</h2>
-        <p class="sec-sub">না ভাই! বাংলাদেশিদের জন্য সম্পূর্ণ দেশীয় পেমেন্ট মেথড সাপোর্ট</p>
-        
-        <div class="price-box">
-            <div class="price-badge">১ মাসের প্রিমিয়াম স্টার্টিং সাবস্ক্রিপশন</div>
-            <div class="amount">৳ ৯৯ <span>/ মাস</span></div>
-            
-            <div class="other-packages">
-                <strong>এছাড়াও রয়েছে:</strong> ৬ মাস (সাশ্রয়ী) - ২৯০ টাকা | ১ বছর (জনপ্রিয়) - ৪৯০ টাকা
-            </div>
-            
-            <p style="color: #cbd5e1; font-size: 15px; margin-bottom: 20px;">
-                কেনার আগে কোনো টাকা পেমেন্ট করতে হবে না! আগে সফটওয়্যারটি সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন।
-            </p>
-            
-            <!-- Payment Brands -->
-            <div class="pay-methods">
-                <span class="pay-tag pay-bkash"><i class="fas fa-paper-plane"></i> বিকাশ সাপোর্ট</span>
-                <span class="pay-tag pay-nagad"><i class="fas fa-bolt"></i> নগদ সাপোর্ট</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Live Customer Reviews (Scrolling Ticker) -->
-    <section class="reviews">
-        <div class="container text-center" style="margin-bottom: 40px;">
-            <h2 class="sec-title" style="color: white;">সারা বাংলাদেশ থেকে আমাদের হ্যাপি কাস্টমারদের মতামত</h2>
-        </div>
-        
-        <!-- This track will be populated by JavaScript -->
-        <div class="review-track" id="review-container">
-            <!-- Reviews generated dynamically -->
-        </div>
-    </section>
-
-    <!-- HUGE Download Section -->
-    <section id="download-sec" class="download-sec">
-        <div class="container dl-box">
-            <h2 class="dl-title">সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন!</h2>
-            <p class="dl-text">৩ বার ফ্রি ট্রায়াল নিয়ে ম্যাজিক দেখুন, পছন্দ হলেই কেবল ব্যবহার করুন।</p>
-            
-            <!-- Replace # with your GitHub Release Link -->
-            <a href="#" class="btn-mega">
-                <i class="fas fa-cloud-download-alt"></i> Windows PC এর জন্য ডাউনলোড করুন
-            </a>
-            <p style="margin-top: 20px; color: #64748b; font-size: 14px;">Windows 10 & 11 (64-bit) Supported</p>
-        </div>
-    </section>
-
-    <!-- Footer & Fake Review Modal Trigger -->
-    <footer>
+    <!-- AI Features (White Cards Theme) -->
+    <section class="features text-center" style="background-color: #f8fafc;">
         <div class="container">
-            <img src="logo.png" alt="Super Shop Logo" style="height: 30px; opacity: 0.5; margin-bottom: 15px;" onerror="this.style.display='none'">
-            <p>&copy; 2026 Super Shop BD. All rights reserved.</p>
-            <button class="write-review-btn" onclick="document.getElementById('reviewModal').style.display='flex'">আপনার রিভিউ লিখুন</button>
+            <h2 class="section-title" style="color: var(--text-dark);">আপনার জন্য Super AI এর এক্সক্লুসিভ ফিচারসমূহ</h2>
+            <p class="section-subtitle" style="color: #64748b;">যে কারণে এটি প্রতিটি উইন্ডোজ পিসি ইউজারের জন্য অপরিহার্য</p>
+            
+            <div class="grid-3">
+                <div class="feature-card">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h3>AI বাংলা ভয়েস টাইপিং</h3>
+                    <p>মুখে কথা বলে সবচেয়ে দ্রুত ও নিখুঁত বাংলা টাইপিং করুন। সিস্টেম আপনার কথা ঠিকই বুঝে নেবে।</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-language"></i>
+                    <h3>AI Live Translation</h3>
+                    <p>বাংলায় কথা বলুন, আর এআই সাথে সাথে ইংরেজি, আরবি, হিন্দি, ফ্রেঞ্চসহ পৃথিবীর যেকোনো ভাষায় ট্রান্সলেট করে টাইপ করে দেবে।</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>মিক্স মোড ও বাংলিশ</h3>
+                    <p>বাংলা-ইংরেজি মিশিয়ে বলুন অথবা সোশ্যাল মিডিয়ার জন্য 'Banglish' এ চ্যাট করুন, সবই সম্ভব।</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Cloud Mic (ক্লাউড মাইক)</h3>
+                    <p>পিসিতে মাইক নেই? কোনো চিন্তা নেই। নিজের স্মার্টফোনকেই বানিয়ে ফেলুন কম্পিউটারের শক্তিশালী ওয়্যারলেস মাইক!</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <h3>ভাসমান মাইক ও হটকি</h3>
+                    <p>স্ক্রিনের ভাসমান মাইকে এক ক্লিক অথবা কীবোর্ড শর্টকাট (Hotkey) চেপে মুহূর্তেই টাইপিং শুরু করুন।</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-quote-right"></i>
+                    <h3>অটো-পাংচুয়েশন</h3>
+                    <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবে না। কথার ধরন বুঝে এআই নিজ দায়িত্বে যতিচিহ্ন বসিয়ে দেবে।</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience (8 Cards, White Theme) -->
+    <section class="audience text-center">
+        <div class="container">
+            <h2 class="section-title">Super AI Typing কার জন্য সেরা সমাধান?</h2>
+            <p class="section-subtitle">যাদের প্রতিদিন কম্পিউটারে কাজ করতে হয়, তাদের সবার জন্য। বিস্তারিত জানতে ক্লিক করুন:</p>
+            
+            <div class="grid-4">
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>🎓 শিক্ষক ও শিক্ষার্থী</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">বড় অ্যাসাইনমেন্ট, থিসিস পেপার, রিসার্চের কাজ বা ক্লাসের প্রশ্নপত্র তৈরি করুন চোখের পলকে। কয়েক ঘণ্টার কাজ সেরে ফেলুন মাত্র কয়েক মিনিটে।</div>
+                </div>
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>👨‍⚖️ আইনজীবী</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">কোর্টের বড় বড় কেস ফাইল ও আইনি দলিল নিমেষেই টাইপ করুন। আপনার সময় ও পরিশ্রম দুটোই বাঁচবে।</div>
+                </div>
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>🏢 চাকরিজীবী ও অফিস</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">এমএস ওয়ার্ড বা এক্সেলে বড় রিপোর্ট বানাতে ক্লান্ত? মুখে নির্দেশ দিন আর রিল্যাক্স করুন। আপনার কাজ দ্রুত শেষ হবে।</div>
+                </div>
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>💼 ব্যবসায়ী</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">কাস্টমারদের দ্রুত রিপ্লাই দেওয়া, ইমেইল লেখা এবং মেসেঞ্জারে কাস্টমার সাপোর্ট দিন সুপার ফাস্ট গতিতে।</div>
+                </div>
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>💻 ফ্রিল্যান্সার</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">বিদেশি ক্লায়েন্টের সাথে যেকোনো ভাষায় দ্রুত চ্যাট করুন লাইভ ট্রান্সলেশনের মাধ্যমে। কমিউনিকেশন হবে আরও প্রফেশনাল।</div>
+                </div>
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>🏪 কম্পিউটারের দোকানদার</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">কাস্টমারদের সিভি, বড় নথিপত্র বা দরখাস্ত এখন হাতে টাইপ না করে মুখে বলেই ঝটপট শেষ করে ফেলুন। ইনকাম বাড়বে।</div>
+                </div>
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>🛒 ই-কমার্স উদ্যোক্তা</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">ফেসবুক পেজে প্রচুর মেসেজ আসে? বাংলিশ বা বাংলায় ভয়েস টাইপ করে দ্রুত রিপ্লাই দিন, সেলস কনভার্সন বাড়ান।</div>
+                </div>
+                <div class="aud-card" onclick="toggleCard(this)">
+                    <h3><span>🖥️ সাধারণ ইউজার</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">টাইপিং স্পিড স্লো? কোনো চিন্তা নেই, শুধু মুখে নির্দেশ দিন, আপনার এআই অ্যাসিস্ট্যান্ট বাকিটা সামলে নেবে!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshot Slider (New) -->
+    <section class="screenshot-section text-center">
+        <div class="container">
+            <h2 class="section-title">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
+            <p class="section-subtitle">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
+            
+            <div class="slider-container">
+                <div class="slides">
+                    <img src="screenshot1.png" class="active" alt="Interface 1" onerror="this.outerHTML='<div style=\'padding:100px 20px;background:#1e293b;color:#94a3b8;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
+                    <img src="screenshot2.png" alt="Interface 2" onerror="this.style.display='none'">
+                    <img src="screenshot3.png" alt="Interface 3" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section (Scrolling) -->
+    <section class="review-section text-center">
+        <h2 class="section-title">আমাদের ইউজাররা কী বলছেন?</h2>
+        <p class="section-subtitle">সারা বাংলাদেশ থেকে হাজারো সন্তুষ্ট ইউজারের মতামত</p>
+        
+        <div class="review-container">
+            <!-- Review items -->
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">রাশেদুল ইসলাম</span>
+                    <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
+                </div>
+                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">সায়মা রহমান</span>
+                    <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
+                </div>
+                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">অ্যাডভোকেট কামরুল</span>
+                    <span class="reviewer-meta">সিলেট • আইনজীবী</span>
+                </div>
+                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। এখন সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">মেহেদী হাসান</span>
+                    <span class="reviewer-meta">রাজশাহী • ই-কমার্স উদ্যোক্তা</span>
+                </div>
+                <p class="review-text">"পেজের কাস্টমারদের দ্রুত রিপ্লাই দিতে বাংলিশ ফিচারটা খুব কাজে দিচ্ছে। টাইপিং ஸ்பিড ডাবল হয়ে গেছে।"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">তরিকুল আলম</span>
+                    <span class="reviewer-meta">খুলনা • টাইপিং সেন্টার</span>
+                </div>
+                <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
+            </div>
+            
+            <!-- Duplicated for smooth loop -->
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">রাশেদুল ইসলাম</span>
+                    <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
+                </div>
+                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">সায়মা রহমান</span>
+                    <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
+                </div>
+                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
+            </div>
+        </div>
+        
+        <button class="add-review-btn" onclick="openModal()">আপনার রিভিউ লিখুন</button>
+    </section>
+
+    <!-- Pricing & Download (Redesigned) -->
+    <section id="download" class="pricing">
+        <div class="container">
+            <div class="price-box">
+                <h2 class="section-title">১ মাসের প্রিমিয়াম স্টার্টিং সাবস্ক্রিপশন</h2>
+                
+                <div class="price">৳ ৯৯ <span>/ মাস</span></div>
+                
+                <p class="pkg-info">
+                    এছাড়াও থাকছে: ৬ মাস - ২৯০ টাকা | ১ বছর - ৪৯০ টাকা
+                </p>
+                
+                <div class="payment-methods">
+                    <div class="pay-badge pay-bkash"><i class="fas fa-check-circle"></i> বিকাশ সাপোর্ট</div>
+                    <div class="pay-badge pay-nagad"><i class="fas fa-check-circle"></i> নগদ সাপোর্ট</div>
+                </div>
+                
+                <p class="free-trial-text">
+                    কেনার আগে সম্পূর্ণ বিনামূল্যে ৩টি ফ্রি ট্রায়াল দিয়ে ম্যাজিক যাচাই করুন! পছন্দ হলে ব্যবহার করুন।
+                </p>
+                
+                <!-- গিটহাব রিলিজ ডাউনলোড লিংক এখানে বসবে -->
+                <a href="#" class="final-download"><i class="fas fa-cloud-download-alt"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Corrected Footer -->
+    <footer>
+        <div class="footer-container">
+            <img src="logo.png" alt="Super Shop Logo" class="footer-logo" onerror="this.outerHTML='<span style=\'color:white;font-weight:bold;\'>Super Shop</span>'">
+            
+            <div class="footer-links" style="color: #64748b; font-size: 13px;">
+                &copy; 2026 Super Shop BD. All rights reserved.
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+            </div>
         </div>
     </footer>
 
     <!-- Fake Review Modal -->
-    <div class="modal-overlay" id="reviewModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="document.getElementById('reviewModal').style.display='none'">&times;</button>
-            <h3 style="margin-top: 0; margin-bottom: 20px; font-size: 22px;">আপনার মতামত জানান</h3>
-            <p style="color: #64748b; font-size: 14px; margin-bottom: 20px;">আপনার মূল্যবান ফিডব্যাক আমাদের সার্ভিস উন্নত করতে সাহায্য করবে।</p>
-            
-            <form onsubmit="event.preventDefault(); alert('ধন্যবাদ! আপনার রিভিউটি সফলভাবে সাবমিট করা হয়েছে এবং এডমিন এপ্রুভালের জন্য অপেক্ষমাণ রয়েছে।'); document.getElementById('reviewModal').style.display='none';">
-                <input type="text" placeholder="আপনার সম্পূর্ণ নাম" required>
-                <input type="text" placeholder="আপনার জেলা (যেমন: ঢাকা, চট্টগ্রাম)" required>
-                <input type="text" placeholder="আপনার পেশা (যেমন: শিক্ষার্থী, ব্যবসায়ী)" required>
-                <textarea rows="4" placeholder="সুপার এআই টাইপিং ব্যবহার করে আপনার অভিজ্ঞতা কেমন? এখানে লিখুন..." required></textarea>
-                <button type="submit">রিভিউ সাবমিট করুন</button>
-            </form>
+    <div id="reviewModal" class="modal">
+        <div class="modal-content text-left">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3 style="color: var(--text-dark); margin-top:0;">আপনার মতামত জানান</h3>
+            <input type="text" placeholder="আপনার নাম" id="rName">
+            <input type="text" placeholder="পেশা ও জেলা (যেমন: ছাত্র, ঢাকা)" id="rMeta">
+            <textarea rows="4" placeholder="আপনার মন্তব্য লিখুন..." id="rText"></textarea>
+            <button class="modal-submit" onclick="submitReview()">সাবমিট করুন</button>
         </div>
     </div>
 
-    <!-- Interactive JavaScript -->
+    <!-- Interactive Scripts -->
     <script>
-        /* 1. Image Slider Logic (5 seconds) */
-        const slides = document.querySelectorAll('.slide-img');
-        let currentSlide = 0;
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 5000);
+        // 1. Audience Card Toggle
+        function toggleCard(element) {
+            let cards = document.querySelectorAll('.aud-card');
+            cards.forEach(card => {
+                if(card !== element) card.classList.remove('active');
+            });
+            element.classList.toggle('active');
+        }
 
-        /* 2. Video Playlist Loop Logic */
-        // Upload these videos to GitHub: video1.mp4, video2.mp4, video3.mp4 etc.
-        const videoPlaylist = ['video1.mp4', 'video2.mp4', 'video3.mp4']; 
+        // 2. Video Playlist Loop
+        const video = document.getElementById('demoVideo');
+        const playlist = ['video-demo1.mp4', 'video-demo2.mp4', 'video-demo3.mp4']; // গিটহাবে এই ৩টা ভিডিও আপলোড করবেন
         let currentVideoIndex = 0;
-        const videoPlayer = document.getElementById('demo-video');
-        const videoIndicator = document.getElementById('video-indicator');
-
-        // Set initial video (Uncomment and add real files to work)
-        // videoPlayer.src = videoPlaylist[0]; 
-
-        videoPlayer.addEventListener('ended', () => {
-            currentVideoIndex = (currentVideoIndex + 1) % videoPlaylist.length;
-            videoPlayer.src = videoPlaylist[currentVideoIndex];
-            videoIndicator.innerText = `Playing: Video ${currentVideoIndex + 1} of ${videoPlaylist.length}`;
-            videoPlayer.play();
-        });
-
-        /* 3. Authentic Customer Reviews Generator */
-        // এখানে আমি ১৫টি সেরা রিভিউ দিয়েছি। আপনি চাইলে একই নিয়মে ১২০টি বা তার বেশি রিভিউ এখানে অ্যাড করতে পারবেন।
-        const reviews = [
-            { name: "হাসিবুল ইসলাম", district: "ঢাকা", profession: "ফ্রিল্যান্সার", text: "আগে ৪০০০ টাকা দিয়ে একটা সফটওয়্যার কিনেছিলাম, আর আপনারা মাত্র ৯৯ টাকায় এত ভালো সার্ভিস দিচ্ছেন! অবাক করা বিষয়। লাইভ ট্রান্সলেশনটা আমার ক্লায়েন্ট কমিউনিকেশনে অনেক হেল্প করছে।" },
-            { name: "রফিকুল আলম", district: "চট্টগ্রাম", profession: "আইনজীবী", text: "সারাদিন কোর্টের দলিল টাইপ করতে করতে ঘাড় ব্যথা হয়ে যেত। এখন মুখে বলি, টাইপ হয়ে যায়। আমার জীবনটা সহজ করে দেওয়ার জন্য ধন্যবাদ।" },
-            { name: "সাদিয়া রহমান", district: "রাজশাহী", profession: "শিক্ষার্থী", text: "ভার্সিটির অ্যাসাইনমেন্ট করতে যেখানে দুই দিন লাগতো, এখন ২ ঘণ্টায় শেষ! এই এআই সফটওয়্যারটি প্রত্যেক স্টুডেন্টের থাকা উচিত।" },
-            { name: "তারেক মাহমুদ", district: "সিলেট", profession: "কম্পিউটারের দোকান", text: "দোকানে টাইপিংয়ের কাজের প্রচুর চাপ থাকে। এটা নেওয়ার পর থেকে আমার ইনকাম ডাবল হয়ে গেছে। ক্লাউড মাইক ফিচারটা জোস!" },
-            { name: "জুবায়ের হোসেন", district: "খুলনা", profession: "অফিস এক্সিকিউটিভ", text: "অফিসের এক্সেল আর ওয়ার্ডের বড় বড় রিপোর্ট এখন মুখে বলে রেডি করি। বাংলা টাইপিং যে এত সহজ হতে পারে আগে জানতাম না।" },
-            { name: "ফারহানা আক্তার", district: "কুমিল্লা", profession: "ই-কমার্স পেজ ওনার", text: "ফেসবুক পেজে কাস্টমারদের রিপ্লাই দিতে দিতে হাত ব্যথা হয়ে যেত। এখন বাংলিশ মোডে মুখে বলি, ফটাফট টাইপ হয়ে যায়।" },
-            { name: "শরিফুল ইসলাম", district: "বগুড়া", profession: "শিক্ষক", text: "ক্লাসের প্রশ্নপত্র তৈরি করতে অনেক সময় লাগতো। এখন খুব সহজেই মুখে বলে টাইপ করে ফেলি। আমি আপনাদের প্রতি কৃতজ্ঞ।" },
-            { name: "মাহাদী হাসান", district: "বরিশাল", profession: "ব্যবসায়ী", text: "নতুন ল্যাপটপ কিনেছিলাম, টাইপিং স্পিড একদম স্লো ছিল। এটা আমার জন্য আশীর্বাদের মতো কাজ করছে।" },
-            { name: "নাহিদ পারভেজ", district: "ময়মনসিংহ", profession: "কন্টেন্ট রাইটার", text: "আর্টিকেল লেখার সময় কিবোর্ডের দিকে তাকাতে হয় না। শুধু চিন্তা করি আর মুখে বলি, স্ক্রিনে টাইপ হয়ে যায়। অসাধারণ!" },
-            { name: "ইকবাল মাহমুদ", district: "রংপুর", profession: "সরকারি চাকরিজীবী", text: "অফিশিয়াল বাংলা নথিপত্র টাইপ করা অনেক ঝামেলার ছিল। অব্র বাদ দিয়ে এখন শুধু সুপার এআই ব্যবহার করছি।" },
-            // ... আপনি চাইলে এখানে আরও হাজারটা রিভিউ যোগ করতে পারবেন।
-        ];
-
-        // Clone reviews to make the scrolling seamless (marquee effect)
-        const allReviews = [...reviews, ...reviews, ...reviews]; 
         
-        const reviewContainer = document.getElementById('review-container');
+        if(video) {
+            video.addEventListener('ended', function() {
+                currentVideoIndex++;
+                if (currentVideoIndex >= playlist.length) {
+                    currentVideoIndex = 0;
+                }
+                video.src = playlist[currentVideoIndex];
+                video.play();
+            });
+        }
+
+        // 3. Screenshot Auto Slider
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slides img');
         
-        allReviews.forEach(review => {
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.innerHTML = `
-                <p>"${review.text}"</p>
-                <div class="reviewer-info">
-                    <span class="reviewer-name">${review.name}</span>
-                    <span class="reviewer-meta">${review.profession} • ${review.district}</span>
-                </div>
-            `;
-            reviewContainer.appendChild(card);
-        });
+        function showSlides() {
+            if(slides.length > 1) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slideIndex++;
+                if (slideIndex > slides.length) {slideIndex = 1}
+                slides[slideIndex-1].classList.add('active');
+                setTimeout(showSlides, 5000); // Change image every 5 seconds
+            }
+        }
+        showSlides();
+
+        // 4. Modal Functions
+        function openModal() { document.getElementById('reviewModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('reviewModal').style.display = 'none'; }
+        function submitReview() {
+            alert('ধন্যবাদ! আপনার রিভিউটি মডারেশনের জন্য পাঠানো হয়েছে।');
+            closeModal();
+        }
     </script>
 </body>
 </html>
