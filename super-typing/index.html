@@ -13,23 +13,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Base Styles & Root Variables (Light Theme) */
+        /* Base Styles & Root Variables (Dark Theme) */
         :root {
-            --bg-body: #f8fafc; /* Very light slate for background */
-            --bg-card: #ffffff; /* Pure white for cards */
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
             --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --primary: #3b82f6; /* Modern Blue */
-            --accent: #8b5cf6; /* Modern Purple */
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --accent: #8b5cf6;
             --bkash: #e2136e;
             --nagad: #f7941d;
+            --success: #10b981; 
             --danger: #ef4444;
         }
 
         body {
             font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-dark);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -41,158 +43,198 @@
         
         /* Navbar */
         header {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             position: fixed; width: 100%; top: 0; z-index: 1000;
-            border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .nav-container {
             display: flex; justify-content: space-between; align-items: center; height: 70px;
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-area img { height: 35px; }
-        .logo-text { font-size: 20px; font-weight: 700; color: var(--text-dark); }
+        .logo-text { font-size: 20px; font-weight: 700; color: white; }
         .logo-text span { color: var(--primary); }
         .nav-btn {
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white; padding: 10px 24px; border-radius: 8px; font-weight: 600; font-size: 15px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: 0.3s;
         }
-        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+        .nav-btn:hover { opacity: 0.9; }
 
-        /* Hero Section (Overlay Concept) */
+        /* Hero Section (Banner Overlay) */
         .hero { 
-            padding: 160px 0 100px; 
-            text-align: center; 
-            background-image: url('hero-bg.png'); /* The background carousel/image */
-            background-size: cover;
-            background-position: center;
             position: relative;
-            color: white; /* Text on hero should be white if bg is dark/image */
+            padding: 120px 0 60px;
+            text-align: right; 
         }
-        /* Adding a dark overlay so text is readable over the image */
-        .hero::before {
-            content: "";
+        .hero-banner-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 16px; 
+            overflow: hidden; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .hero-banner-img {
+            width: 100%;
+            display: block;
+        }
+        .hero-overlay-content {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.7); /* Dark overlay */
-            z-index: 1;
+            bottom: 40px; 
+            right: 50px; 
+            text-align: center;
         }
-        .hero .container { position: relative; z-index: 2; } /* Bring content above overlay */
-        
-        .hero h1 { font-size: 48px; margin-bottom: 20px; font-weight: 700; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .hero p { font-size: 18px; color: #e2e8f0; max-width: 800px; margin: 0 auto 30px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        
         .download-btn {
             display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white; font-size: 18px; font-weight: 700; padding: 16px 40px; border-radius: 50px;
             box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); transition: transform 0.3s; margin-bottom: 15px;
         }
-        .download-btn:hover { transform: translateY(-3px); color: white; }
-        .os-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); padding: 8px 20px; border-radius: 20px; font-size: 14px; color: #f8fafc; border: 1px solid rgba(255,255,255,0.2); }
+        .download-btn:hover { transform: translateY(-3px); }
+        .os-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 20px; font-size: 13px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.2);}
 
-        /* Video Demo Section */
-        .video-section { padding: 80px 0; background-color: white; border-bottom: 1px solid #e2e8f0; }
-        .section-title { font-size: 36px; font-weight: 700; margin-bottom: 15px; color: var(--text-dark); }
+        /* Video Demo Section (YouTube Wrapper) */
+        .video-section { padding: 80px 0; background: linear-gradient(to bottom, var(--bg-dark), #0b1121); }
+        .section-title { font-size: 36px; font-weight: 700; margin-bottom: 15px; color: white;}
         .section-subtitle { color: var(--text-muted); font-size: 16px; margin-bottom: 50px; }
-        .video-wrapper { max-width: 900px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
-        .video-wrapper video { width: 100%; display: block; }
+        
+        .youtube-container {
+            position: relative;
+            max-width: 900px;
+            margin: 40px auto 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* Aspect Ratio Trick for iFrames */
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+        }
+        .youtube-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        /* Custom Sound/Play Controls overlaying the video */
+        .custom-video-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10; /* Above the iframe */
+        }
+        .control-btn {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .control-btn:hover { background: var(--primary); border-color: var(--primary); }
+
 
         /* Pain Points Section */
-        .pain-points { padding: 80px 0; }
+        .pain-points { padding: 80px 0; background-color: #0b1121; }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .pain-card { background-color: var(--bg-card); padding: 40px 30px; border-radius: 16px; border: 1px solid #e2e8f0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: 0.3s; }
-        .pain-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .pain-card { background-color: rgba(255,255,255,0.03); padding: 35px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); text-align: left; transition: 0.3s;}
+        .pain-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05);}
         
-        /* The Icon/Logo area you requested */
-        .pain-card .icon-wrapper { 
-            width: 70px; height: 70px; margin: 0 auto 25px; 
-            background: rgba(239, 68, 68, 0.1); border-radius: 50%; 
+        /* FontAwesome Icons for Pain Points */
+        .pain-card .icon-wrapper {
+            width: 60px; height: 60px; margin-bottom: 20px;
+            background: rgba(239, 68, 68, 0.1); border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
         }
-        .pain-card .icon-wrapper i { font-size: 30px; color: var(--danger); }
-        
-        .pain-card h3 { margin-bottom: 15px; font-size: 22px; color: var(--text-dark); }
+        .pain-card .icon-wrapper i { font-size: 28px; color: var(--danger); }
+
+        .pain-card h3 { margin-bottom: 15px; font-size: 22px; color: white; }
         .pain-card p { color: var(--text-muted); font-size: 16px; margin: 0; }
 
         /* AI Features Section */
-        .features { padding: 80px 0; background-color: white; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
-        .feature-card { background-color: var(--bg-body); padding: 35px; border-radius: 16px; text-align: left; transition: 0.3s; border: 1px solid #e2e8f0; }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.1); border-color: #bfdbfe; }
+        .features { padding: 80px 0; }
+        .feature-card { background-color: var(--bg-card); padding: 35px; border-radius: 16px; text-align: left; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.05);}
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.3);}
         
-        /* The Icon/Logo area for Features */
-        .feature-card .icon-wrapper { 
-            width: 60px; height: 60px; margin-bottom: 20px; 
-            background: rgba(59, 130, 246, 0.1); border-radius: 12px; 
+        /* FontAwesome Icons for Features */
+        .feature-card .icon-wrapper {
+            width: 60px; height: 60px; margin-bottom: 20px;
+            background: rgba(59, 130, 246, 0.1); border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
         }
-        .feature-card .icon-wrapper i { font-size: 26px; color: var(--primary); }
-        
-        .feature-card h3 { font-size: 20px; color: var(--text-dark); margin-bottom: 12px; }
-        .feature-card p { color: var(--text-muted); font-size: 15px; margin: 0; }
+        .feature-card .icon-wrapper i { font-size: 28px; color: var(--primary); }
 
-        /* Target Audience Section */
-        .audience { padding: 80px 0; }
-        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .aud-card { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; text-align: left; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .aud-card:hover { border-color: var(--primary); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.08); }
-        .aud-card h3 { font-size: 18px; margin: 0; display: flex; align-items: center; justify-content: space-between; color: var(--text-dark); }
+        .feature-card h3 { font-size: 22px; color: white; margin-bottom: 15px; }
+        .feature-card p { color: var(--text-muted); font-size: 16px; margin: 0; }
+        .highlight-text { color: var(--primary); font-weight: 600; }
+
+        /* Target Audience (Dark Cards) */
+        .audience { padding: 80px 0; background-color: #0b1121; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .aud-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: left; cursor: pointer; transition: 0.3s; }
+        .aud-card:hover { border-color: var(--primary); background: rgba(255,255,255,0.08); }
+        .aud-card h3 { font-size: 18px; margin: 0; display: flex; align-items: center; justify-content: space-between; color: white; }
         .aud-card h3 span { display: flex; align-items: center; gap: 10px; }
-        .aud-card i.arrow { color: #cbd5e1; transition: 0.3s; }
+        .aud-card i.arrow { color: #94a3b8; transition: 0.3s; }
         .aud-card.active i.arrow { transform: rotate(180deg); color: var(--primary); }
-        .aud-card .content { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9; color: var(--text-muted); font-size: 15px; }
+        .aud-card .content { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); font-size: 15px; }
         .aud-card.active .content { display: block; }
 
         /* Screenshot Slider */
-        .screenshot-section { padding: 80px 0; background-color: white; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; }
-        .slider-container { max-width: 900px; margin: 0 auto; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .screenshot-section { padding: 80px 0; background-color: var(--bg-dark); }
+        .slider-container { max-width: 900px; margin: 0 auto; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .slides img { width: 100%; display: none; }
         .slides img.active { display: block; animation: fade 1s; }
         @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
 
         /* Review Section */
-        .review-section { padding: 80px 0; overflow: hidden; position: relative; }
+        .review-section { padding: 60px 0; background-color: #0b1121; overflow: hidden; position: relative; }
         .review-container { display: flex; gap: 20px; animation: scrollLeft 40s linear infinite; white-space: nowrap; padding: 20px 0; }
         .review-container:hover { animation-play-state: paused; }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .review-card { background: var(--bg-card); border: 1px solid #e2e8f0; padding: 25px; border-radius: 12px; min-width: 380px; display: inline-block; white-space: normal; vertical-align: top; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .reviewer-info { margin-bottom: 12px; }
-        .reviewer-name { font-weight: 700; color: var(--text-dark); font-size: 17px; display: block; }
-        .reviewer-meta { font-size: 13px; color: var(--primary); display: block; margin-top: 4px; }
-        .review-text { font-size: 15px; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+        .review-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; min-width: 350px; display: inline-block; white-space: normal; vertical-align: top; }
+        .reviewer-info { margin-bottom: 10px; }
+        .reviewer-name { font-weight: 700; color: white; font-size: 16px; display: block; }
+        .reviewer-meta { font-size: 13px; color: var(--primary); display: block; }
+        .review-text { font-size: 15px; color: var(--success); font-style: italic; }
 
-        /* Separate Pricing Section */
-        .pricing { padding: 80px 0; background-color: white; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; text-align: center; }
-        .price-box { max-width: 500px; margin: 0 auto; background: var(--bg-body); padding: 50px 30px; border-radius: 20px; border: 1px solid #e2e8f0; position: relative; }
-        .price-box .section-title { font-size: 26px; }
-        .price { font-size: 56px; font-weight: 700; color: var(--primary); margin: 20px 0; font-family: 'Inter', sans-serif; }
-        .price span { font-size: 18px; color: var(--text-muted); font-weight: 400; }
-        .pkg-info { color: var(--text-muted); font-size: 16px; margin-bottom: 30px; font-weight: 600; }
-        
-        .payment-methods { display: flex; justify-content: center; gap: 15px; }
-        .pay-badge { padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        /* Pricing Section */
+        .pricing { padding: 100px 0; background: linear-gradient(135deg, #0b1121, #1e293b); text-align: center; }
+        .price-box { max-width: 500px; margin: 0 auto; background: var(--bg-dark); padding: 50px 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .price-box .section-title { color: white; margin-bottom: 10px; font-size: 26px; }
+        .price { font-size: 56px; font-weight: 700; color: white; margin: 20px 0; font-family: 'Inter', sans-serif; }
+        .price span { font-size: 18px; color: #64748b; font-weight: 400; }
+        .pkg-info { color: #cbd5e1; font-size: 15px; margin-bottom: 30px; }
+        .payment-methods { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        .pay-badge { padding: 8px 16px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         .pay-bkash { background: rgba(226, 19, 110, 0.1); color: var(--bkash); border: 1px solid rgba(226, 19, 110, 0.2); }
         .pay-nagad { background: rgba(247, 148, 29, 0.1); color: var(--nagad); border: 1px solid rgba(247, 148, 29, 0.2); }
 
-        /* Separate Final Download Section */
-        .final-download-section { padding: 100px 0; text-align: center; background-color: var(--bg-body); }
-        .final-download-section h2 { font-size: 32px; color: var(--text-dark); margin-bottom: 10px; }
-        .free-trial-text { font-weight: 600; font-size: 18px; color: var(--text-muted); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        /* Final Download Section */
+        .final-download-section { padding: 80px 0; text-align: center; background-color: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.05); }
+        .final-download-section h2 { font-size: 32px; color: white; margin-bottom: 10px; }
+        .free-trial-text { font-weight: 600; font-size: 18px; color: var(--primary); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
         .final-btn { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; font-size: 20px; font-weight: 700; padding: 18px 45px; border-radius: 12px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); }
         .final-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4); color: white; }
-        .final-os-badge { margin-top: 20px; color: var(--text-muted); font-size: 15px; font-weight: 600; }
-        .final-os-badge i { color: #0078d7; margin-right: 5px; }
+        .final-os-badge { margin-top: 20px; color: var(--text-muted); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px;}
+        .final-os-badge i { color: #4ade80; }
 
-        /* Footer */
-        footer { padding: 30px 0; background-color: white; border-top: 1px solid #e2e8f0; }
+        /* Footer Fixed */
+        footer { padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.05); background-color: var(--bg-dark); }
         .footer-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .footer-logo { height: 28px; }
-        .footer-links a { color: var(--text-muted); font-size: 14px; transition: 0.3s; font-weight: 600; }
-        .footer-links a:hover { color: var(--primary); }
+        .footer-logo { height: 25px; opacity: 0.8; }
+        .footer-links a { color: var(--text-muted); font-size: 14px; transition: 0.3s; }
+        .footer-links a:hover { color: white; text-decoration: underline; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 32px; }
+            .hero-overlay-content { position: relative; bottom: 0; right: 0; padding: 20px; }
             .footer-container { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
@@ -206,41 +248,52 @@
                 <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
                 <div class="logo-text">Super AI <span>Typing</span></div>
             </a>
+            <a href="#download-section" class="nav-btn">ফ্রি ট্রায়াল নিন</a>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <!-- গিটহাবে 'hero-bg.png' নামে একটা ছবি আপলোড করবেন, সেটা এই সেকশনের ব্যাকগ্রাউন্ডে সেট হবে -->
-    <section class="hero">
-        <div class="container">
-            <h1>আপনার উইন্ডোজ পিসির জন্য পার্সোনাল AI Typing Assistant!</h1>
-            <p>কঠিন বাংলা টাইপিংয়ের দিন শেষ। কোনো কিবোর্ডের ঝামেলা ছাড়াই সুপার এআই ব্যবহার করে কথা বলেই টাইপ করুন ঝড়ের গতিতে, বাঁচান আপনার মূল্যবান সময়।</p>
+    <section class="hero container">
+        <div class="hero-banner-container">
+            <!-- গিটহাবে 'hero-banner.png' আপলোড করবেন -->
+            <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.outerHTML='<div style=\'padding:200px 20px;background:#1e293b;color:#94a3b8;text-align:center;\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png নামে আপলোড করুন।]</div>'">
             
-            <a href="#download" class="download-btn"><i class="fas fa-download"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
-            <br>
-            <div class="os-badge"><i class="fab fa-windows" style="color: #4ade80;"></i> Windows 10 & 11 (100% Optimized)</div>
-        </div>
-    </section>
-
-    <!-- Video Demo -->
-    <section class="video-section text-center">
-        <div class="container">
-            <h2 class="section-title">নিজের চোখেই দেখুন AI ম্যাজিক!</h2>
-            <p class="section-subtitle">কীভাবে কথা বললেই নিখুঁত টাইপিং হয়, দেখে নিন এক নজরে</p>
-            <div class="video-wrapper">
-                <!-- Video will be handled by JS loop -->
-                <video id="demoVideo" controls autoplay muted playsinline poster="video-thumbnail.jpg">
-                    আপনার ব্রাউজার ভিডিও সাপোর্ট করছে না।
-                </video>
+            <div class="hero-overlay-content">
+                <!-- Direct GitHub Release Download Link Inserted Here -->
+                <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="download-btn"><i class="fas fa-download"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
+                <br>
+                <div class="os-badge"><i class="fab fa-windows" style="color: #4ade80;"></i> Windows 10 & 11 (100% Optimized)</div>
             </div>
         </div>
     </section>
 
-    <!-- Pain Points -->
+    <!-- Video Demo Section (YouTube Loop Setup) -->
+    <section class="video-section text-center">
+        <div class="container">
+            <h2 class="section-title">নিজের চোখেই দেখুন <span style="color: var(--primary);">AI</span> ম্যাজিক!</h2>
+            <p class="section-subtitle">কীভাবে কথা বললেই নিখুঁত টাইপিং হয়, দেখে নিন এক নজরে</p>
+            
+            <div class="youtube-container">
+                <!-- Custom Control Buttons overlaying YouTube -->
+                <div class="custom-video-controls">
+                    <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()" title="Play/Pause">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="control-btn" id="muteUnmuteBtn" onclick="toggleMute()" title="Mute/Unmute">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+                <!-- YouTube Iframe API Div -->
+                <div id="ytplayer"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points (With FontAwesome Icons) -->
     <section class="pain-points text-center">
         <div class="container">
-            <h2 class="section-title">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
-            <p class="section-subtitle">ম্যানুয়াল টাইপিংয়ের সাধারণ কিছু ভোগান্তি, যা আপনার কাজের গতি কমিয়ে দেয়</p>
+            <h2 class="section-title">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
+            <p class="section-subtitle">ম্যানুয়াল টাইপিংয়ের সাধারণ কিছু ভোগান্তি, যা আপনার কাজের গতি কমিয়ে দেয়</p>
             
             <div class="grid-3">
                 <div class="pain-card">
@@ -248,30 +301,30 @@
                         <i class="fas fa-keyboard"></i>
                     </div>
                     <h3>কঠিন ও ধীরগতির বাংলা টাইপিং</h3>
-                    <p>বিভিন্ন কিবোর্ড সফটওয়্যার ব্যবহার করার পরও বাংলা টাইপ করা যথেষ্ট কষ্টকর। স্পেলিং মেলাতে গিয়ে প্রচুর সময় নষ্ট হয়।</p>
+                    <p>বিভিন্ন কিবোর্ড সফটওয়্যার ব্যবহার করার পরও বাংলা টাইপ করা যথেষ্ট কষ্টকর। স্পেলিং মেলাতে গিয়ে প্রচুর সময় নষ্ট হয়।</p>
                 </div>
                 <div class="pain-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-user-injured"></i>
                     </div>
                     <h3>শারীরিক ক্লান্তি ও চোখের ক্ষতি</h3>
-                    <p>ঘণ্টার পর ঘণ্টা স্ক্রিনের দিকে ঝুঁকে টাইপ করতে গিয়ে ঘাড় ও পিঠে ব্যথা শুরু হয়, যা দীর্ঘমেয়াদে মারাত্মক ক্ষতিকর।</p>
+                    <p>ঘণ্টার পর ঘণ্টা স্ক্রিনের দিকে ঝুঁকে টাইপ করতে গিয়ে ঘাড় ও পিঠে ব্যথা শুরু হয়, যা দীর্ঘমেয়াদে মারাত্মক ক্ষতিকর।</p>
                 </div>
                 <div class="pain-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-hourglass-half"></i>
                     </div>
-                    <h3>সময় নষ্ট ও কাজের ধীরগতি</h3>
-                    <p>নতুন কম্পিউটার ব্যবহারকারী হোন বা প্রফেশনাল, বিশাল আকারের নথিপত্র হাতে টাইপ করতে গিয়ে কাজের প্রোডাক্টিভিটি একদম কমে যায়।</p>
+                    <h3>সময় নষ্ট ও কাজের ধীরগতি</h3>
+                    <p>নতুন কম্পিউটার ব্যবহারকারী হোন বা প্রফেশনাল, বিশাল আকারের নথিপত্র হাতে টাইপ করতে গিয়ে কাজের প্রোডাক্টিভিটি একদম কমে যায়।</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- AI Features (With Icons) -->
+    <!-- AI Features (With FontAwesome Icons) -->
     <section class="features text-center">
         <div class="container">
-            <h2 class="section-title">আপনার জন্য Super AI এর এক্সক্লুসিভ ফিচারসমূহ</h2>
+            <h2 class="section-title">আপনার জন্য Super AI এর <span style="color: var(--accent);">এক্সক্লুসিভ ফিচারসমূহ</span></h2>
             <p class="section-subtitle">যে কারণে এটি প্রতিটি উইন্ডোজ পিসি ইউজারের জন্য অপরিহার্য</p>
             
             <div class="grid-3">
@@ -280,42 +333,42 @@
                         <i class="fas fa-microphone-alt"></i>
                     </div>
                     <h3>AI Voice Typing</h3>
-                    <p>মুখে কথা বলে সবচেয়ে দ্রুত ও নিখুঁত বাংলা টাইপিং করুন। সিস্টেম আপনার কথা ঠিকই বুঝে নেবে।</p>
+                    <p>মুখে কথা বলে সবচেয়ে <span class="highlight-text">দ্রুত ও নিখুঁত</span> বাংলা টাইপিং করুন। সিস্টেম আপনার কথা ঠিকই বুঝে নেবে।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-language"></i>
                     </div>
                     <h3>AI Live Translation</h3>
-                    <p>বাংলায় কথা বলুন, আর এআই সাথে সাথে ইংরেজি, আরবি, হিন্দি, ফ্রেঞ্চসহ পৃথিবীর যেকোনো ভাষায় ট্রান্সলেট করে টাইপ করে দেবে।</p>
+                    <p>বাংলায় কথা বলুন, আর এআই সাথে সাথে ইংরেজি, আরবি, হিন্দি, ফ্রেঞ্চসহ পৃথিবীর <span class="highlight-text">যেকোনো ভাষায়</span> ট্রান্সলেট করে টাইপ করে দেবে।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-comments"></i>
                     </div>
                     <h3>Mix Mode ও Banglish</h3>
-                    <p>বাংলা-ইংরেজি মিশিয়ে বলুন অথবা সোশ্যাল মিডিয়ার জন্য 'Banglish' এ চ্যাট করুন, সবই সম্ভব।</p>
+                    <p>বাংলা-ইংরেজি <span class="highlight-text">মিশিয়ে বলুন</span> অথবা সোশ্যাল মিডিয়ার জন্য 'Banglish' এ চ্যাট করুন, সবই সম্ভব।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
                     <h3>Cloud Mic (ক্লাউড মাইক)</h3>
-                    <p>পিসিতে মাইক নেই? কোনো চিন্তা নেই। নিজের স্মার্টফোনকেই বানিয়ে ফেলুন কম্পিউটারের শক্তিশালী ওয়্যারলেস মাইক!</p>
+                    <p>পিসিতে মাইক নেই? কোনো চিন্তা নেই। নিজের <span class="highlight-text">স্মার্টফোনকেই বানিয়ে ফেলুন</span> কম্পিউটারের শক্তিশালী ওয়্যারলেস মাইক!</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-mouse-pointer"></i>
                     </div>
                     <h3>Floating Mic ও Hotkeys</h3>
-                    <p>স্ক্রিনের ভাসমান মাইকে এক ক্লিক অথবা কীবোর্ড শর্টকাট (Hotkey) চেপে মুহূর্তেই টাইপিং শুরু করুন।</p>
+                    <p>স্ক্রিনের ভাসমান মাইকে <span class="highlight-text">এক ক্লিক</span> অথবা কীবোর্ড শর্টকাট (Hotkey) চেপে মুহূর্তেই টাইপিং শুরু করুন।</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
                         <i class="fas fa-quote-right"></i>
                     </div>
                     <h3>Auto Punctuation</h3>
-                    <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবে না। কথার ধরন বুঝে এআই নিজ দায়িত্বে যতিচিহ্ন বসিয়ে দেবে।</p>
+                    <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবে না। কথার ধরন বুঝে এআই নিজ দায়িত্বে <span class="highlight-text">যতিচিহ্ন বসিয়ে</span> দেবে।</p>
                 </div>
             </div>
         </div>
@@ -325,36 +378,36 @@
     <section class="audience text-center">
         <div class="container">
             <h2 class="section-title">Super AI Typing কার জন্য সেরা সমাধান?</h2>
-            <p class="section-subtitle">যাদের প্রতিদিন কম্পিউটারে কাজ করতে হয়, তাদের সবার জন্য। বিস্তারিত জানতে ক্লিক করুন:</p>
+            <p class="section-subtitle">যাদের প্রতিদিন কম্পিউটারে কাজ করতে হয়, তাদের সবার জন্য। বিস্তারিত জানতে ক্লিক করুন:</p>
             
             <div class="grid-4">
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🎓 শিক্ষক ও শিক্ষার্থী</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">বড় অ্যাসাইনমেন্ট, থিসিস পেপার, রিসার্চের কাজ বা ক্লাসের প্রশ্নপত্র তৈরি করুন চোখের পলকে। কয়েক ঘণ্টার কাজ সেরে ফেলুন মাত্র কয়েক মিনিটে।</div>
+                    <div class="content">বড় অ্যাসাইনমেন্ট, থিসিস পেপার, রিসার্চের কাজ বা ক্লাসের প্রশ্নপত্র তৈরি করুন চোখের পলকে। কয়েক ঘণ্টার কাজ সেরে ফেলুন মাত্র কয়েক মিনিটে।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>👨‍⚖️ আইনজীবী</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">কোর্টের বড় বড় কেস ফাইল ও আইনি দলিল নিমেষেই টাইপ করুন। আপনার সময় ও পরিশ্রম দুটোই বাঁচবে।</div>
+                    <div class="content">কোর্টের বড় বড় কেস ফাইল ও আইনি দলিল নিমেষেই টাইপ করুন। আপনার সময় ও পরিশ্রম দুটোই বাঁচবে।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🏢 চাকরিজীবী ও অফিস</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">এমএস ওয়ার্ড বা এক্সেলে বড় রিপোর্ট বানাতে ক্লান্ত? মুখে নির্দেশ দিন আর রিল্যাক্স করুন। আপনার কাজ দ্রুত শেষ হবে।</div>
+                    <div class="content">এমএস ওয়ার্ড বা এক্সেলে বড় রিপোর্ট বানাতে ক্লান্ত? মুখে নির্দেশ দিন আর রিল্যাক্স করুন। আপনার কাজ দ্রুত শেষ হবে।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
-                    <h3><span>💼 ব্যবসায়ী</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">কাস্টমারদের দ্রুত রিপ্লাই দেওয়া, ইমেইল লেখা এবং মেসেঞ্জারে কাস্টমার সাপোর্ট দিন সুপার ফাস্ট গতিতে।</div>
+                    <h3><span>💼 ব্যবসায়ী</span> <i class="fas fa-chevron-down arrow"></i></h3>
+                    <div class="content">কাস্টমারদের দ্রুত রিপ্লাই দেওয়া, ইমেইল লেখা এবং মেসেঞ্জারে কাস্টমার সাপোর্ট দিন সুপার ফাস্ট গতিতে।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>💻 ফ্রিল্যান্সার</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">বিদেশি ক্লায়েন্টের সাথে যেকোনো ভাষায় দ্রুত চ্যাট করুন লাইভ ট্রান্সলেশনের মাধ্যমে। কমিউনিকেশন হবে আরও প্রফেশনাল।</div>
+                    <div class="content">বিদেশি ক্লায়েন্টের সাথে যেকোনো ভাষায় দ্রুত চ্যাট করুন লাইভ ট্রান্সলেশনের মাধ্যমে। কমিউনিকেশন হবে আরও প্রফেশনাল।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🏪 কম্পিউটারের দোকানদার</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">কাস্টমারদের সিভি, বড় নথিপত্র বা দরখাস্ত এখন হাতে টাইপ না করে মুখে বলেই ঝটপট শেষ করে ফেলুন। ইনকাম বাড়বে।</div>
+                    <div class="content">কাস্টমারদের সিভি, বড় নথিপত্র বা দরখাস্ত এখন হাতে টাইপ না করে মুখে বলেই ঝটপট শেষ করে ফেলুন। ইনকাম বাড়বে।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🛒 ই-কমার্স উদ্যোক্তা</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">ফেসবুক পেজে প্রচুর মেসেজ আসে? বাংলিশ বা বাংলায় ভয়েস টাইপ করে দ্রুত রিপ্লাই দিন, সেলস কনভার্সন বাড়ান।</div>
+                    <div class="content">ফেসবুক পেজে প্রচুর মেসেজ আসে? বাংলিশ বা বাংলায় ভয়েস টাইপ করে দ্রুত রিপ্লাই দিন, সেলস কনভার্সন বাড়ান।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🖥️ সাধারণ ইউজার</span> <i class="fas fa-chevron-down arrow"></i></h3>
@@ -367,12 +420,12 @@
     <!-- Screenshot Slider -->
     <section class="screenshot-section text-center">
         <div class="container">
-            <h2 class="section-title">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
+            <h2 class="section-title">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
             <p class="section-subtitle">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
             
             <div class="slider-container">
                 <div class="slides">
-                    <img src="screenshot1.png" class="active" alt="Interface 1" onerror="this.outerHTML='<div style=\'padding:100px 20px;background:#f8fafc;color:#64748b;border:1px solid #e2e8f0;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
+                    <img src="screenshot1.png" class="active" alt="Interface 1" onerror="this.outerHTML='<div style=\'padding:100px 20px;background:#1e293b;color:#94a3b8;border:1px solid rgba(255,255,255,0.1);\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
                     <img src="screenshot2.png" alt="Interface 2" onerror="this.style.display='none'">
                     <img src="screenshot3.png" alt="Interface 3" onerror="this.style.display='none'">
                 </div>
@@ -380,7 +433,7 @@
         </div>
     </section>
 
-    <!-- Reviews Section (Corrected Spellings) -->
+    <!-- Reviews Section -->
     <section class="review-section text-center">
         <div class="container">
             <h2 class="section-title">আমাদের ইউজাররা কী বলছেন?</h2>
@@ -394,35 +447,35 @@
                     <span class="reviewer-name">রাশেদুল ইসলাম</span>
                     <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
                 </div>
-                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
+                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
-                    <span class="reviewer-name">সায়মা রহমান</span>
+                    <span class="reviewer-name">সায়মা রহমান</span>
                     <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
                 </div>
-                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
+                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
                     <span class="reviewer-name">অ্যাডভোকেট কামরুল</span>
                     <span class="reviewer-meta">সিলেট • আইনজীবী</span>
                 </div>
-                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। এখন সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
+                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। এখন সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
                     <span class="reviewer-name">মেহেদী হাসান</span>
                     <span class="reviewer-meta">রাজশাহী • ই-কমার্স উদ্যোক্তা</span>
                 </div>
-                <p class="review-text">"পেজের কাস্টমারদের দ্রুত রিপ্লাই দিতে বাংলিশ ফিচারটা খুব কাজে দিচ্ছে। টাইপিং স্পিড ডাবল হয়ে গেছে।"</p>
+                <p class="review-text">"পেজের কাস্টমারদের দ্রুত রিপ্লাই দিতে বাংলিশ ফিচারটা খুব কাজে দিচ্ছে। টাইপিং স্পিড ডাবল হয়ে গেছে।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
                     <span class="reviewer-name">তরিকুল আলম</span>
                     <span class="reviewer-meta">খুলনা • টাইপিং সেন্টার</span>
                 </div>
-                <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
+                <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
             </div>
             
             <!-- Duplicated for smooth loop -->
@@ -431,31 +484,31 @@
                     <span class="reviewer-name">রাশেদুল ইসলাম</span>
                     <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
                 </div>
-                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
+                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
-                    <span class="reviewer-name">সায়মা রহমান</span>
+                    <span class="reviewer-name">সায়মা রহমান</span>
                     <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
                 </div>
-                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
+                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
             </div>
         </div>
     </section>
 
-    <!-- Pricing Section (No Download Button Here) -->
+    <!-- Pricing Section -->
     <section class="pricing">
         <div class="container">
             <h2 class="section-title">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
-            <p class="section-subtitle" style="margin-bottom: 40px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
+            <p class="section-subtitle" style="margin-bottom: 40px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
             
             <div class="price-box">
-                <h3 style="font-size: 22px; color: var(--text-dark); margin:0;">১ মাসের প্রিমিয়াম স্টার্টিং সাবস্ক্রিপশন</h3>
+                <h3 style="font-size: 22px; color: white; margin:0;">১ মাসের প্রিমিয়াম স্টার্টিং সাবস্ক্রিপশন</h3>
                 
                 <div class="price">৳ ৯৯ <span>/ মাস</span></div>
                 
                 <p class="pkg-info">
-                    এছাড়াও থাকছে: ৬ মাস - ২৯০ টাকা | ১ বছর - ৪৯০ টাকা
+                    এছাড়াও থাকছে: ৬ মাস - ২৯০ টাকা | ১ বছর - ৪৯০ টাকা
                 </p>
                 
                 <div class="payment-methods">
@@ -466,15 +519,16 @@
         </div>
     </section>
 
-    <!-- Final Download Section (Completely Separate) -->
-    <section id="download" class="final-download-section">
+    <!-- Final Download Section -->
+    <section id="download-section" class="final-download-section">
         <div class="container">
-            <h2>আজই আপনার টাইপিংয়ের কষ্ট দূর করুন!</h2>
+            <h2>আজই আপনার টাইপিংয়ের কষ্ট দূর করুন!</h2>
             <p class="free-trial-text">
-                ৩টি ফ্রি ট্রায়াল দিয়ে চেক করুন, পছন্দ হলে সাবস্ক্রিপশন কিনুন!
+                কেনার আগে ২৪ ঘণ্টা আনলিমিটেড ফ্রি ব্যবহার করে ম্যাজিক যাচাই করুন!
             </p>
             
-            <a href="#" class="final-btn"><i class="fas fa-cloud-download-alt"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
+            <!-- Direct GitHub Release Download Link Inserted Here -->
+            <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="final-btn"><i class="fas fa-cloud-download-alt"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
             
             <div class="final-os-badge">
                 <i class="fab fa-windows"></i> Windows 10 & 11 এর জন্য ১০০% অপ্টিমাইজড
@@ -485,7 +539,7 @@
     <!-- Clean Footer -->
     <footer>
         <div class="footer-container">
-            <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.outerHTML='<span style=\'color:#1e293b;font-weight:700;font-size:18px;\'>Super AI Typing</span>'">
+            <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.outerHTML='<span style=\'color:white;font-weight:700;font-size:18px;\'>Super AI Typing</span>'">
             
             <div class="footer-links">
                 <a href="#">Privacy Policy</a>
@@ -504,23 +558,7 @@
             element.classList.toggle('active');
         }
 
-        // 2. Video Playlist Loop
-        const video = document.getElementById('demoVideo');
-        const playlist = ['video-demo1.mp4', 'video-demo2.mp4', 'video-demo3.mp4'];
-        let currentVideoIndex = 0;
-        
-        if(video) {
-            video.addEventListener('ended', function() {
-                currentVideoIndex++;
-                if (currentVideoIndex >= playlist.length) {
-                    currentVideoIndex = 0;
-                }
-                video.src = playlist[currentVideoIndex];
-                video.play();
-            });
-        }
-
-        // 3. Screenshot Auto Slider
+        // 2. Screenshot Auto Slider
         let slideIndex = 0;
         const slides = document.querySelectorAll('.slides img');
         
@@ -534,6 +572,65 @@
             }
         }
         showSlides();
+
+        // 3. YouTube Iframe API setup for looping Playlist
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        // REPLACE these IDs with your actual YouTube Video IDs
+        var videoPlaylist = ['dQw4w9WgXcQ', 'M7lc1UVf-VE', '3JZ_D3ELwOQ']; 
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytplayer', {
+                height: '100%',
+                width: '100%',
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0, // We hide default controls to use our custom ones
+                    'rel': 0, // No related videos from other channels
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                    'mute': 1, // Start muted so browsers allow autoplay
+                    'loop': 1,
+                    'playlist': videoPlaylist.join(',') // The API uses 'playlist' parameter to loop multiple videos
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // Custom Control Functions
+        function togglePlayPause() {
+            var playBtnIcon = document.querySelector('#playPauseBtn i');
+            var state = player.getPlayerState();
+            if (state == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                playBtnIcon.className = 'fas fa-play';
+            } else {
+                player.playVideo();
+                playBtnIcon.className = 'fas fa-pause';
+            }
+        }
+
+        function toggleMute() {
+            var muteBtnIcon = document.querySelector('#muteUnmuteBtn i');
+            if (player.isMuted()) {
+                player.unMute();
+                player.setVolume(100);
+                muteBtnIcon.className = 'fas fa-volume-up';
+            } else {
+                player.mute();
+                muteBtnIcon.className = 'fas fa-volume-mute';
+            }
+        }
     </script>
 </body>
 </html>
