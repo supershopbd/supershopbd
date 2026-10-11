@@ -13,35 +13,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Base Styles & Root Variables (Dark Theme) */
+        /* --- Root Variables for Colors --- */
         :root {
+            /* Dark Theme Colors (Top half) */
             --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --text-dark: #1e293b;
+            --bg-card-dark: #1e293b;
             --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --text-muted-dark: #94a3b8;
+            
+            /* Light Theme Colors (Bottom half) */
+            --bg-light: #f8fafc;
+            --bg-card-light: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted-light: #64748b;
+            
+            /* Brand Colors */
             --primary: #3b82f6;
             --accent: #8b5cf6;
-            --bkash: #e2136e;
-            --nagad: #f7941d;
             --success: #10b981; 
             --danger: #ef4444;
+            --bkash: #e2136e;
+            --nagad: #f7941d;
         }
 
+        /* --- Global Styles --- */
         body {
             font-family: 'Noto Sans Bengali', 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
             margin: 0;
             padding: 0;
             line-height: 1.6;
+            /* Gradient Background: Dark at the top, transitioning to light */
+            background: linear-gradient(to bottom, var(--bg-dark) 0%, var(--bg-dark) 35%, var(--bg-light) 35%, var(--bg-light) 100%);
+            background-repeat: no-repeat;
+            background-attachment: scroll;
         }
 
         a { text-decoration: none; color: inherit; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .text-center { text-align: center; }
-        
-        /* Navbar */
+
+        /* --- Navbar (Dark Theme) --- */
         header {
             background-color: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
@@ -53,7 +64,7 @@
         }
         .logo-area { display: flex; align-items: center; gap: 10px; }
         .logo-area img { height: 35px; }
-        .logo-text { font-size: 20px; font-weight: 700; color: white; }
+        .logo-text { font-size: 20px; font-weight: 700; color: var(--text-light); }
         .logo-text span { color: var(--primary); }
         .nav-btn {
             background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -62,7 +73,7 @@
         }
         .nav-btn:hover { opacity: 0.9; }
 
-        /* Hero Section (Banner Overlay) */
+        /* --- Hero Section (Dark Theme) --- */
         .hero { 
             position: relative;
             padding: 120px 0 60px;
@@ -95,10 +106,10 @@
         .download-btn:hover { transform: translateY(-3px); }
         .os-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 20px; font-size: 13px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.2);}
 
-        /* Video Demo Section (YouTube Wrapper) */
-        .video-section { padding: 80px 0; background: linear-gradient(to bottom, var(--bg-dark), #0b1121); }
-        .section-title { font-size: 36px; font-weight: 700; margin-bottom: 15px; color: white;}
-        .section-subtitle { color: var(--text-muted); font-size: 16px; margin-bottom: 50px; }
+        /* --- Video Demo Section (Dark Theme) --- */
+        .video-section { padding: 80px 0; color: var(--text-light); }
+        .section-title-dark { font-size: 36px; font-weight: 700; margin-bottom: 15px; color: var(--text-light); }
+        .section-subtitle-dark { color: var(--text-muted-dark); font-size: 16px; margin-bottom: 50px; }
         
         .youtube-container {
             position: relative;
@@ -108,9 +119,9 @@
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            /* Aspect Ratio Trick for iFrames */
             padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
+            background: #000;
         }
         .youtube-container iframe {
             position: absolute;
@@ -118,14 +129,14 @@
             width: 100%; height: 100%;
         }
 
-        /* Custom Sound/Play Controls overlaying the video */
+        /* Custom Sound/Play Controls */
         .custom-video-controls {
             position: absolute;
             top: 20px;
             right: 20px;
             display: flex;
             gap: 10px;
-            z-index: 10; /* Above the iframe */
+            z-index: 10;
         }
         .control-btn {
             background: rgba(0,0,0,0.7);
@@ -140,14 +151,12 @@
         }
         .control-btn:hover { background: var(--primary); border-color: var(--primary); }
 
-
-        /* Pain Points Section */
-        .pain-points { padding: 80px 0; background-color: #0b1121; }
+        /* --- Pain Points Section (Dark Theme) --- */
+        .pain-points { padding: 80px 0; color: var(--text-light); }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .pain-card { background-color: rgba(255,255,255,0.03); padding: 35px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); text-align: left; transition: 0.3s;}
+        .pain-card { background-color: var(--bg-card-dark); padding: 35px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); text-align: left; transition: 0.3s;}
         .pain-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05);}
         
-        /* FontAwesome Icons for Pain Points */
         .pain-card .icon-wrapper {
             width: 60px; height: 60px; margin-bottom: 20px;
             background: rgba(239, 68, 68, 0.1); border-radius: 12px;
@@ -155,15 +164,18 @@
         }
         .pain-card .icon-wrapper i { font-size: 28px; color: var(--danger); }
 
-        .pain-card h3 { margin-bottom: 15px; font-size: 22px; color: white; }
-        .pain-card p { color: var(--text-muted); font-size: 16px; margin: 0; }
+        .pain-card h3 { margin-bottom: 15px; font-size: 22px; color: var(--text-light); }
+        .pain-card p { color: var(--text-muted-dark); font-size: 16px; margin: 0; }
 
-        /* AI Features Section */
-        .features { padding: 80px 0; }
-        .feature-card { background-color: var(--bg-card); padding: 35px; border-radius: 16px; text-align: left; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.05);}
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15); border-color: rgba(59, 130, 246, 0.3);}
+        /* --- Section Titles for Light Theme --- */
+        .section-title-light { font-size: 36px; font-weight: 700; margin-bottom: 15px; color: var(--text-dark); }
+        .section-subtitle-light { color: var(--text-muted-light); font-size: 16px; margin-bottom: 50px; }
+
+        /* --- AI Features Section (Light Theme) --- */
+        .features { padding: 80px 0; background-color: var(--bg-light); color: var(--text-dark); }
+        .feature-card { background-color: var(--bg-card-light); padding: 35px; border-radius: 16px; text-align: left; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); border: 1px solid #e2e8f0;}
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3);}
         
-        /* FontAwesome Icons for Features */
         .feature-card .icon-wrapper {
             width: 60px; height: 60px; margin-bottom: 20px;
             background: rgba(59, 130, 246, 0.1); border-radius: 12px;
@@ -171,66 +183,81 @@
         }
         .feature-card .icon-wrapper i { font-size: 28px; color: var(--primary); }
 
-        .feature-card h3 { font-size: 22px; color: white; margin-bottom: 15px; }
-        .feature-card p { color: var(--text-muted); font-size: 16px; margin: 0; }
+        .feature-card h3 { font-size: 22px; color: var(--text-dark); margin-bottom: 15px; }
+        .feature-card p { color: var(--text-muted-light); font-size: 16px; margin: 0; }
         .highlight-text { color: var(--primary); font-weight: 600; }
 
-        /* Target Audience (Dark Cards) */
-        .audience { padding: 80px 0; background-color: #0b1121; }
+        /* --- Target Audience (Light Theme) --- */
+        .audience { padding: 80px 0; background-color: var(--bg-light); color: var(--text-dark); }
         .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .aud-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: left; cursor: pointer; transition: 0.3s; }
-        .aud-card:hover { border-color: var(--primary); background: rgba(255,255,255,0.08); }
-        .aud-card h3 { font-size: 18px; margin: 0; display: flex; align-items: center; justify-content: space-between; color: white; }
+        .aud-card { background: var(--bg-card-light); padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; text-align: left; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+        .aud-card:hover { border-color: var(--primary); box-shadow: 0 10px 20px rgba(59, 130, 246, 0.08); }
+        .aud-card h3 { font-size: 18px; margin: 0; display: flex; align-items: center; justify-content: space-between; color: var(--text-dark); }
         .aud-card h3 span { display: flex; align-items: center; gap: 10px; }
         .aud-card i.arrow { color: #94a3b8; transition: 0.3s; }
         .aud-card.active i.arrow { transform: rotate(180deg); color: var(--primary); }
-        .aud-card .content { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); font-size: 15px; }
+        .aud-card .content { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9; color: var(--text-muted-light); font-size: 15px; }
         .aud-card.active .content { display: block; }
 
-        /* Screenshot Slider */
-        .screenshot-section { padding: 80px 0; background-color: var(--bg-dark); }
-        .slider-container { max-width: 900px; margin: 0 auto; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        /* --- Screenshot Slider (Light Theme) --- */
+        .screenshot-section { padding: 80px 0; background-color: var(--bg-light); }
+        .slider-container { max-width: 900px; margin: 0 auto; position: relative; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         .slides img { width: 100%; display: none; }
         .slides img.active { display: block; animation: fade 1s; }
         @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
 
-        /* Review Section */
-        .review-section { padding: 60px 0; background-color: #0b1121; overflow: hidden; position: relative; }
-        .review-container { display: flex; gap: 20px; animation: scrollLeft 40s linear infinite; white-space: nowrap; padding: 20px 0; }
+        /* --- Review Section (Light Theme) --- */
+        .review-section { padding: 60px 0; background-color: var(--bg-light); overflow: hidden; position: relative; }
+        .review-container { display: flex; gap: 20px; animation: scrollLeft 40s linear infinite; white-space: nowrap; padding: 20px 0; margin-bottom: 30px; } /* Added margin bottom */
         .review-container:hover { animation-play-state: paused; }
         @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .review-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; min-width: 350px; display: inline-block; white-space: normal; vertical-align: top; }
-        .reviewer-info { margin-bottom: 10px; }
-        .reviewer-name { font-weight: 700; color: white; font-size: 16px; display: block; }
-        .reviewer-meta { font-size: 13px; color: var(--primary); display: block; }
-        .review-text { font-size: 15px; color: var(--success); font-style: italic; }
+        .review-card { background: var(--bg-card-light); border: 1px solid #e2e8f0; padding: 25px; border-radius: 12px; min-width: 380px; display: inline-block; white-space: normal; vertical-align: top; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .reviewer-info { margin-bottom: 12px; }
+        .reviewer-name { font-weight: 700; color: var(--text-dark); font-size: 17px; display: block; }
+        .reviewer-meta { font-size: 13px; color: var(--primary); display: block; margin-top: 4px; }
+        .review-text { font-size: 15px; color: var(--success); font-style: italic; line-height: 1.5; }
+        
+        /* Add Review Button */
+        .add-review-btn { display: inline-block; background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 12px 25px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: 600; font-size: 16px; }
+        .add-review-btn:hover { background: rgba(59, 130, 246, 0.1); transform: translateY(-2px); }
 
-        /* Pricing Section */
-        .pricing { padding: 100px 0; background: linear-gradient(135deg, #0b1121, #1e293b); text-align: center; }
-        .price-box { max-width: 500px; margin: 0 auto; background: var(--bg-dark); padding: 50px 30px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); position: relative; }
-        .price-box .section-title { color: white; margin-bottom: 10px; font-size: 26px; }
-        .price { font-size: 56px; font-weight: 700; color: white; margin: 20px 0; font-family: 'Inter', sans-serif; }
-        .price span { font-size: 18px; color: #64748b; font-weight: 400; }
-        .pkg-info { color: #cbd5e1; font-size: 15px; margin-bottom: 30px; }
+        /* Fake Review Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+        .modal-content { background: var(--bg-card-light); padding: 30px; border-radius: 16px; width: 90%; max-width: 450px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.25); text-align: left;}
+        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted-light); cursor: pointer; font-size: 24px; transition: 0.2s;}
+        .close-modal:hover { color: var(--danger); }
+        .modal-content h3 { color: var(--text-dark); margin-top: 0; margin-bottom: 20px; font-size: 22px;}
+        .modal-content input, .modal-content textarea { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--bg-light); border: 1px solid #e2e8f0; border-radius: 8px; color: var(--text-dark); box-sizing: border-box; font-family: inherit;}
+        .modal-content input:focus, .modal-content textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .modal-submit { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s;}
+        .modal-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+
+        /* --- Pricing Section (Light Theme) --- */
+        .pricing { padding: 80px 0; background-color: var(--bg-light); text-align: center; }
+        .price-box { max-width: 500px; margin: 0 auto; background: var(--bg-card-light); padding: 50px 30px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; position: relative; }
+        .price-box .section-title-light { font-size: 26px; }
+        .price { font-size: 56px; font-weight: 700; color: var(--text-dark); margin: 20px 0; font-family: 'Inter', sans-serif; }
+        .price span { font-size: 18px; color: var(--text-muted-light); font-weight: 400; }
+        .pkg-info { color: var(--text-muted-light); font-size: 16px; margin-bottom: 30px; font-weight: 600; }
         .payment-methods { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
-        .pay-badge { padding: 8px 16px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .pay-badge { padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
         .pay-bkash { background: rgba(226, 19, 110, 0.1); color: var(--bkash); border: 1px solid rgba(226, 19, 110, 0.2); }
         .pay-nagad { background: rgba(247, 148, 29, 0.1); color: var(--nagad); border: 1px solid rgba(247, 148, 29, 0.2); }
 
-        /* Final Download Section */
-        .final-download-section { padding: 80px 0; text-align: center; background-color: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.05); }
-        .final-download-section h2 { font-size: 32px; color: white; margin-bottom: 10px; }
+        /* --- Final Download Section (Light Theme) --- */
+        .final-download-section { padding: 80px 0 100px; text-align: center; background-color: var(--bg-light); }
+        .final-download-section h2 { font-size: 32px; color: var(--text-dark); margin-bottom: 10px; }
         .free-trial-text { font-weight: 600; font-size: 18px; color: var(--primary); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
         .final-btn { display: inline-flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; font-size: 20px; font-weight: 700; padding: 18px 45px; border-radius: 12px; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); }
         .final-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(59, 130, 246, 0.4); color: white; }
-        .final-os-badge { margin-top: 20px; color: var(--text-muted); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px;}
-        .final-os-badge i { color: #4ade80; }
+        .final-os-badge { margin-top: 20px; color: var(--text-muted-light); font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px;}
+        .final-os-badge i { color: #0078d7; }
 
-        /* Footer Fixed */
-        footer { padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.05); background-color: var(--bg-dark); }
+        /* --- Footer (Dark Theme for contrast at the bottom) --- */
+        footer { padding: 30px 0; background-color: var(--bg-dark); border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-light); }
         .footer-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .footer-logo { height: 25px; opacity: 0.8; }
-        .footer-links a { color: var(--text-muted); font-size: 14px; transition: 0.3s; }
+        .footer-links a { color: var(--text-muted-dark); font-size: 14px; transition: 0.3s; }
         .footer-links a:hover { color: white; text-decoration: underline; }
 
         @media (max-width: 768px) {
@@ -241,7 +268,7 @@
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header (Dark) -->
     <header>
         <div class="nav-container container">
             <a href="#" class="logo-area">
@@ -252,14 +279,12 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Dark Background Area) -->
     <section class="hero container">
         <div class="hero-banner-container">
-            <!-- গিটহাবে 'hero-banner.png' আপলোড করবেন -->
             <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.outerHTML='<div style=\'padding:200px 20px;background:#1e293b;color:#94a3b8;text-align:center;\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png নামে আপলোড করুন।]</div>'">
             
             <div class="hero-overlay-content">
-                <!-- Direct GitHub Release Download Link Inserted Here -->
                 <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="download-btn"><i class="fas fa-download"></i> সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন</a>
                 <br>
                 <div class="os-badge"><i class="fab fa-windows" style="color: #4ade80;"></i> Windows 10 & 11 (100% Optimized)</div>
@@ -267,11 +292,11 @@
         </div>
     </section>
 
-    <!-- Video Demo Section (YouTube Loop Setup) -->
+    <!-- Video Demo Section (Dark Theme Area) -->
     <section class="video-section text-center">
         <div class="container">
-            <h2 class="section-title">নিজের চোখেই দেখুন <span style="color: var(--primary);">AI</span> ম্যাজিক!</h2>
-            <p class="section-subtitle">কীভাবে কথা বললেই নিখুঁত টাইপিং হয়, দেখে নিন এক নজরে</p>
+            <h2 class="section-title-dark">নিজের চোখেই দেখুন <span style="color: var(--primary);">AI</span> ম্যাজিক!</h2>
+            <p class="section-subtitle-dark">কীভাবে কথা বললেই নিখুঁত টাইপিং হয়, দেখে নিন এক নজরে</p>
             
             <div class="youtube-container">
                 <!-- Custom Control Buttons overlaying YouTube -->
@@ -289,11 +314,11 @@
         </div>
     </section>
 
-    <!-- Pain Points (With FontAwesome Icons) -->
+    <!-- Pain Points (Dark Theme Area) -->
     <section class="pain-points text-center">
         <div class="container">
-            <h2 class="section-title">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
-            <p class="section-subtitle">ম্যানুয়াল টাইপিংয়ের সাধারণ কিছু ভোগান্তি, যা আপনার কাজের গতি কমিয়ে দেয়</p>
+            <h2 class="section-title-dark">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
+            <p class="section-subtitle-dark">ম্যানুয়াল টাইপিংয়ের সাধারণ কিছু ভোগান্তি, যা আপনার কাজের গতি কমিয়ে দেয়</p>
             
             <div class="grid-3">
                 <div class="pain-card">
@@ -321,11 +346,11 @@
         </div>
     </section>
 
-    <!-- AI Features (With FontAwesome Icons) -->
+    <!-- AI Features (Light Theme Area Starts Here) -->
     <section class="features text-center">
         <div class="container">
-            <h2 class="section-title">আপনার জন্য Super AI এর <span style="color: var(--accent);">এক্সক্লুসিভ ফিচারসমূহ</span></h2>
-            <p class="section-subtitle">যে কারণে এটি প্রতিটি উইন্ডোজ পিসি ইউজারের জন্য অপরিহার্য</p>
+            <h2 class="section-title-light">আপনার জন্য Super AI এর <span style="color: var(--accent);">এক্সক্লুসিভ ফিচারসমূহ</span></h2>
+            <p class="section-subtitle-light">যে কারণে এটি প্রতিটি উইন্ডোজ পিসি ইউজারের জন্য অপরিহার্য</p>
             
             <div class="grid-3">
                 <div class="feature-card">
@@ -374,11 +399,11 @@
         </div>
     </section>
 
-    <!-- Target Audience -->
+    <!-- Target Audience (Light Theme Area) -->
     <section class="audience text-center">
         <div class="container">
-            <h2 class="section-title">Super AI Typing কার জন্য সেরা সমাধান?</h2>
-            <p class="section-subtitle">যাদের প্রতিদিন কম্পিউটারে কাজ করতে হয়, তাদের সবার জন্য। বিস্তারিত জানতে ক্লিক করুন:</p>
+            <h2 class="section-title-light">Super AI Typing কার জন্য সেরা সমাধান?</h2>
+            <p class="section-subtitle-light">যাদের প্রতিদিন কম্পিউটারে কাজ করতে হয়, তাদের সবার জন্য। বিস্তারিত জানতে ক্লিক করুন:</p>
             
             <div class="grid-4">
                 <div class="aud-card" onclick="toggleCard(this)">
@@ -417,15 +442,15 @@
         </div>
     </section>
 
-    <!-- Screenshot Slider -->
+    <!-- Screenshot Slider (Light Theme Area) -->
     <section class="screenshot-section text-center">
         <div class="container">
-            <h2 class="section-title">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
-            <p class="section-subtitle">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
+            <h2 class="section-title-light">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
+            <p class="section-subtitle-light">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
             
             <div class="slider-container">
                 <div class="slides">
-                    <img src="screenshot1.png" class="active" alt="Interface 1" onerror="this.outerHTML='<div style=\'padding:100px 20px;background:#1e293b;color:#94a3b8;border:1px solid rgba(255,255,255,0.1);\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
+                    <img src="screenshot1.png" class="active" alt="Interface 1" onerror="this.outerHTML='<div style=\'padding:100px 20px;background:#ffffff;color:#64748b;border:1px solid #e2e8f0;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
                     <img src="screenshot2.png" alt="Interface 2" onerror="this.style.display='none'">
                     <img src="screenshot3.png" alt="Interface 3" onerror="this.style.display='none'">
                 </div>
@@ -433,11 +458,11 @@
         </div>
     </section>
 
-    <!-- Reviews Section -->
+    <!-- Reviews Section (Light Theme Area) -->
     <section class="review-section text-center">
         <div class="container">
-            <h2 class="section-title">আমাদের ইউজাররা কী বলছেন?</h2>
-            <p class="section-subtitle">সারা বাংলাদেশ থেকে হাজারো সন্তুষ্ট ইউজারের মতামত</p>
+            <h2 class="section-title-light">আমাদের ইউজাররা কী বলছেন?</h2>
+            <p class="section-subtitle-light">সারা বাংলাদেশ থেকে হাজারো সন্তুষ্ট ইউজারের মতামত</p>
         </div>
         
         <div class="review-container">
@@ -494,16 +519,31 @@
                 <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
             </div>
         </div>
+
+        <!-- Add Review Button -->
+        <button class="add-review-btn" onclick="openModal()">আপনার রিভিউ লিখুন</button>
     </section>
 
-    <!-- Pricing Section -->
+    <!-- Fake Review Modal -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3>আপনার মতামত জানান</h3>
+            <input type="text" placeholder="আপনার নাম (যেমন: শফিক আহমেদ)" id="rName">
+            <input type="text" placeholder="পেশা ও জেলা (যেমন: শিক্ষক, কুমিল্লা)" id="rMeta">
+            <textarea rows="4" placeholder="সুপার এআই টাইপিং ব্যবহার করে আপনার কেমন লাগছে তা বিস্তারিত লিখুন..." id="rText"></textarea>
+            <button class="modal-submit" onclick="submitReview()">সাবমিট করুন</button>
+        </div>
+    </div>
+
+    <!-- Pricing Section (Light Theme Area) -->
     <section class="pricing">
         <div class="container">
-            <h2 class="section-title">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
-            <p class="section-subtitle" style="margin-bottom: 40px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
+            <h2 class="section-title-light">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
+            <p class="section-subtitle-light" style="margin-bottom: 40px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
             
             <div class="price-box">
-                <h3 style="font-size: 22px; color: white; margin:0;">১ মাসের প্রিমিয়াম স্টার্টিং সাবস্ক্রিপশন</h3>
+                <h3 style="font-size: 22px; color: var(--text-dark); margin:0;">১ মাসের প্রিমিয়াম স্টার্টিং সাবস্ক্রিপশন</h3>
                 
                 <div class="price">৳ ৯৯ <span>/ মাস</span></div>
                 
@@ -519,10 +559,10 @@
         </div>
     </section>
 
-    <!-- Final Download Section -->
+    <!-- Final Download Section (Light Theme Area) -->
     <section id="download-section" class="final-download-section">
         <div class="container">
-            <h2>আজই আপনার টাইপিংয়ের কষ্ট দূর করুন!</h2>
+            <h2 class="section-title-light">আজই আপনার টাইপিংয়ের কষ্ট দূর করুন!</h2>
             <p class="free-trial-text">
                 কেনার আগে ২৪ ঘণ্টা আনলিমিটেড ফ্রি ব্যবহার করে ম্যাজিক যাচাই করুন!
             </p>
@@ -536,7 +576,7 @@
         </div>
     </section>
 
-    <!-- Clean Footer -->
+    <!-- Footer (Dark Theme for contrast) -->
     <footer>
         <div class="footer-container">
             <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.outerHTML='<span style=\'color:white;font-weight:700;font-size:18px;\'>Super AI Typing</span>'">
@@ -573,15 +613,29 @@
         }
         showSlides();
 
-        // 3. YouTube Iframe API setup for looping Playlist
+        // 3. Review Modal Functions
+        function openModal() { document.getElementById('reviewModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('reviewModal').style.display = 'none'; }
+        function submitReview() {
+            alert('ধন্যবাদ! আপনার রিভিউটি মডারেশনের জন্য পাঠানো হয়েছে। অ্যাডমিন অ্যাপ্রুভ করলে এটি ওয়েবসাইটে শো করবে।');
+            closeModal();
+            // Clear inputs
+            document.getElementById('rName').value = '';
+            document.getElementById('rMeta').value = '';
+            document.getElementById('rText').value = '';
+        }
+
+        // 4. YouTube Iframe API setup for looping Playlist
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
-        // REPLACE these IDs with your actual YouTube Video IDs
-        var videoPlaylist = ['dQw4w9WgXcQ', 'M7lc1UVf-VE', '3JZ_D3ELwOQ']; 
+        // ==========================================
+        // এখানে আপনার ইউটিউব ভিডিওর আইডিগুলো বসান
+        // ==========================================
+        var videoPlaylist = ['YOUR_VIDEO_ID_1', 'YOUR_VIDEO_ID_2']; 
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('ytplayer', {
@@ -589,13 +643,13 @@
                 width: '100%',
                 playerVars: {
                     'autoplay': 1,
-                    'controls': 0, // We hide default controls to use our custom ones
-                    'rel': 0, // No related videos from other channels
+                    'controls': 0, // Hide default controls
+                    'rel': 0, // Hide related videos
                     'showinfo': 0,
                     'modestbranding': 1,
-                    'mute': 1, // Start muted so browsers allow autoplay
+                    'mute': 1, // Start muted for autoplay
                     'loop': 1,
-                    'playlist': videoPlaylist.join(',') // The API uses 'playlist' parameter to loop multiple videos
+                    'playlist': videoPlaylist.join(',')
                 },
                 events: {
                     'onReady': onPlayerReady
@@ -607,7 +661,7 @@
             event.target.playVideo();
         }
 
-        // Custom Control Functions
+        // Custom Control Functions for YouTube Player
         function togglePlayPause() {
             var playBtnIcon = document.querySelector('#playPauseBtn i');
             var state = player.getPlayerState();
