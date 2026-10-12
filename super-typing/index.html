@@ -92,10 +92,10 @@
             text-align: right; 
         }
         
-        /* HERO CONTAINER CSS UPDATED */
+        /* 100% ORIGINAL HERO CONTAINER (Just like your first code) */
         .hero-banner-container {
             position: relative;
-            max-width: 100%; /* You can change this to your specific width if needed */
+            max-width: 1200px; 
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
@@ -109,12 +109,9 @@
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
-        /* HERO IMAGE CSS UPDATED */
+        /* 100% ORIGINAL HERO IMAGE (No object-fit, no max-height) */
         .hero-banner-img {
             width: 100%;
-            height: auto; 
-            /* max-height: 80vh;  Optional: uncomment this to restrict height */
-            object-fit: cover; /* Prevents stretching */
             display: block;
             flex-shrink: 0;
         }
@@ -131,8 +128,8 @@
 
         .hero-overlay-content {
             position: absolute;
-            bottom: 5%; /* Adjusted for better positioning */
-            right: 5%; /* Adjusted for better positioning */
+            bottom: 30px; 
+            right: 40px; 
             text-align: center;
             z-index: 10;
         }
@@ -313,7 +310,7 @@
         .modal-submit { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.3s;}
         .modal-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); }
 
-        /* --- Pricing Section (CENTER ALIGNED AS REQUESTED) --- */
+        /* --- Pricing Section (CENTER ALIGNED) --- */
         .pricing { padding: 60px 0; }
         .price-box { max-width: 450px; margin: 0 auto; background: var(--bg-card-light); padding: 40px 25px; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; position: relative; text-align: center; }
         .price-box .section-title-light { font-size: 24px; }
@@ -638,7 +635,7 @@
                     <span class="reviewer-name">অ্যাডভোকেট কামরুল</span>
                     <span class="reviewer-meta">সিলেট • আইনজীবী</span>
                 </div>
-                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। এখন সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
+                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
@@ -654,20 +651,7 @@
                 </div>
                 <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
             </div>
-            <div class="review-card">
-                <div class="reviewer-info">
-                    <span class="reviewer-name">রাশেদুল ইসলাম</span>
-                    <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
-                </div>
-                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
-            </div>
-            <div class="review-card">
-                <div class="reviewer-info">
-                    <span class="reviewer-name">সায়মা রহমান</span>
-                    <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
-                </div>
-                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
-            </div>
+            <!-- Removed the duplicated reviews for cleaner look -->
         </div>
 
         <button class="add-review-btn" onclick="openModal()">আপনার রিভিউ লিখুন</button>
@@ -702,7 +686,7 @@
                     </div>
                     <div class="pay-badge pay-nagad">
                         <svg class="svg-icon" viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                        নগদ সাপোর্ট
+                        ন নগদ সাপোর্ট
                     </div>
                 </div>
             </div>
