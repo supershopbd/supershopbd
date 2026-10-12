@@ -93,22 +93,41 @@
         }
         .hero-banner-container {
             position: relative;
-            max-width: 1200px; /* Fixed the white space issue */
+            max-width: 1200px;
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
             border: 1px solid rgba(255,255,255,0.1);
         }
+        
+        /* New Hero Slider CSS */
+        .hero-slides {
+            display: flex;
+            width: 100%;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
         .hero-banner-img {
             width: 100%;
+            flex-shrink: 0;
             display: block;
         }
+        .hero-fallback-div {
+            width: 100%;
+            flex-shrink: 0;
+            padding: 180px 20px;
+            background: #1e293b;
+            color: #94a3b8;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
         .hero-overlay-content {
             position: absolute;
             bottom: 30px; 
             right: 40px; 
             text-align: center;
+            z-index: 10;
         }
         .download-btn {
             display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -239,12 +258,27 @@
         .aud-card .content { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f1f5f9; color: var(--text-muted-light); font-size: 14px; }
         .aud-card.active .content { display: block; }
 
-        /* --- Screenshot Slider (Light Theme) --- */
+        /* --- Screenshot Slider (Light Theme Updated) --- */
         .screenshot-section { padding: 60px 0; }
-        .slider-container { max-width: 850px; margin: 0 auto; position: relative; border-radius: 14px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
-        .slides img { width: 100%; display: none; }
-        .slides img.active { display: block; animation: fade 1s; }
-        @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
+        .slider-container { 
+            max-width: 850px; 
+            margin: 0 auto; 
+            position: relative; 
+            border-radius: 14px; 
+            overflow: hidden; 
+            border: 1px solid #e2e8f0; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
+        }
+        .slides {
+            display: flex;
+            width: 100%;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth Slide Transition */
+        }
+        .slides img { 
+            width: 100%; 
+            flex-shrink: 0;
+            display: block;
+        }
 
         /* --- Review Section (Light Theme) --- */
         .review-section { padding: 60px 0; overflow: hidden; position: relative; }
@@ -283,7 +317,7 @@
         .pay-bkash { background: rgba(226, 19, 110, 0.1); color: var(--bkash); border: 1px solid rgba(226, 19, 110, 0.2); }
         .pay-nagad { background: rgba(247, 148, 29, 0.1); color: var(--nagad); border: 1px solid rgba(247, 148, 29, 0.2); }
 
-        /* --- FINAL DOWNLOAD SECTION (FIXED AS REQUESTED) --- */
+        /* --- FINAL DOWNLOAD SECTION --- */
         .final-download-section { 
             padding: 60px 0 80px; 
             text-align: center;
@@ -377,10 +411,15 @@
         </div>
     </header>
 
-    <!-- Hero Section (Dark Theme) -->
+    <!-- Hero Section (Dark Theme with Smart Slider) -->
     <section class="hero container">
         <div class="hero-banner-container">
-            <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.outerHTML='<div style=\'padding:180px 20px;background:#1e293b;color:#94a3b8;text-align:center;\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png নামে আপলোড করুন।]</div>'">
+            <div class="hero-slides" id="heroSlider">
+                <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.outerHTML='<div class=\'hero-fallback-div\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png আপলোড করুন]</div>'">
+                <img src="hero-banner2.png" alt="Hero Banner 2" class="hero-banner-img" onerror="this.style.display='none'">
+                <img src="hero-banner3.png" alt="Hero Banner 3" class="hero-banner-img" onerror="this.style.display='none'">
+                <img src="hero-banner4.png" alt="Hero Banner 4" class="hero-banner-img" onerror="this.style.display='none'">
+            </div>
             
             <div class="hero-overlay-content">
                 <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="download-btn">
@@ -396,7 +435,7 @@
         </div>
     </section>
 
-    <!-- Video Demo Section (Dark Theme) -->
+    <!-- Video Demo Section -->
     <section class="video-section text-center">
         <div class="container">
             <h2 class="section-title-dark">নিজের চোখেই দেখুন <span style="color: var(--primary);">AI</span> ম্যাজিক!</h2>
@@ -416,7 +455,7 @@
         </div>
     </section>
 
-    <!-- Pain Points (Dark Theme) -->
+    <!-- Pain Points -->
     <section class="pain-points text-center">
         <div class="container">
             <h2 class="section-title-dark">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
@@ -425,7 +464,6 @@
             <div class="grid-3">
                 <div class="pain-card">
                     <div class="icon-wrapper">
-                        <!-- Keyboard SVG -->
                         <svg class="svg-icon icon-danger" viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
                     </div>
                     <h3>কঠিন ও ধীরগতির বাংলা টাইপিং</h3>
@@ -433,7 +471,6 @@
                 </div>
                 <div class="pain-card">
                     <div class="icon-wrapper">
-                        <!-- Accessibility/Health SVG -->
                         <svg class="svg-icon icon-danger" viewBox="0 0 24 24"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
                     </div>
                     <h3>শারীরিক ক্লান্তি ও চোখের ক্ষতি</h3>
@@ -441,7 +478,6 @@
                 </div>
                 <div class="pain-card">
                     <div class="icon-wrapper">
-                        <!-- Hourglass SVG -->
                         <svg class="svg-icon icon-danger" viewBox="0 0 24 24"><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zm-4-5l-4-4V4h8v3.5l-4 4z"/></svg>
                     </div>
                     <h3>সময় নষ্ট ও কাজের ধীরগতি</h3>
@@ -451,7 +487,7 @@
         </div>
     </section>
 
-    <!-- AI Features (Light Theme) -->
+    <!-- AI Features -->
     <section class="features text-center">
         <div class="container">
             <h2 class="section-title-light">আপনার জন্য Super AI এর <span style="color: var(--accent);">এক্সক্লুসিভ ফিচারসমূহ</span></h2>
@@ -460,7 +496,6 @@
             <div class="grid-3">
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <!-- Microphone SVG -->
                         <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
                     </div>
                     <h3>AI Voice Typing</h3>
@@ -468,7 +503,6 @@
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <!-- Translate SVG -->
                         <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
                     </div>
                     <h3>AI Live Translation</h3>
@@ -476,7 +510,6 @@
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <!-- Chat/Mix SVG -->
                         <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
                     </div>
                     <h3>Mix Mode ও Banglish</h3>
@@ -484,7 +517,6 @@
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <!-- Mobile/Cloud SVG -->
                         <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
                     </div>
                     <h3>Cloud Mic (ক্লাউড মাইক)</h3>
@@ -492,7 +524,6 @@
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <!-- Hotkey/Mouse SVG -->
                         <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M13 1.07V9h7c0-4.08-3.05-7.44-7-7.93zM4 15c0 4.42 3.58 8 8 8s8-3.58 8-8v-4H4v4zm7-13.93C7.05 1.56 4 4.92 4 9h7V1.07z"/></svg>
                     </div>
                     <h3>Floating Mic ও Hotkeys</h3>
@@ -500,11 +531,10 @@
                 </div>
                 <div class="feature-card">
                     <div class="icon-wrapper">
-                        <!-- Quote/Punctuation SVG -->
                         <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
                     </div>
                     <h3>Auto Punctuation</h3>
-                    <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবে না। কথার ধরন বুঝে এআই নিজ দায়িত্বে <span class="highlight-text">যতিচিহ্ন বসিয়ে</span> দেবে।</p>
+                    <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবেবিধা। কথার ধরন বুঝে এআই নিজ দায়িত্বে <span class="highlight-text">যতিচিহ্ন বসিয়ে</span> দেবে।</p>
                 </div>
             </div>
         </div>
@@ -512,7 +542,7 @@
 
 </div> <!-- End of gradient wrapper -->
 
-    <!-- Target Audience (Light Theme) -->
+    <!-- Target Audience -->
     <section class="audience text-center">
         <div class="container">
             <h2 class="section-title-light">Super AI Typing কার জন্য সেরা সমাধান?</h2>
@@ -555,23 +585,25 @@
         </div>
     </section>
 
-    <!-- Screenshot Slider (Light Theme) -->
+    <!-- Screenshot Slider (Updated to 4 Images with Smooth Slide) -->
     <section class="screenshot-section text-center">
         <div class="container">
             <h2 class="section-title-light">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
             <p class="section-subtitle-light">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
             
             <div class="slider-container">
-                <div class="slides">
-                    <img src="screenshot1.png" class="active" alt="Interface 1" onerror="this.outerHTML='<div style=\'padding:100px 20px;background:#ffffff;color:#64748b;border:1px solid #e2e8f0;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
+                <div class="slides" id="screenshotSlider">
+                    <img src="screenshot1.png" alt="Interface 1" onerror="this.outerHTML='<div style=\'width:100%;flex-shrink:0;padding:100px 20px;background:#ffffff;color:#64748b;border:1px solid #e2e8f0;box-sizing:border-box;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
                     <img src="screenshot2.png" alt="Interface 2" onerror="this.style.display='none'">
                     <img src="screenshot3.png" alt="Interface 3" onerror="this.style.display='none'">
+                    <!-- 4th Screenshot Added Here -->
+                    <img src="screenshot4.png" alt="Interface 4" onerror="this.style.display='none'">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Reviews Section (Light Theme) -->
+    <!-- Reviews Section -->
     <section class="review-section text-center">
         <div class="container">
             <h2 class="section-title-light">আমাদের ইউজাররা কী বলছেন?</h2>
@@ -614,7 +646,6 @@
                 </div>
                 <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
             </div>
-            <!-- Duplicated for loop -->
             <div class="review-card">
                 <div class="reviewer-info">
                     <span class="reviewer-name">রাশেদুল ইসলাম</span>
@@ -646,8 +677,8 @@
         </div>
     </div>
 
-    <!-- Pricing Section (Light Theme) -->
-    <section class="pricing">
+    <!-- Pricing Section (Centered Design as Requested) -->
+    <section class="pricing text-center">
         <div class="container">
             <h2 class="section-title-light">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
             <p class="section-subtitle-light" style="margin-bottom: 30px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
@@ -670,7 +701,7 @@
         </div>
     </section>
 
-    <!-- Final Download Section (Light Theme - REDESIGNED EXACTLY AS REQUESTED) -->
+    <!-- Final Download Section -->
     <section id="download-section" class="final-download-section">
         <div class="container">
             <div class="fd-box">
@@ -693,7 +724,7 @@
         </div>
     </section>
 
-    <!-- Footer (Dark Theme) -->
+    <!-- Footer -->
     <footer class="theme-dark">
         <div class="footer-container">
             <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.outerHTML='<span style=\'font-weight:700;font-size:16px;\'>Super AI Typing</span>'">
@@ -712,19 +743,41 @@
             element.classList.toggle('active');
         }
 
-        // 2. Screenshot Auto Slider
-        let slideIndex = 0;
-        const slides = document.querySelectorAll('.slides img');
-        function showSlides() {
-            if(slides.length > 1) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                slideIndex++;
-                if (slideIndex > slides.length) {slideIndex = 1}
-                slides[slideIndex-1].classList.add('active');
-                setTimeout(showSlides, 5000);
+        // 2. Smart Universal Slider Logic (For both Hero & Screenshots)
+        function initSmartSlider(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            
+            let currentIndex = 0;
+            
+            function slide() {
+                const children = Array.from(container.children);
+                // Filter out images hidden by onerror
+                const validSlides = children.filter(child => window.getComputedStyle(child).display !== 'none');
+
+                if (validSlides.length > 1) {
+                    currentIndex++;
+                    if (currentIndex >= validSlides.length) {
+                        currentIndex = 0;
+                    }
+                    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }
             }
+            
+            // Allow time for images to fail loading and set 'display:none'
+            setTimeout(() => {
+                const initialChildren = Array.from(container.children);
+                const initialValid = initialChildren.filter(child => window.getComputedStyle(child).display !== 'none');
+                
+                if (initialValid.length > 1) {
+                    setInterval(slide, 5000);
+                }
+            }, 1000);
         }
-        showSlides();
+
+        // Initialize both sliders dynamically
+        initSmartSlider('heroSlider');
+        initSmartSlider('screenshotSlider');
 
         // 3. Review Modal Functions
         function openModal() { document.getElementById('reviewModal').style.display = 'flex'; }
@@ -775,11 +828,9 @@
             var playBtnIcon = document.querySelector('#playPauseBtn svg path');
             if (player.getPlayerState() == YT.PlayerState.PLAYING) {
                 player.pauseVideo();
-                // Play Icon Path
                 playBtnIcon.setAttribute('d', 'M8 5v14l11-7z');
             } else {
                 player.playVideo();
-                // Pause Icon Path
                 playBtnIcon.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z');
             }
         }
@@ -789,11 +840,9 @@
             if (player.isMuted()) {
                 player.unMute();
                 player.setVolume(100);
-                // Volume Up Path
                 muteBtnIcon.setAttribute('d', 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
             } else {
                 player.mute();
-                // Mute Path
                 muteBtnIcon.setAttribute('d', 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z');
             }
         }
