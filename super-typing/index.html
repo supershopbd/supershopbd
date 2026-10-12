@@ -6,10 +6,10 @@
     <title>Super AI Typing - আপনার পার্সোনাল AI Assistant</title>
     <!-- Browser Tab Logo (Favicon) -->
     <link rel="icon" href="logo.png" type="image/png">
-    
+
     <!-- Google Fonts for Bengali Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         /* --- Root Variables for Colors --- */
         :root {
@@ -18,13 +18,13 @@
             --bg-card-dark: #1e293b;
             --text-light: #f8fafc;
             --text-muted-dark: #94a3b8;
-            
+
             /* Light Theme Colors */
             --bg-light: #f8fafc;
             --bg-card-light: #ffffff;
             --text-dark: #1e293b;
             --text-muted-light: #64748b;
-            
+
             /* Brand Colors */
             --primary: #3b82f6;
             --accent: #8b5cf6;
@@ -93,22 +93,27 @@
         }
         .hero-banner-container {
             position: relative;
-            max-width: 1200px;
+            max-width: 1000px; /* Reduced width for better proportion */
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
             box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
             border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-dark); /* Background in case image doesn't fill entirely */
         }
-        
-        /* New Hero Slider CSS */
+
+        /* New Hero Slider CSS - FIXED FOR ASPECT RATIO */
         .hero-slides {
             display: flex;
             width: 100%;
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            align-items: center; /* Center images vertically */
         }
         .hero-banner-img {
             width: 100%;
+            height: auto;
+            max-height: 600px; /* Prevent it from getting too tall */
+            object-fit: contain; /* Keeps aspect ratio intact */
             flex-shrink: 0;
             display: block;
         }
@@ -141,7 +146,7 @@
         .video-section { padding: 60px 0; color: var(--text-light); }
         .section-title-dark { font-size: 32px; font-weight: 700; margin-bottom: 12px; color: var(--text-light);}
         .section-subtitle-dark { color: var(--text-muted-dark); font-size: 15px; margin-bottom: 40px; }
-        
+
         .youtube-container {
             position: relative;
             max-width: 850px;
@@ -186,7 +191,7 @@
         /* --- Pain Points Section (Dark Theme ending here) --- */
         .pain-points { padding: 60px 0 120px; color: var(--text-light); }
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        
+
         /* The Card Fix - ensuring it stays on top of the gradient */
         .pain-card { 
             background-color: var(--bg-card-dark); 
@@ -203,7 +208,7 @@
             background-color: #233145; 
             box-shadow: 0 15px 30px rgba(0,0,0,0.4);
         }
-        
+
         .pain-card .icon-wrapper {
             width: 50px; height: 50px; margin-bottom: 18px;
             background: rgba(239, 68, 68, 0.1); border-radius: 10px;
@@ -235,7 +240,7 @@
             box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15); 
             border-color: rgba(59, 130, 246, 0.4);
         }
-        
+
         .feature-card .icon-wrapper {
             width: 50px; height: 50px; margin-bottom: 18px;
             background: rgba(59, 130, 246, 0.1); border-radius: 10px;
@@ -276,6 +281,7 @@
         }
         .slides img { 
             width: 100%; 
+            height: auto;
             flex-shrink: 0;
             display: block;
         }
@@ -290,7 +296,7 @@
         .reviewer-name { font-weight: 700; font-size: 16px; display: block; }
         .reviewer-meta { font-size: 12px; color: var(--primary); display: block; margin-top: 2px; }
         .review-text { font-size: 14px; color: var(--success); font-style: italic; line-height: 1.5; }
-        
+
         .add-review-btn { display: inline-block; background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 10px 22px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: 600; font-size: 15px; }
         .add-review-btn:hover { background: rgba(59, 130, 246, 0.1); transform: translateY(-2px); }
 
@@ -420,7 +426,7 @@
                 <img src="hero-banner3.png" alt="Hero Banner 3" class="hero-banner-img" onerror="this.style.display='none'">
                 <img src="hero-banner4.png" alt="Hero Banner 4" class="hero-banner-img" onerror="this.style.display='none'">
             </div>
-            
+
             <div class="hero-overlay-content">
                 <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="download-btn">
                     <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px;height:20px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
@@ -440,7 +446,7 @@
         <div class="container">
             <h2 class="section-title-dark">নিজের চোখেই দেখুন <span style="color: var(--primary);">AI</span> ম্যাজিক!</h2>
             <p class="section-subtitle-dark">কীভাবে কথা বললেই নিখুঁত টাইপিং হয়, দেখে নিন এক নজরে</p>
-            
+
             <div class="youtube-container">
                 <div class="custom-video-controls">
                     <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()" title="Play/Pause">
@@ -460,7 +466,7 @@
         <div class="container">
             <h2 class="section-title-dark">টাইপিং করতে গিয়ে আপনিও কি এই সমস্যাগুলোতে ভুগছেন?</h2>
             <p class="section-subtitle-dark">ম্যানুয়াল টাইপিংয়ের সাধারণ কিছু ভোগান্তি, যা আপনার কাজের গতি কমিয়ে দেয়</p>
-            
+
             <div class="grid-3">
                 <div class="pain-card">
                     <div class="icon-wrapper">
@@ -492,7 +498,7 @@
         <div class="container">
             <h2 class="section-title-light">আপনার জন্য Super AI এর <span style="color: var(--accent);">এক্সক্লুসিভ ফিচারসমূহ</span></h2>
             <p class="section-subtitle-light">যে কারণে এটি প্রতিটি উইন্ডোজ পিসি ইউজারের জন্য অপরিহার্য</p>
-            
+
             <div class="grid-3">
                 <div class="feature-card">
                     <div class="icon-wrapper">
@@ -547,7 +553,7 @@
         <div class="container">
             <h2 class="section-title-light">Super AI Typing কার জন্য সেরা সমাধান?</h2>
             <p class="section-subtitle-light">যাদের প্রতিদিন কম্পিউটারে কাজ করতে হয়, তাদের সবার জন্য। বিস্তারিত জানতে ক্লিক করুন:</p>
-            
+
             <div class="grid-4">
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🎓 শিক্ষক ও শিক্ষার্থী</span> <i class="fas fa-chevron-down arrow"></i></h3>
@@ -590,7 +596,7 @@
         <div class="container">
             <h2 class="section-title-light">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
             <p class="section-subtitle-light">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
-            
+
             <div class="slider-container">
                 <div class="slides" id="screenshotSlider">
                     <img src="screenshot1.png" alt="Interface 1" onerror="this.outerHTML='<div style=\'width:100%;flex-shrink:0;padding:100px 20px;background:#ffffff;color:#64748b;border:1px solid #e2e8f0;box-sizing:border-box;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
@@ -609,7 +615,7 @@
             <h2 class="section-title-light">আমাদের ইউজাররা কী বলছেন?</h2>
             <p class="section-subtitle-light">সারা বাংলাদেশ থেকে হাজারো সন্তুষ্ট ইউজারের মতামত</p>
         </div>
-        
+
         <div class="review-container">
             <div class="review-card">
                 <div class="reviewer-info">
@@ -682,7 +688,7 @@
         <div class="container">
             <h2 class="section-title-light">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
             <p class="section-subtitle-light" style="margin-bottom: 30px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
-            
+
             <div class="price-box">
                 <h3 style="font-size: 20px; margin:0;">১ মাসের প্রিমিয়াম স্টার্টিং সাবস্ক্রিপশন</h3>
                 <div class="price">৳ ৯৯ <span>/ মাস</span></div>
@@ -710,12 +716,12 @@
                     <strong>কেনার আগে ৩টি ফ্রি ট্রায়াল!</strong><br>
                     সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন। আপনি এই তিনটি ফ্রি ট্রায়াল ব্যবহার করে যাচাই করুন, তারপরে যেকোনো একটি সাবস্ক্রিপশন কিনে আনলিমিটেড ভয়েস টাইপিং ও ট্রান্সলেশন ব্যবহার করুন।
                 </p>
-                
+
                 <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="final-btn">
                     <svg class="svg-icon" viewBox="0 0 24 24" style="width:24px;height:24px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন
                 </a>
-                
+
                 <div class="final-os-badge">
                     <svg class="svg-icon" viewBox="0 0 24 24"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>
                     Windows 10 & 11 এর জন্য ১০০% অপ্টিমাইজড
@@ -747,9 +753,9 @@
         function initSmartSlider(containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
-            
+
             let currentIndex = 0;
-            
+
             function slide() {
                 const children = Array.from(container.children);
                 // Filter out images hidden by onerror
@@ -763,12 +769,12 @@
                     container.style.transform = `translateX(-${currentIndex * 100}%)`;
                 }
             }
-            
+
             // Allow time for images to fail loading and set 'display:none'
             setTimeout(() => {
                 const initialChildren = Array.from(container.children);
                 const initialValid = initialChildren.filter(child => window.getComputedStyle(child).display !== 'none');
-                
+
                 if (initialValid.length > 1) {
                     setInterval(slide, 5000);
                 }
