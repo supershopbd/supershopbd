@@ -92,10 +92,10 @@
             text-align: right; 
         }
         
-        /* ORIGINAL HERO SIZE FIXED HERE */
+        /* ORIGINAL HERO CONTAINER SIZE */
         .hero-banner-container {
             position: relative;
-            max-width: 1200px; /* Brought back original 1200px for perfect sizing */
+            max-width: 1200px; 
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
@@ -103,16 +103,19 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* NEW SLIDER WRAPPER */
         .hero-slides {
             display: flex;
             width: 100%;
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
+        /* ORIGINAL HERO IMAGE SIZE */
         .hero-banner-img {
             width: 100%;
+            height: auto;
             display: block;
-            flex-shrink: 0; /* Ensures slider works without squishing the image */
+            flex-shrink: 0;
         }
         
         .hero-fallback-div {
@@ -275,7 +278,7 @@
         .slides {
             display: flex;
             width: 100%;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); /* Smooth Slide Transition */
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .slides img { 
             width: 100%; 
@@ -309,14 +312,14 @@
         .modal-submit { background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; transition: 0.3s;}
         .modal-submit:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3); }
 
-        /* --- Pricing Section (Light Theme - LEFT ALIGNED AS REQUESTED) --- */
+        /* --- Pricing Section (CENTER ALIGNED AS REQUESTED) --- */
         .pricing { padding: 60px 0; }
-        .price-box { max-width: 450px; background: var(--bg-card-light); padding: 40px 25px; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; position: relative; }
+        .price-box { max-width: 450px; margin: 0 auto; background: var(--bg-card-light); padding: 40px 25px; border-radius: 16px; box-shadow: 0 15px 30px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; position: relative; text-align: center; }
         .price-box .section-title-light { font-size: 24px; }
         .price { font-size: 48px; font-weight: 700; margin: 15px 0; font-family: 'Inter', sans-serif; }
         .price span { font-size: 16px; color: var(--text-muted-light); font-weight: 400; }
         .pkg-info { color: var(--text-muted-light); font-size: 15px; margin-bottom: 25px; font-weight: 600; }
-        .payment-methods { display: flex; gap: 12px; margin-bottom: 18px; }
+        .payment-methods { display: flex; justify-content: center; gap: 12px; margin-bottom: 18px; }
         .pay-badge { padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
         .pay-bkash { background: rgba(226, 19, 110, 0.1); color: var(--bkash); border: 1px solid rgba(226, 19, 110, 0.2); }
         .pay-nagad { background: rgba(247, 148, 29, 0.1); color: var(--nagad); border: 1px solid rgba(247, 148, 29, 0.2); }
@@ -538,7 +541,7 @@
                         <svg class="svg-icon icon-primary" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
                     </div>
                     <h3>Auto Punctuation</h3>
-                    <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবেবিধা। কথার ধরন বুঝে এআই নিজ দায়িত্বে <span class="highlight-text">যতিচিহ্ন বসিয়ে</span> দেবে।</p>
+                    <p>দাড়ি, কমা কোথায় বসবে তা নিয়ে আর ভাবতে হবে না। কথার ধরন বুঝে এআই নিজ দায়িত্বে <span class="highlight-text">যতিচিহ্ন বসিয়ে</span> দেবে।</p>
                 </div>
             </div>
         </div>
@@ -681,8 +684,8 @@
         </div>
     </div>
 
-    <!-- Pricing Section (REVERTED TO LEFT-ALIGNED AS PER ORIGINAL CODE) -->
-    <section class="pricing">
+    <!-- Pricing Section (CENTER ALIGNED AS REQUESTED) -->
+    <section class="pricing text-center">
         <div class="container">
             <h2 class="section-title-light">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
             <p class="section-subtitle-light" style="margin-bottom: 30px;">সম্পূর্ণ দেশীয় পদ্ধতিতে নগদ বা বিকাশের মাধ্যমে পেমেন্ট করে আজই শুরু করুন</p>
@@ -844,9 +847,11 @@
             if (player.isMuted()) {
                 player.unMute();
                 player.setVolume(100);
+                // Volume Up Path
                 muteBtnIcon.setAttribute('d', 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
             } else {
                 player.mute();
+                // Mute Path
                 muteBtnIcon.setAttribute('d', 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z');
             }
         }
