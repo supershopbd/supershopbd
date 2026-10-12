@@ -88,14 +88,14 @@
         /* --- Hero Section (Dark Theme) --- */
         .hero { 
             position: relative;
-            padding: 110px 0 50px;
+            padding: 95px 0 40px; /* Reduced top padding to move banner slightly up */
             text-align: right; 
         }
         
-        /* ORIGINAL HERO CONTAINER SIZE (Exactly as requested) */
+        /* 100% CLEAN HERO CONTAINER (Adjusted to 1050px as per your red mark request) */
         .hero-banner-container {
             position: relative;
-            max-width: 1200px; 
+            max-width: 1050px; 
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
@@ -103,14 +103,19 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* SIMPLE FADE LOGIC (No width-breaking flexbox) */
+        /* FLEX SLIDER WRAPPER */
+        .hero-slides {
+            display: flex;
+            width: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+        
+        /* PURE ORIGINAL HERO IMAGE LOGIC (No zooming, no distortion) */
         .hero-slides img {
             width: 100%;
-            display: none; /* Hide all by default */
-        }
-        .hero-slides img.active {
-            display: block; /* Only show active */
-            animation: fade 1s;
+            height: auto;
+            display: block;
+            flex-shrink: 0;
         }
 
         .hero-overlay-content {
@@ -118,6 +123,7 @@
             bottom: 30px; 
             right: 40px; 
             text-align: center;
+            z-index: 10;
         }
         .download-btn {
             display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--primary), var(--accent));
@@ -248,7 +254,7 @@
         .aud-card .content { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f1f5f9; color: var(--text-muted-light); font-size: 14px; }
         .aud-card.active .content { display: block; }
 
-        /* --- Screenshot Slider (Light Theme Updated) --- */
+        /* --- Screenshot Slider (Clean Animated Logic) --- */
         .screenshot-section { padding: 60px 0; }
         .slider-container { 
             max-width: 850px; 
@@ -259,9 +265,17 @@
             border: 1px solid #e2e8f0; 
             box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
         }
-        .slides img { width: 100%; display: none; }
-        .slides img.active { display: block; animation: fade 1s; }
-        @keyframes fade { from { opacity: 0.4; } to { opacity: 1; } }
+        .screenshot-slides {
+            display: flex;
+            width: 100%;
+            transition: transform 0.8s ease-in-out;
+        }
+        .screenshot-slides img { 
+            width: 100%; 
+            height: auto;
+            flex-shrink: 0;
+            display: block;
+        }
 
         /* --- Review Section (Light Theme) --- */
         .review-section { padding: 60px 0; overflow: hidden; position: relative; }
@@ -387,22 +401,22 @@
     <header>
         <div class="nav-container container">
             <a href="#" class="logo-area">
-                <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+                <img src="logo.png" alt="Logo" onerror="this.remove()">
                 <div class="logo-text">Super AI <span>Typing</span></div>
             </a>
             <a href="#download-section" class="nav-btn">ফ্রি ট্রায়াল নিন</a>
         </div>
     </header>
 
-    <!-- Hero Section (Cleaned up, Fast, NO Auto-load Junk) -->
+    <!-- Hero Section (Cleaned, perfectly sized & moved slightly up) -->
     <section class="hero container">
         <div class="hero-banner-container">
-            <div class="hero-slides">
-                <!-- 4 Slots ready. Only the uploaded ones will show. -->
-                <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="active" onerror="this.style.display='none'">
-                <img src="hero-banner2.png" alt="Hero Banner 2" onerror="this.style.display='none'">
-                <img src="hero-banner3.png" alt="Hero Banner 3" onerror="this.style.display='none'">
-                <img src="hero-banner4.png" alt="Hero Banner 4" onerror="this.style.display='none'">
+            <div class="hero-slides" id="heroSlider">
+                <!-- If image is deleted from folder, it automatically removes itself without any ugly text -->
+                <img src="hero-banner.png" alt="Super AI Typing Hero Banner" onerror="this.remove()">
+                <img src="hero-banner2.png" alt="Hero Banner 2" onerror="this.remove()">
+                <img src="hero-banner3.png" alt="Hero Banner 3" onerror="this.remove()">
+                <img src="hero-banner4.png" alt="Hero Banner 4" onerror="this.remove()">
             </div>
             
             <div class="hero-overlay-content">
@@ -553,7 +567,7 @@
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🏪 কম্পিউটারের দোকানদার</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">কাস্টমারদের সিভি, বড় নথিপত্র বা দরখাস্ত এখন হাতে টাইপ না করে মুখে বলেই ঝটপট শেষ করে ফেলুন। ইনকাম বাড়বে।</div>
+                    <div class="content">কাস্টমারদের সিভি, বড় বড় নথিপত্র বা দরখাস্ত এখন হাতে টাইপ না করে মুখে বলেই ঝটপট শেষ করে ফেলুন। ইনকাম বাড়বে।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🛒 ই-কমার্স উদ্যোক্তা</span> <i class="fas fa-chevron-down arrow"></i></h3>
@@ -574,11 +588,11 @@
             <p class="section-subtitle-light">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
             
             <div class="slider-container">
-                <div class="slides" id="screenshotSlider">
-                    <img src="screenshot1.png" class="active" alt="Interface 1" onerror="this.outerHTML='<div style=\'width:100%;flex-shrink:0;padding:100px 20px;background:#ffffff;color:#64748b;border:1px solid #e2e8f0;box-sizing:border-box;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
-                    <img src="screenshot2.png" alt="Interface 2" onerror="this.style.display='none'">
-                    <img src="screenshot3.png" alt="Interface 3" onerror="this.style.display='none'">
-                    <img src="screenshot4.png" alt="Interface 4" onerror="this.style.display='none'">
+                <div class="screenshot-slides" id="screenshotSlider">
+                    <img src="screenshot1.png" alt="Interface 1" onerror="this.remove()">
+                    <img src="screenshot2.png" alt="Interface 2" onerror="this.remove()">
+                    <img src="screenshot3.png" alt="Interface 3" onerror="this.remove()">
+                    <img src="screenshot4.png" alt="Interface 4" onerror="this.remove()">
                 </div>
             </div>
         </div>
@@ -611,7 +625,7 @@
                     <span class="reviewer-name">অ্যাডভোকেট কামরুল</span>
                     <span class="reviewer-meta">সিলেট • আইনজীবী</span>
                 </div>
-                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
+                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। এখন সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
@@ -626,6 +640,20 @@
                     <span class="reviewer-meta">খুলনা • টাইপিং সেন্টার</span>
                 </div>
                 <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">রাশেদুল ইসলাম</span>
+                    <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
+                </div>
+                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">সায়মা রহমান</span>
+                    <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
+                </div>
+                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
             </div>
         </div>
 
@@ -644,7 +672,7 @@
         </div>
     </div>
 
-    <!-- Pricing Section -->
+    <!-- Pricing Section (CENTER ALIGNED) -->
     <section class="pricing text-center">
         <div class="container">
             <h2 class="section-title-light">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
@@ -694,12 +722,12 @@
     <!-- Footer -->
     <footer class="theme-dark">
         <div class="footer-container">
-            <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.outerHTML='<span style=\'font-weight:700;font-size:16px;\'>Super AI Typing</span>'">
+            <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.remove()">
             <div class="footer-links"><a href="#">Privacy Policy</a></div>
         </div>
     </footer>
 
-    <!-- Interactive Scripts -->
+    <!-- Interactive Scripts (Super Clean Slider Logic) -->
     <script>
         // 1. Audience Card Toggle
         function toggleCard(element) {
@@ -710,34 +738,29 @@
             element.classList.toggle('active');
         }
 
-        // 2. Clean, Safe Slider Logic (No DOM stretching)
-        function initCleanSlider(selector) {
-            let imgs = document.querySelectorAll(selector);
-            if(imgs.length === 0) return;
-            let index = 0;
-            
-            function nextSlide() {
-                // Find images that didn't trigger onerror (display is not 'none')
-                let validImgs = Array.from(imgs).filter(img => window.getComputedStyle(img).display !== 'none');
-                
-                if(validImgs.length > 1) {
-                    validImgs.forEach(i => i.classList.remove('active'));
-                    index++;
-                    if(index > validImgs.length) index = 1;
-                    validImgs[index-1].classList.add('active');
-                    setTimeout(nextSlide, 5000);
-                } else if(validImgs.length === 1) {
-                    validImgs[0].classList.add('active');
-                }
-            }
-            
-            // Wait slightly for browser to hide missing images
-            setTimeout(nextSlide, 1000);
+        // 2. Safe Smooth Slider Logic
+        function initSlideCarousel(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Wait a bit to ensure missing images (onerror="this.remove()") are actually removed from DOM
+            setTimeout(() => {
+                const slides = Array.from(container.querySelectorAll('img'));
+                if (slides.length <= 1) return; // If 0 or 1 image, don't slide.
+
+                let currentIndex = 0;
+                setInterval(() => {
+                    currentIndex++;
+                    if (currentIndex >= slides.length) {
+                        currentIndex = 0;
+                    }
+                    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }, 5000);
+            }, 1500); // 1.5 seconds gives the browser time to clear out 404 images
         }
 
-        // Start sliders safely
-        initCleanSlider('.hero-slides img');
-        initCleanSlider('#screenshotSlider img');
+        initSlideCarousel('heroSlider');
+        initSlideCarousel('screenshotSlider');
 
         // 3. Review Modal Functions
         function openModal() { document.getElementById('reviewModal').style.display = 'flex'; }
