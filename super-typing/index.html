@@ -88,14 +88,14 @@
         /* --- Hero Section (Dark Theme) --- */
         .hero { 
             position: relative;
-            padding: 95px 0 40px; /* Reduced top padding to move banner slightly up */
+            padding: 110px 0 50px;
             text-align: right; 
         }
         
-        /* 100% CLEAN HERO CONTAINER (Adjusted to 1050px as per your red mark request) */
+        /* 100% ORIGINAL HERO CONTAINER (Just like your first code) */
         .hero-banner-container {
             position: relative;
-            max-width: 1050px; 
+            max-width: 1200px; 
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
@@ -103,19 +103,27 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* FLEX SLIDER WRAPPER */
         .hero-slides {
             display: flex;
             width: 100%;
-            transition: transform 0.8s ease-in-out;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
-        /* PURE ORIGINAL HERO IMAGE LOGIC (No zooming, no distortion) */
-        .hero-slides img {
+        /* 100% ORIGINAL HERO IMAGE (No object-fit, no max-height) */
+        .hero-banner-img {
             width: 100%;
-            height: auto;
             display: block;
             flex-shrink: 0;
+        }
+        
+        .hero-fallback-div {
+            width: 100%;
+            flex-shrink: 0;
+            padding: 180px 20px;
+            background: #1e293b;
+            color: #94a3b8;
+            text-align: center;
+            box-sizing: border-box;
         }
 
         .hero-overlay-content {
@@ -254,7 +262,7 @@
         .aud-card .content { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f1f5f9; color: var(--text-muted-light); font-size: 14px; }
         .aud-card.active .content { display: block; }
 
-        /* --- Screenshot Slider (Clean Animated Logic) --- */
+        /* --- Screenshot Slider (Light Theme Updated) --- */
         .screenshot-section { padding: 60px 0; }
         .slider-container { 
             max-width: 850px; 
@@ -265,12 +273,12 @@
             border: 1px solid #e2e8f0; 
             box-shadow: 0 15px 30px rgba(0,0,0,0.08); 
         }
-        .screenshot-slides {
+        .slides {
             display: flex;
             width: 100%;
-            transition: transform 0.8s ease-in-out;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .screenshot-slides img { 
+        .slides img { 
             width: 100%; 
             height: auto;
             flex-shrink: 0;
@@ -401,22 +409,21 @@
     <header>
         <div class="nav-container container">
             <a href="#" class="logo-area">
-                <img src="logo.png" alt="Logo" onerror="this.remove()">
+                <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
                 <div class="logo-text">Super AI <span>Typing</span></div>
             </a>
             <a href="#download-section" class="nav-btn">ফ্রি ট্রায়াল নিন</a>
         </div>
     </header>
 
-    <!-- Hero Section (Cleaned, perfectly sized & moved slightly up) -->
+    <!-- Hero Section (Dark Theme with Smart Slider & PERFECT Size) -->
     <section class="hero container">
         <div class="hero-banner-container">
             <div class="hero-slides" id="heroSlider">
-                <!-- If image is deleted from folder, it automatically removes itself without any ugly text -->
-                <img src="hero-banner.png" alt="Super AI Typing Hero Banner" onerror="this.remove()">
-                <img src="hero-banner2.png" alt="Hero Banner 2" onerror="this.remove()">
-                <img src="hero-banner3.png" alt="Hero Banner 3" onerror="this.remove()">
-                <img src="hero-banner4.png" alt="Hero Banner 4" onerror="this.remove()">
+                <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.outerHTML='<div class=\'hero-fallback-div\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png আপলোড করুন]</div>'">
+                <img src="hero-banner2.png" alt="Hero Banner 2" class="hero-banner-img" onerror="this.style.display='none'">
+                <img src="hero-banner3.png" alt="Hero Banner 3" class="hero-banner-img" onerror="this.style.display='none'">
+                <img src="hero-banner4.png" alt="Hero Banner 4" class="hero-banner-img" onerror="this.style.display='none'">
             </div>
             
             <div class="hero-overlay-content">
@@ -538,6 +545,8 @@
         </div>
     </section>
 
+</div> <!-- End of gradient wrapper -->
+
     <!-- Target Audience -->
     <section class="audience text-center">
         <div class="container">
@@ -567,7 +576,7 @@
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🏪 কম্পিউটারের দোকানদার</span> <i class="fas fa-chevron-down arrow"></i></h3>
-                    <div class="content">কাস্টমারদের সিভি, বড় বড় নথিপত্র বা দরখাস্ত এখন হাতে টাইপ না করে মুখে বলেই ঝটপট শেষ করে ফেলুন। ইনকাম বাড়বে।</div>
+                    <div class="content">কাস্টমারদের সিভি, বড় নথিপত্র বা দরখাস্ত এখন হাতে টাইপ না করে মুখে বলেই ঝটপট শেষ করে ফেলুন। ইনকাম বাড়বে।</div>
                 </div>
                 <div class="aud-card" onclick="toggleCard(this)">
                     <h3><span>🛒 ই-কমার্স উদ্যোক্তা</span> <i class="fas fa-chevron-down arrow"></i></h3>
@@ -581,18 +590,19 @@
         </div>
     </section>
 
-    <!-- Screenshot Slider -->
+    <!-- Screenshot Slider (Updated to 4 Images with Smooth Slide) -->
     <section class="screenshot-section text-center">
         <div class="container">
             <h2 class="section-title-light">এক নজরে সফটওয়্যার ইন্টারফেস</h2>
             <p class="section-subtitle-light">সিম্পল, ক্লিন এবং ইউজার-ফ্রেন্ডলি ডিজাইন</p>
             
             <div class="slider-container">
-                <div class="screenshot-slides" id="screenshotSlider">
-                    <img src="screenshot1.png" alt="Interface 1" onerror="this.remove()">
-                    <img src="screenshot2.png" alt="Interface 2" onerror="this.remove()">
-                    <img src="screenshot3.png" alt="Interface 3" onerror="this.remove()">
-                    <img src="screenshot4.png" alt="Interface 4" onerror="this.remove()">
+                <div class="slides" id="screenshotSlider">
+                    <img src="screenshot1.png" alt="Interface 1" onerror="this.outerHTML='<div style=\'width:100%;flex-shrink:0;padding:100px 20px;background:#ffffff;color:#64748b;border:1px solid #e2e8f0;box-sizing:border-box;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
+                    <img src="screenshot2.png" alt="Interface 2" onerror="this.style.display='none'">
+                    <img src="screenshot3.png" alt="Interface 3" onerror="this.style.display='none'">
+                    <!-- 4th Screenshot Added Here -->
+                    <img src="screenshot4.png" alt="Interface 4" onerror="this.style.display='none'">
                 </div>
             </div>
         </div>
@@ -625,7 +635,7 @@
                     <span class="reviewer-name">অ্যাডভোকেট কামরুল</span>
                     <span class="reviewer-meta">সিলেট • আইনজীবী</span>
                 </div>
-                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। এখন সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
+                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
@@ -641,20 +651,7 @@
                 </div>
                 <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
             </div>
-            <div class="review-card">
-                <div class="reviewer-info">
-                    <span class="reviewer-name">রাশেদুল ইসলাম</span>
-                    <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
-                </div>
-                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
-            </div>
-            <div class="review-card">
-                <div class="reviewer-info">
-                    <span class="reviewer-name">সায়মা রহমান</span>
-                    <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
-                </div>
-                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
-            </div>
+            <!-- Removed the duplicated reviews for cleaner look -->
         </div>
 
         <button class="add-review-btn" onclick="openModal()">আপনার রিভিউ লিখুন</button>
@@ -672,7 +669,7 @@
         </div>
     </div>
 
-    <!-- Pricing Section (CENTER ALIGNED) -->
+    <!-- Pricing Section (CENTER ALIGNED AS REQUESTED) -->
     <section class="pricing text-center">
         <div class="container">
             <h2 class="section-title-light">পেমেন্ট করতে হবে ডলার বা কার্ডে? একদম না!</h2>
@@ -689,7 +686,7 @@
                     </div>
                     <div class="pay-badge pay-nagad">
                         <svg class="svg-icon" viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                        নগদ সাপোর্ট
+                        ন নগদ সাপোর্ট
                     </div>
                 </div>
             </div>
@@ -722,12 +719,12 @@
     <!-- Footer -->
     <footer class="theme-dark">
         <div class="footer-container">
-            <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.remove()">
+            <img src="logo.png" alt="Super AI Typing Logo" class="footer-logo" onerror="this.outerHTML='<span style=\'font-weight:700;font-size:16px;\'>Super AI Typing</span>'">
             <div class="footer-links"><a href="#">Privacy Policy</a></div>
         </div>
     </footer>
 
-    <!-- Interactive Scripts (Super Clean Slider Logic) -->
+    <!-- Interactive Scripts -->
     <script>
         // 1. Audience Card Toggle
         function toggleCard(element) {
@@ -738,29 +735,41 @@
             element.classList.toggle('active');
         }
 
-        // 2. Safe Smooth Slider Logic
-        function initSlideCarousel(containerId) {
+        // 2. Smart Universal Slider Logic (For both Hero & Screenshots)
+        function initSmartSlider(containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
+            
+            let currentIndex = 0;
+            
+            function slide() {
+                const children = Array.from(container.children);
+                // Filter out images hidden by onerror
+                const validSlides = children.filter(child => window.getComputedStyle(child).display !== 'none');
 
-            // Wait a bit to ensure missing images (onerror="this.remove()") are actually removed from DOM
-            setTimeout(() => {
-                const slides = Array.from(container.querySelectorAll('img'));
-                if (slides.length <= 1) return; // If 0 or 1 image, don't slide.
-
-                let currentIndex = 0;
-                setInterval(() => {
+                if (validSlides.length > 1) {
                     currentIndex++;
-                    if (currentIndex >= slides.length) {
+                    if (currentIndex >= validSlides.length) {
                         currentIndex = 0;
                     }
                     container.style.transform = `translateX(-${currentIndex * 100}%)`;
-                }, 5000);
-            }, 1500); // 1.5 seconds gives the browser time to clear out 404 images
+                }
+            }
+            
+            // Allow time for images to fail loading and set 'display:none'
+            setTimeout(() => {
+                const initialChildren = Array.from(container.children);
+                const initialValid = initialChildren.filter(child => window.getComputedStyle(child).display !== 'none');
+                
+                if (initialValid.length > 1) {
+                    setInterval(slide, 5000);
+                }
+            }, 1000);
         }
 
-        initSlideCarousel('heroSlider');
-        initSlideCarousel('screenshotSlider');
+        // Initialize both sliders dynamically
+        initSmartSlider('heroSlider');
+        initSmartSlider('screenshotSlider');
 
         // 3. Review Modal Functions
         function openModal() { document.getElementById('reviewModal').style.display = 'flex'; }
@@ -780,6 +789,9 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var player;
+        // ==========================================
+        // এখানে আপনার ইউটিউব ভিডিওর আইডিগুলো বসান
+        // ==========================================
         var videoPlaylist = ['YOUR_VIDEO_ID_1', 'YOUR_VIDEO_ID_2']; 
 
         function onYouTubeIframeAPIReady() {
@@ -820,9 +832,11 @@
             if (player.isMuted()) {
                 player.unMute();
                 player.setVolume(100);
+                // Volume Up Path
                 muteBtnIcon.setAttribute('d', 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
             } else {
                 player.mute();
+                // Mute Path
                 muteBtnIcon.setAttribute('d', 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z');
             }
         }
