@@ -85,17 +85,16 @@
         }
         .nav-btn:hover { opacity: 0.9; }
 
-        /* --- Hero Section (Dark Theme) --- */
+        /* --- Hero Section (Optimized for 14" & 15.6" Laptops) --- */
         .hero { 
             position: relative;
-            padding: 110px 0 50px;
+            padding: 85px 0 20px; /* Reduced top & bottom gap so next section is visible */
             text-align: right; 
         }
         
-        /* 100% ORIGINAL HERO CONTAINER (Just like your first code) */
         .hero-banner-container {
             position: relative;
-            max-width: 1200px; 
+            max-width: 850px; /* Compact 850px width so it doesn't look zoomed and leaves space at bottom */
             margin: 0 auto;
             border-radius: 14px; 
             overflow: hidden; 
@@ -109,42 +108,32 @@
             transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
-        /* 100% ORIGINAL HERO IMAGE (No object-fit, no max-height) */
         .hero-banner-img {
             width: 100%;
+            height: auto;
             display: block;
             flex-shrink: 0;
-        }
-        
-        .hero-fallback-div {
-            width: 100%;
-            flex-shrink: 0;
-            padding: 180px 20px;
-            background: #1e293b;
-            color: #94a3b8;
-            text-align: center;
-            box-sizing: border-box;
         }
 
         .hero-overlay-content {
             position: absolute;
-            bottom: 30px; 
-            right: 40px; 
+            bottom: 20px; 
+            right: 25px; 
             text-align: center;
             z-index: 10;
         }
         .download-btn {
             display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white; font-size: 16px; font-weight: 700; padding: 14px 35px; border-radius: 50px;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4); transition: transform 0.3s; margin-bottom: 12px;
+            color: white; font-size: 15px; font-weight: 700; padding: 11px 28px; border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4); transition: transform 0.3s; margin-bottom: 8px;
         }
         .download-btn:hover { transform: translateY(-3px); }
-        .os-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.6); padding: 6px 14px; border-radius: 20px; font-size: 12px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.2);}
+        .os-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.65); padding: 5px 12px; border-radius: 20px; font-size: 11.5px; color: #cbd5e1; border: 1px solid rgba(255,255,255,0.2);}
 
         /* --- Video Demo Section (Dark Theme) --- */
-        .video-section { padding: 60px 0; color: var(--text-light); }
-        .section-title-dark { font-size: 32px; font-weight: 700; margin-bottom: 12px; color: var(--text-light);}
-        .section-subtitle-dark { color: var(--text-muted-dark); font-size: 15px; margin-bottom: 40px; }
+        .video-section { padding: 25px 0 60px; color: var(--text-light); } /* Pulled up closer to hero banner */
+        .section-title-dark { font-size: 32px; font-weight: 700; margin-top: 0; margin-bottom: 10px; color: var(--text-light);}
+        .section-subtitle-dark { color: var(--text-muted-dark); font-size: 15px; margin-bottom: 35px; }
         
         .youtube-container {
             position: relative;
@@ -200,7 +189,7 @@
             text-align: left; 
             transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
             position: relative;
-            z-index: 2; /* Forces card to be above the gradient background */
+            z-index: 2;
         }
         .pain-card:hover { 
             transform: translateY(-8px); 
@@ -409,31 +398,31 @@
     <header>
         <div class="nav-container container">
             <a href="#" class="logo-area">
-                <img src="logo.png" alt="Logo" onerror="this.style.display='none'">
+                <img src="logo.png" alt="Logo" onerror="this.remove()">
                 <div class="logo-text">Super AI <span>Typing</span></div>
             </a>
             <a href="#download-section" class="nav-btn">ফ্রি ট্রায়াল নিন</a>
         </div>
     </header>
 
-    <!-- Hero Section (Dark Theme with Smart Slider & PERFECT Size) -->
+    <!-- Hero Section (Dark Theme with Smart Slider & 14-inch Laptop Optimized Size) -->
     <section class="hero container">
         <div class="hero-banner-container">
             <div class="hero-slides" id="heroSlider">
-                <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.outerHTML='<div class=\'hero-fallback-div\'>[হিরো ব্যানার ইমেজ - গিটহাবে hero-banner.png আপলোড করুন]</div>'">
-                <img src="hero-banner2.png" alt="Hero Banner 2" class="hero-banner-img" onerror="this.style.display='none'">
-                <img src="hero-banner3.png" alt="Hero Banner 3" class="hero-banner-img" onerror="this.style.display='none'">
-                <img src="hero-banner4.png" alt="Hero Banner 4" class="hero-banner-img" onerror="this.style.display='none'">
+                <img src="hero-banner.png" alt="Super AI Typing Hero Banner" class="hero-banner-img" onerror="this.remove()">
+                <img src="hero-banner2.png" alt="Hero Banner 2" class="hero-banner-img" onerror="this.remove()">
+                <img src="hero-banner3.png" alt="Hero Banner 3" class="hero-banner-img" onerror="this.remove()">
+                <img src="hero-banner4.png" alt="Hero Banner 4" class="hero-banner-img" onerror="this.remove()">
             </div>
             
             <div class="hero-overlay-content">
                 <a href="https://github.com/supershopbd/supershopbd.github.io/releases/download/v1.0/Super_AI_Typing_Setup_v1.0.1.exe" class="download-btn">
-                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:20px;height:20px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="width:18px;height:18px;"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     সম্পূর্ণ বিনামূল্যে ডাউনলোড করুন
                 </a>
                 <br>
                 <div class="os-badge">
-                    <svg class="svg-icon" viewBox="0 0 24 24" style="fill:#4ade80; width:14px; height:14px;"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="fill:#4ade80; width:13px; height:13px;"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.801"/></svg>
                     Windows 10 & 11 (100% Optimized)
                 </div>
             </div>
@@ -598,11 +587,10 @@
             
             <div class="slider-container">
                 <div class="slides" id="screenshotSlider">
-                    <img src="screenshot1.png" alt="Interface 1" onerror="this.outerHTML='<div style=\'width:100%;flex-shrink:0;padding:100px 20px;background:#ffffff;color:#64748b;border:1px solid #e2e8f0;box-sizing:border-box;\'>[গিটহাবে screenshot1.png আপলোড করুন]</div>'">
-                    <img src="screenshot2.png" alt="Interface 2" onerror="this.style.display='none'">
-                    <img src="screenshot3.png" alt="Interface 3" onerror="this.style.display='none'">
-                    <!-- 4th Screenshot Added Here -->
-                    <img src="screenshot4.png" alt="Interface 4" onerror="this.style.display='none'">
+                    <img src="screenshot1.png" alt="Interface 1" onerror="this.remove()">
+                    <img src="screenshot2.png" alt="Interface 2" onerror="this.remove()">
+                    <img src="screenshot3.png" alt="Interface 3" onerror="this.remove()">
+                    <img src="screenshot4.png" alt="Interface 4" onerror="this.remove()">
                 </div>
             </div>
         </div>
@@ -635,7 +623,7 @@
                     <span class="reviewer-name">অ্যাডভোকেট কামরুল</span>
                     <span class="reviewer-meta">সিলেট • আইনজীবী</span>
                 </div>
-                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
+                <p class="review-text">"কোর্টের বড় বড় ড্রাফট করতে গিয়ে আগে পিঠে ব্যথা হয়ে যেত। এখন সুপার এআই দিয়ে মুখে বলি আর টাইপ হয়ে যায়। ৯৯ টাকায় এটা আসলেই সেরা।"</p>
             </div>
             <div class="review-card">
                 <div class="reviewer-info">
@@ -651,7 +639,20 @@
                 </div>
                 <p class="review-text">"দোকানের কাজের চাপ অনেক কমেছে। কাস্টমারদের কাজ এখন আগের চেয়ে অর্ধেক সময়ে ডেলিভারি দিতে পারছি। ক্লাউড মাইক জোস!"</p>
             </div>
-            <!-- Removed the duplicated reviews for cleaner look -->
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">রাশেদুল ইসলাম</span>
+                    <span class="reviewer-meta">ঢাকা • ফ্রিল্যান্সার</span>
+                </div>
+                <p class="review-text">"অসাধারণ! লাইভ ট্রান্সলেশন ফিচারটা দিয়ে বিদেশি ক্লায়েন্টদের সাথে চ্যাট করা এখন পানির মতো সহজ হয়ে গেছে। ধন্যবাদ।"</p>
+            </div>
+            <div class="review-card">
+                <div class="reviewer-info">
+                    <span class="reviewer-name">সায়মা রহমান</span>
+                    <span class="reviewer-meta">চট্টগ্রাম • শিক্ষার্থী</span>
+                </div>
+                <p class="review-text">"আমার থিসিসের অনেক বড় একটা অংশ আমি শুধু কথা বলেই টাইপ করে ফেলেছি। ভাবতেই অবাক লাগছে, অনেক সময় বেঁচেছে!"</p>
+            </div>
         </div>
 
         <button class="add-review-btn" onclick="openModal()">আপনার রিভিউ লিখুন</button>
@@ -686,7 +687,7 @@
                     </div>
                     <div class="pay-badge pay-nagad">
                         <svg class="svg-icon" viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                        ন নগদ সাপোর্ট
+                        নগদ সাপোর্ট
                     </div>
                 </div>
             </div>
@@ -735,7 +736,7 @@
             element.classList.toggle('active');
         }
 
-        // 2. Smart Universal Slider Logic (For both Hero & Screenshots)
+        // 2. Smart Universal Slider Logic (Only slides uploaded images, no empty space)
         function initSmartSlider(containerId) {
             const container = document.getElementById(containerId);
             if (!container) return;
@@ -743,10 +744,7 @@
             let currentIndex = 0;
             
             function slide() {
-                const children = Array.from(container.children);
-                // Filter out images hidden by onerror
-                const validSlides = children.filter(child => window.getComputedStyle(child).display !== 'none');
-
+                const validSlides = Array.from(container.querySelectorAll('img'));
                 if (validSlides.length > 1) {
                     currentIndex++;
                     if (currentIndex >= validSlides.length) {
@@ -756,18 +754,14 @@
                 }
             }
             
-            // Allow time for images to fail loading and set 'display:none'
             setTimeout(() => {
-                const initialChildren = Array.from(container.children);
-                const initialValid = initialChildren.filter(child => window.getComputedStyle(child).display !== 'none');
-                
+                const initialValid = Array.from(container.querySelectorAll('img'));
                 if (initialValid.length > 1) {
                     setInterval(slide, 5000);
                 }
-            }, 1000);
+            }, 1200);
         }
 
-        // Initialize both sliders dynamically
         initSmartSlider('heroSlider');
         initSmartSlider('screenshotSlider');
 
@@ -832,11 +826,9 @@
             if (player.isMuted()) {
                 player.unMute();
                 player.setVolume(100);
-                // Volume Up Path
                 muteBtnIcon.setAttribute('d', 'M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
             } else {
                 player.mute();
-                // Mute Path
                 muteBtnIcon.setAttribute('d', 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z');
             }
         }
