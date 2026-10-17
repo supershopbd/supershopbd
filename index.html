@@ -39,56 +39,77 @@
             width: 100%; padding: 10px 13px; border: 1.5px solid #CBD5E1;
             border-radius: 8px; font-size: 15px; background: #F8FAFC; font-weight: 600;
         }
-        .btn {
-            background: #0284C7; color: #fff; border: none; padding: 8px 15px;
-            border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13.5px;
-        }
+        .btn { background: #0284C7; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13.5px; }
         .btn-del { background: #EF4444; color: #fff; border: none; padding: 7px 13px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; }
         .btn-warn { background: #F59E0B; color: #fff; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13.5px; }
         .btn-green { background: #10B981; color: #fff; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13.5px; }
 
-        .var-admin-card {
-            background: #ECFDF5; border: 2px solid #6EE7B7; border-radius: 14px;
-            padding: 18px; margin-bottom: 14px;
+        .var-admin-card { background: #ECFDF5; border: 2px solid #6EE7B7; border-radius: 14px; padding: 18px; margin-bottom: 14px; }
+        .stock-box-item { display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 1px solid #CBD5E1; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; }
+        .stock-num { background: #0F172A; color: #34D399; font-weight: 800; padding: 4px 10px; border-radius: 6px; font-size: 12.5px; min-width: 72px; text-align: center; }
+        .icon-preset { font-size: 18px; padding: 4px 8px; border: 1px solid #CBD5E1; border-radius: 6px; background: #fff; cursor: pointer; }
+
+        .live-pulse {
+            display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+            background: #10B981; box-shadow: 0 0 10px #10B981; animation: blink 1s infinite;
         }
-        .stock-box-item {
-            display: flex; align-items: center; gap: 10px; background: #FFFFFF;
-            border: 1px solid #CBD5E1; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px;
-        }
-        .stock-num {
-            background: #0F172A; color: #34D399; font-weight: 800; padding: 4px 10px;
-            border-radius: 6px; font-size: 12.5px; min-width: 72px; text-align: center;
-        }
-        .icon-preset {
-            font-size: 18px; padding: 4px 8px; border: 1px solid #CBD5E1;
-            border-radius: 6px; background: #fff; cursor: pointer;
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
         @media(max-width: 768px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <!-- 🔒 STANDALONE INSTANT LOGIN OVERLAY -->
+    <!-- 🔒 LOGIN OVERLAY -->
     <div id="login-screen" style="position:fixed; inset:0; background:#0F172A; z-index:9999; display:flex; align-items:center; justify-content:center; padding:15px;">
         <form onsubmit="return handleAdminLogin(event)" style="background:#fff; padding:35px; border-radius:18px; width:100%; max-width:370px; text-align:center; box-shadow:0 20px 50px rgba(0,0,0,0.5);">
             <h2 style="margin-bottom:8px; font-weight:800;">🔒 Super Shop Admin</h2>
             <p style="font-size:13.5px; color:#64748B; margin-bottom:16px;">পাসওয়ার্ড: <b>admin123</b> অথবা <b>123</b></p>
             <input type="password" id="adm-pass" class="inp" placeholder="পাসওয়ার্ড লিখুন..." style="margin-bottom:12px;" autofocus>
             <div id="login-err-msg" style="color:#DC2626; font-size:13.5px; font-weight:700; margin-bottom:10px; display:none;">❌ ভুল পাসওয়ার্ড! admin123 অথবা 123 দিন।</div>
-            <button type="submit" class="btn-green" style="width:100%; padding:13px; font-size:16px;">লগইন করুন</button>
+            <button type="submit" class="btn-green" style="width:100%; padding:13px; font-size:16px;">লগইন করুন (অ্যালার্ম চালু হবে)</button>
         </form>
     </div>
 
     <script>
-        // Standalone Login Handler (Never blocked by anything)
+        // Loud Web Audio Siren Synthesizer (Never fails, no external mp3 needed!)
+        var audioCtx = null;
+        var alarmMuted = false;
+
+        function playLoudOrderAlarm() {
+            if (alarmMuted) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+
+                var now = audioCtx.currentTime;
+                for (var i = 0; i < 4; i++) {
+                    var osc = audioCtx.createOscillator();
+                    var gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(880, now + i * 0.28);
+                    osc.frequency.exponentialRampToValueAtTime(1480, now + i * 0.28 + 0.14);
+                    gain.gain.setValueAtTime(0.35, now + i * 0.28);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.28 + 0.25);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + i * 0.28);
+                    osc.stop(now + i * 0.28 + 0.26);
+                }
+            } catch (e) {}
+        }
+
         function handleAdminLogin(e) {
             if (e) e.preventDefault();
             var val = document.getElementById('adm-pass').value.trim().toLowerCase();
             if (val === 'admin123' || val === '123' || val === 'admin') {
+                // Unlock AudioContext on login click so browser allows loud alarm
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    audioCtx.resume();
+                } catch(err){}
                 document.getElementById('login-screen').style.display = 'none';
-                if (typeof window.initAdmin === 'function') {
-                    window.initAdmin();
-                }
+                if (typeof window.initAdmin === 'function') window.initAdmin();
             } else {
                 document.getElementById('login-err-msg').style.display = 'block';
             }
@@ -99,8 +120,8 @@
     <div class="topbar">
         <div style="font-size:19px; font-weight:800;">⚡ Super Shop BD — মাস্টার অ্যাডমিন প্যানেল</div>
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('orders', this)">🔔 অর্ডার (Approve / Cancel)</button>
-            <button class="tab-btn" onclick="switchTab('products', this)">📦 প্রোডাক্ট, ভেরিয়েন্ট ও স্টক ভল্ট</button>
+            <button class="tab-btn active" onclick="switchTab('orders', this)">🔔 লাইভ অর্ডার <span id="pending-badge" style="background:#EF4444; color:#fff; padding:2px 7px; border-radius:10px; font-size:12px; margin-left:4px;">0</span></button>
+            <button class="tab-btn" onclick="switchTab('products', this)">📦 প্রোডাক্ট, ভিডিও ও স্ক্রিনশট</button>
             <button class="tab-btn" onclick="switchTab('homepage', this)">🏠 হোমপেজ ও পেইজ লিংক</button>
             <button class="tab-btn" onclick="switchTab('payment', this)">💳 বিকাশ/নগদ (52 / 50)</button>
         </div>
@@ -109,23 +130,29 @@
 
     <div class="wrap">
 
-        <!-- TAB 1: ORDERS -->
+        <!-- TAB 1: LIVE 1.5s AUTO-RELOAD ORDERS & ALARM -->
         <div id="tab-orders" class="tab-sec">
             <div class="card">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                    <h3>🔔 কাস্টমার অর্ডার লিস্ট (Approve বা Cancel করলে কাস্টমারের স্ক্রিনে সাথে সাথে রেজাল্ট দেখাবে)</h3>
-                    <button class="btn" onclick="loadOrders()">🔄 রিফ্রেশ করুন</button>
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+                    <div>
+                        <h3 style="border:none; margin:0; padding:0;">🔔 লাইভ অর্ডার প্যানেল <span style="font-size:13px; color:#059669; margin-left:8px;"><span class="live-pulse"></span> প্রতি ১.৫ সেকেন্ডে অটো-রিলোড হচ্ছে</span></h3>
+                    </div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn-warn" onclick="playLoudOrderAlarm()">🔊 অ্যালার্ম টেস্ট করুন</button>
+                        <button class="btn" id="mute-btn" onclick="toggleMuteAlarm()">🔔 সাউন্ড চালু আছে</button>
+                        <button class="btn" onclick="loadOrders()">🔄 ম্যানুয়াল রিফ্রেশ</button>
+                    </div>
                 </div>
                 <div id="orders-container">লোড হচ্ছে...</div>
             </div>
         </div>
 
-        <!-- TAB 2: PRODUCTS & VARIANT STOCK VAULT -->
+        <!-- TAB 2: PRODUCTS, VARIANTS, VIDEOS & SCREENSHOTS -->
         <div id="tab-products" class="tab-sec" style="display:none;">
             <div class="card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                 <div>
-                    <h3 style="border:none; margin:0; padding:0;">📦 প্রোডাক্ট, ভেরিয়েন্ট (ON/OFF) ও স্টক ভল্ট ম্যানেজার</h3>
-                    <p style="font-size:14px; color:#64748B;">যেকোনো প্রোডাক্টে ভেরিয়েন্ট চালু/বন্ধ এবং ইনফো বক্স (Account Type, Duration ইত্যাদি) কম-বেশি করতে পারবেন</p>
+                    <h3 style="border:none; margin:0; padding:0;">📦 প্রোডাক্ট, ভেরিয়েন্ট, অটো-প্লে ভিডিও ও স্ক্রিনশট ক্যারাসল ম্যানেজার</h3>
+                    <p style="font-size:14px; color:#64748B;">প্রতিটি প্রোডাক্টের ফিচারের নিচে ভিডিও এবং স্ক্রিনশট স্লাইডার এখান থেকেই অন/অফ ও কন্ট্রোল করতে পারবেন</p>
                 </div>
                 <button class="btn-green" onclick="addNewProduct()">➕ নতুন প্রোডাক্ট যোগ করুন</button>
             </div>
@@ -256,6 +283,14 @@
         const PRESET_ICONS = ["🎬", "☁️", "📓", "📹", "🧠", "📄", "🎨", "⚡", "🛡️", "🔑", "💻", "📱", "🌐", "🚀", "💎"];
 
         let appData = { settings: {}, products: [] };
+        let lastOrdersSignature = "";
+
+        function toggleMuteAlarm() {
+            alarmMuted = !alarmMuted;
+            const btn = document.getElementById('mute-btn');
+            btn.innerText = alarmMuted ? "🔕 অ্যালার্ম মিউট করা" : "🔔 সাউন্ড চালু আছে";
+            btn.style.background = alarmMuted ? "#64748B" : "#0284C7";
+        }
 
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-sec').forEach(el => el.style.display = 'none');
@@ -271,7 +306,7 @@
                 if (remote && remote.products && remote.products.length > 0) {
                     appData = remote;
                 } else {
-                    const cached = localStorage.getItem("supershop_cache_v6");
+                    const cached = localStorage.getItem("supershop_cache_v8");
                     if (cached) appData = JSON.parse(cached);
                 }
             } catch (e) {}
@@ -279,6 +314,9 @@
             populateSettingsForm();
             renderProductsEditor();
             loadOrders();
+
+            // ⚡ Continuous 1.5-Second Live Order Polling & Loud Siren
+            setInterval(loadOrders, 1500);
         };
 
         function populateSettingsForm() {
@@ -372,7 +410,11 @@
             container.innerHTML = products.map((p, idx) => {
                 p.variants = p.variants || [{ name: "1 Month Pack", price: p.price || 199, oldPrice: p.oldPrice || 450, stockVault: [] }];
                 p.stockVault = p.stockVault || [];
+                p.videos = p.videos || [];
+                p.screenshots = p.screenshots || [];
                 const isVarOn = p.variantsEnabled !== false;
+                const isVidOn = p.videosEnabled === true;
+                const isShotOn = p.screenshotsEnabled === true;
 
                 const specsRows = (p.specs || []).map((sp, sIdx) =>
                     '<div style="display:flex; gap:10px; margin-bottom:8px;">' +
@@ -388,6 +430,24 @@
                         '<input type="text" class="inp" value="' + (f.title || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].features[' + fIdx + '].title = this.value">' +
                         '<input type="text" class="inp" value="' + (f.desc || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].features[' + fIdx + '].desc = this.value">' +
                         '<button class="btn-del" onclick="appData.products[' + idx + '].features.splice(' + fIdx + ',1); renderProductsEditor();">✖</button>' +
+                    '</div>'
+                ).join('');
+
+                const videoRows = (p.videos || []).map((vUrl, vIdx) =>
+                    '<div style="display:flex; gap:10px; margin-bottom:8px; align-items:center;">' +
+                        '<span class="stock-num">ভিডিও #' + (vIdx + 1) + '</span>' +
+                        '<input type="text" class="inp" placeholder="YouTube লিংক অথবা সরাসরি .mp4 ভিডিও লিংক দিন..." value="' + (typeof vUrl === 'string' ? vUrl : (vUrl.url || '')).replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].videos[' + vIdx + '] = this.value">' +
+                        '<button class="btn-del" onclick="appData.products[' + idx + '].videos.splice(' + vIdx + ',1); renderProductsEditor();">✖</button>' +
+                    '</div>'
+                ).join('');
+
+                const shotRows = (p.screenshots || []).map((sh, shIdx) =>
+                    '<div style="display:grid; grid-template-columns: 95px 1.4fr 1fr auto 40px; gap:8px; margin-bottom:8px; align-items:center;">' +
+                        '<span class="stock-num">স্লাইড #' + (shIdx + 1) + '</span>' +
+                        '<input type="text" class="inp" placeholder="স্ক্রিনশট ছবির লিংক বা ফাইলের নাম (যেমন: screenshot1.png)" value="' + (sh.url || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].screenshots[' + shIdx + '].url = this.value">' +
+                        '<input type="text" class="inp" placeholder="ক্যাপশন (ঐচ্ছিক)" value="' + (sh.caption || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].screenshots[' + shIdx + '].caption = this.value">' +
+                        '<label class="btn" style="cursor:pointer; margin:0; text-align:center;">📤 আপলোড<input type="file" accept="image/*" style="display:none;" onchange="uploadShotFile(event, ' + idx + ', ' + shIdx + ')"></label>' +
+                        '<button class="btn-del" onclick="appData.products[' + idx + '].screenshots.splice(' + shIdx + ',1); renderProductsEditor();">✖</button>' +
                     '</div>'
                 ).join('');
 
@@ -437,7 +497,7 @@
                     </div>
 
                     <div class="fld" style="background:#FFFBEB; padding:14px; border-radius:12px; border:1.5px solid #F59E0B;">
-                        <label style="color:#B45309;">🎁 কাস্টমাইজড ডেলিভারি বক্স মেসেজ (ভেরিফাই হওয়ার পর আইডির উপরে যে রেডিমেড মেসেজ দেখাবে):</label>
+                        <label style="color:#B45309;">🎁 কাস্টমাইজড ডেলিভারি বক্স মেসেজ:</label>
                         <textarea class="inp" rows="2" oninput="updateProd(${idx}, 'deliveryTemplate', this.value)">${p.deliveryTemplate || ''}</textarea>
                     </div>
 
@@ -461,31 +521,70 @@
                         ${specsRows}
                     </div>
 
-                    <div style="background:#F8FAFC; padding:15px; border-radius:12px; border:1px solid #CBD5E1;">
+                    <div style="background:#F8FAFC; padding:15px; border-radius:12px; margin-bottom:15px; border:1px solid #CBD5E1;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                            <b>✨ ফিচার কার্ডসমূহ:</b>
+                            <b>✨ ফিচারসমূহ:</b>
                             <button class="btn" onclick="addFeature(${idx})">➕ নতুন ফিচার যোগ করুন</button>
+                        </div>
+                        <div style="margin-bottom:8px; font-size:13px;">
+                            আইকন কপি করুন: ${PRESET_ICONS.map(ic => `<button type="button" class="icon-preset" onclick="navigator.clipboard.writeText('${ic}')">${ic}</button>`).join(' ')}
                         </div>
                         ${featRows}
                     </div>
+
+                    <!-- 🎬 AUTOPLAY VIDEO SECTION -->
+                    <div style="background:#ECFDF5; padding:16px; border-radius:12px; margin-bottom:15px; border:2px solid #10B981;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+                            <div>
+                                <b style="color:#065F46; font-size:16px;">🎬 প্রোডাক্ট ভিডিও সেকশন (Autoplay + On/Off & Volume Control)</b>
+                                <p style="font-size:12.5px; color:#047857;">চালু করলে ফিচারের নিচে অটোমেটিক ভিডিও চলবে (কোনো সাজেশন থাকবে না)</p>
+                            </div>
+                            <select class="inp" style="width:auto; font-weight:800; color:#059669;" onchange="updateProd(${idx}, 'videosEnabled', this.value === 'true'); renderProductsEditor();">
+                                <option value="false" ${!isVidOn ? 'selected' : ''}>⚪ ভিডিও সেকশন বন্ধ (OFF)</option>
+                                <option value="true" ${isVidOn ? 'selected' : ''}>🟢 ভিডিও সেকশন চালু (ON)</option>
+                            </select>
+                        </div>
+                        ${isVidOn ? `
+                            <div style="margin-bottom:10px;">
+                                <button class="btn-green" onclick="addVideo(${idx})">➕ ভিডিও লিংক যোগ করুন (১টি বা ২টি)</button>
+                            </div>
+                            ${videoRows || '<p style="font-size:13px; color:#64748B;">উপরের বাটনে ক্লিক করে ভিডিও লিংক দিন।</p>'}
+                        ` : ''}
+                    </div>
+
+                    <!-- 🖼️ SCREENSHOT CAROUSEL SECTION -->
+                    <div style="background:#EFF6FF; padding:16px; border-radius:12px; border:2px solid #3B82F6;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+                            <div>
+                                <b style="color:#1E40AF; font-size:16px;">🖼️ স্ক্রিনশট ক্যারাসল স্লাইডার (ডান থেকে বামে স্লাইড + ডট + ক্লিক জুম)</b>
+                                <p style="font-size:12.5px; color:#1D4ED8;">চালু করলে স্ক্রিনশটগুলো ক্যারাসল আকারে চলবে এবং নিচে ডট দেখাবে</p>
+                            </div>
+                            <select class="inp" style="width:auto; font-weight:800; color:#1D4ED8;" onchange="updateProd(${idx}, 'screenshotsEnabled', this.value === 'true'); renderProductsEditor();">
+                                <option value="false" ${!isShotOn ? 'selected' : ''}>⚪ স্ক্রিনশট ক্যারাসল বন্ধ (OFF)</option>
+                                <option value="true" ${isShotOn ? 'selected' : ''}>🟢 স্ক্রিনশট ক্যারাসল চালু (ON)</option>
+                            </select>
+                        </div>
+                        ${isShotOn ? `
+                            <div style="margin-bottom:10px;">
+                                <button class="btn" onclick="addScreenshot(${idx})">➕ নতুন স্ক্রিনশট যোগ করুন</button>
+                            </div>
+                            ${shotRows || '<p style="font-size:13px; color:#64748B;">উপরের বাটনে ক্লিক করে স্ক্রিনশট যোগ করুন।</p>'}
+                        ` : ''}
+                    </div>
+
                 </div>`;
             }).join('');
         }
 
         function updateProd(idx, key, val) { appData.products[idx][key] = val; }
-        function addVariant(idx) {
-            appData.products[idx].variants.push({ name: "New Variant", price: 199, oldPrice: 400, stockVault: [] });
-            renderProductsEditor();
-        }
+        function addVariant(idx) { appData.products[idx].variants.push({ name: "New Variant", price: 199, oldPrice: 400, stockVault: [] }); renderProductsEditor(); }
         function deleteVariant(idx, vIdx) {
             if (appData.products[idx].variants.length <= 1) return alert("অন্তত ১টি ভেরিয়েন্ট থাকতে হবে!");
-            appData.products[idx].variants.splice(vIdx, 1);
-            renderProductsEditor();
+            appData.products[idx].variants.splice(vIdx, 1); renderProductsEditor();
         }
         function addVarStockBox(idx, vIdx) {
             appData.products[idx].variants[vIdx].stockVault = appData.products[idx].variants[vIdx].stockVault || [];
-            appData.products[idx].variants[vIdx].stockVault.push({ content: "", used: false });
-            renderProductsEditor();
+            appData.products[idx].variants[vIdx].stockVault.push({ content: "", used: false }); renderProductsEditor();
         }
         function bulkAddVarStock(idx, vIdx) {
             const raw = prompt("প্রতি লাইনে ১টি করে অ্যাকাউন্ট রেখে এখানে পেস্ট করুন:");
@@ -497,8 +596,7 @@
         }
         function addSingleStockBox(idx) {
             appData.products[idx].stockVault = appData.products[idx].stockVault || [];
-            appData.products[idx].stockVault.push({ content: "", used: false });
-            renderProductsEditor();
+            appData.products[idx].stockVault.push({ content: "", used: false }); renderProductsEditor();
         }
         function bulkAddSingleStock(idx) {
             const raw = prompt("প্রতি লাইনে ১টি করে অ্যাকাউন্ট রেখে এখানে পেস্ট করুন:");
@@ -508,16 +606,32 @@
             lines.forEach(l => appData.products[idx].stockVault.push({ content: l, used: false }));
             renderProductsEditor();
         }
-        function addSpec(idx) {
-            appData.products[idx].specs = appData.products[idx].specs || [];
-            appData.products[idx].specs.push({ label: "Account Info", val: "Details" });
-            renderProductsEditor();
+        function addSpec(idx) { appData.products[idx].specs = appData.products[idx].specs || []; appData.products[idx].specs.push({ label: "Account Info", val: "Details" }); renderProductsEditor(); }
+        function addFeature(idx) { appData.products[idx].features = appData.products[idx].features || []; appData.products[idx].features.push({ icon: "✨", title: "নতুন ফিচার", desc: "বিবরণ" }); renderProductsEditor(); }
+        function addVideo(idx) { appData.products[idx].videos = appData.products[idx].videos || []; appData.products[idx].videos.push(""); renderProductsEditor(); }
+        function addScreenshot(idx) { appData.products[idx].screenshots = appData.products[idx].screenshots || []; appData.products[idx].screenshots.push({ url: "", caption: "" }); renderProductsEditor(); }
+
+        function uploadShotFile(e, pIdx, shIdx) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxW = 900;
+                    const scale = img.width > maxW ? (maxW / img.width) : 1;
+                    canvas.width = img.width * scale;
+                    canvas.height = img.height * scale;
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    appData.products[pIdx].screenshots[shIdx].url = canvas.toDataURL('image/jpeg', 0.82);
+                    renderProductsEditor();
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
         }
-        function addFeature(idx) {
-            appData.products[idx].features = appData.products[idx].features || [];
-            appData.products[idx].features.push({ icon: "✨", title: "নতুন ফিচার", desc: "বিবরণ" });
-            renderProductsEditor();
-        }
+
         function addNewProduct() {
             const name = prompt("নতুন প্রোডাক্টের নাম লিখুন:");
             if (!name) return;
@@ -525,26 +639,22 @@
             appData.products.push({
                 id: "p_" + Date.now(), slug: slug, visible: true, name: name,
                 category: "প্রিমিয়াম সাবস্ক্রিপশন", popBadge: "✨ New", stockMode: "auto",
-                price: 149, oldPrice: 400, btnText: "বিস্তারিত ও অর্ডার করুন ➔",
-                thumb: "",
+                price: 149, oldPrice: 400, btnText: "বিস্তারিত ও অর্ডার করুন ➔", thumb: "",
                 shortDesc: name + " অফিসিয়াল প্রিমিয়াম সাবস্ক্রিপশন।",
                 longDesc: name + "-এর সকল প্রো ফিচার আনলক করুন।",
                 deliveryTemplate: "🎉 অভিনন্দন! আপনার " + name + " সাবস্ক্রিপশন নিচে দেওয়া হলো:",
-                variantsEnabled: true,
-                variantTitle: "⚡ আপনার পছন্দের ভেরিয়েন্ট বাছাই করুন:",
+                variantsEnabled: true, variantTitle: "⚡ আপনার পছন্দের ভেরিয়েন্ট বাছাই করুন:",
                 variants: [{ name: "1 Month (30 Days)", price: 149, oldPrice: 400, stockVault: [] }],
-                stockVault: [],
-                specsEnabled: true,
+                stockVault: [], specsEnabled: true,
                 specs: [{ label: "Account Type", val: "Official Pro Access" }, { label: "Duration", val: "30 Days" }],
+                videosEnabled: false, videos: [], screenshotsEnabled: false, screenshots: [],
                 features: [{ icon: "⚡", title: "100% Pro Access", desc: "সকল ফিচার আনলকড।" }]
             });
             renderProductsEditor();
         }
+
         function deleteProduct(idx) {
-            if (confirm("প্রোডাক্টটি ডিলিট করতে চান?")) {
-                appData.products.splice(idx, 1);
-                renderProductsEditor();
-            }
+            if (confirm("প্রোডাক্টটি ডিলিট করতে চান?")) { appData.products.splice(idx, 1); renderProductsEditor(); }
         }
 
         async function saveAllToCloud() {
@@ -574,26 +684,41 @@
                 }
             };
 
-            localStorage.setItem("supershop_cache_v6", JSON.stringify(appData));
+            localStorage.setItem("supershop_cache_v8", JSON.stringify(appData));
             await fetch(DB_URL + "/data.json", { method: 'PUT', body: JSON.stringify(appData) });
             alert("✅ সব পরিবর্তন ক্লাউডে সেভ ও ওয়েবসাইটে লাইভ হয়ে গেছে!");
         }
 
+        // 🔔 1.5s AUTO-RELOAD ORDERS + LOUD ALARM SIREN WHEN ANY ORDER IS PENDING
         async function loadOrders() {
             const box = document.getElementById('orders-container');
             try {
-                const res = await fetch(DB_URL + "/orders.json");
+                const res = await fetch(DB_URL + "/orders.json?t=" + Date.now());
                 const ords = await res.json() || {};
                 const keys = Object.keys(ords).reverse();
+
+                let pendingCount = 0;
+                keys.forEach(k => { if (ords[k].status === "Pending") pendingCount++; });
+                document.getElementById('pending-badge').innerText = pendingCount;
+
+                // Ring loud siren if there is any Pending order waiting for approval!
+                if (pendingCount > 0) {
+                    playLoudOrderAlarm();
+                }
+
+                const sig = JSON.stringify(ords);
+                if (sig === lastOrdersSignature) return;
+                lastOrdersSignature = sig;
+
                 if (keys.length === 0) { box.innerHTML = "<p>এখনো কোনো অর্ডার আসেনি।</p>"; return; }
                 box.innerHTML = keys.map(k => {
                     const o = ords[k];
                     const isPending = o.status === "Pending";
                     const isRejected = o.status && o.status.includes("Rejected");
-                    return '<div style="border:1.5px solid #CBD5E1; padding:15px; border-radius:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:' + (isPending ? '#FFFBEB' : (isRejected ? '#FEF2F2' : '#F0FDF4')) + ';">' +
+                    return '<div style="border:2px solid ' + (isPending ? '#F59E0B' : (isRejected ? '#EF4444' : '#10B981')) + '; padding:15px; border-radius:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:' + (isPending ? '#FFFBEB' : (isRejected ? '#FEF2F2' : '#F0FDF4')) + ';">' +
                         '<div>' +
                             '<b>' + o.productName + ' — [' + (o.variantName || 'Standard') + '] (৳' + o.amount + ')</b><br>' +
-                            '<span style="color:#059669; font-weight:800;">TrxID/নাম্বার: ' + o.trxOrPhone + '</span> | সময়: ' + o.time + '<br>' +
+                            '<span style="color:#059669; font-weight:800; font-size:16px;">TrxID/নাম্বার: ' + o.trxOrPhone + '</span> | সময়: ' + o.time + '<br>' +
                             '<small>ইমেইল: ' + o.email + ' | WA: ' + o.whatsapp + ' | স্ট্যাটাস: <b>' + o.status + '</b></small>' +
                         '</div>' +
                         '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
@@ -602,7 +727,7 @@
                         '</div>' +
                     '</div>';
                 }).join('');
-            } catch (e) { box.innerHTML = "অর্ডার লোড করা যায়নি।"; }
+            } catch (e) {}
         }
 
         async function approveAndDeliver(orderId, slug, varIdx) {
@@ -630,7 +755,7 @@
             await fetch(DB_URL + "/orders/" + orderId + "/status.json", { method: 'PUT', body: JSON.stringify("Approved") });
             await fetch(DB_URL + "/orders/" + orderId + "/deliveredAccount.json", { method: 'PUT', body: JSON.stringify(accountToDeliver) });
 
-            alert("✅ ডেলিভারি সম্পন্ন! কাস্টমারের স্ক্রিনে সাথে সাথে প্রোডাক্ট বক্স চলে গেছে।");
+            lastOrdersSignature = "";
             loadOrders();
             renderProductsEditor();
         }
@@ -638,12 +763,13 @@
         async function rejectOrder(orderId) {
             if (!confirm("আপনি কি নিশ্চিত যে এই পেমেন্টটি পাওয়া যায়নি এবং অর্ডারটি Cancel করতে চান?")) return;
             await fetch(DB_URL + "/orders/" + orderId + "/status.json", { method: 'PUT', body: JSON.stringify("Rejected") });
-            alert("❌ অর্ডারটি ক্যানসেল করা হয়েছে!");
+            lastOrdersSignature = "";
             loadOrders();
         }
 
         async function deleteOrder(orderId) {
             await fetch(DB_URL + "/orders/" + orderId + ".json", { method: 'DELETE' });
+            lastOrdersSignature = "";
             loadOrders();
         }
     </script>
