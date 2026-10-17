@@ -3,395 +3,852 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Shop BD - Theme & Landing Page Visual Selector</title>
+    <title id="page-title">Super Shop BD - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ</title>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* 🎨 THEME VARIABLES */
-        :root, [data-theme="cyber"] {
-            --bg-main: #0B1120;
-            --bg-card: #1E293B;
-            --bg-hero: radial-gradient(circle at top right, #1E3A8A, #0F172A 70%);
-            --primary: #0EA5E9;
-            --primary-grad: linear-gradient(90deg, #0EA5E9, #2563EB);
-            --accent: #F59E0B;
-            --border-clr: rgba(56, 189, 248, 0.3);
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-        }
-
-        [data-theme="emerald"] {
-            --bg-main: #061310;
-            --bg-card: #0D261F;
-            --bg-hero: radial-gradient(circle at top right, #065F46, #061310 70%);
-            --primary: #10B981;
-            --primary-grad: linear-gradient(90deg, #10B981, #059669);
-            --accent: #FBBF24;
-            --border-clr: rgba(16, 185, 129, 0.35);
-            --text-main: #ECFDF5;
-            --text-muted: #A7F3D0;
-        }
-
-        [data-theme="violet"] {
-            --bg-main: #0D091A;
-            --bg-card: #1A1230;
-            --bg-hero: radial-gradient(circle at top right, #4C1D95, #0D091A 70%);
-            --primary: #8B5CF6;
-            --primary-grad: linear-gradient(90deg, #8B5CF6, #EC4899);
-            --accent: #F472B6;
-            --border-clr: rgba(139, 92, 246, 0.35);
-            --text-main: #F5F3FF;
-            --text-muted: #C4B5FD;
+        :root {
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-main: #0F172A;
+            --text-sub: #475569;
+            --primary: #0284C7;
+            --primary-dark: #0369A1;
+            --primary-grad: linear-gradient(135deg, #0284C7, #2563EB);
+            --emerald: #10B981;
+            --amber: #F59E0B;
+            --border: #E2E8F0;
+            --shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; }
-        body { background: var(--bg-main); color: var(--text-main); transition: 0.3s; padding-top: 70px; }
+        body { background-color: var(--bg-body); color: var(--text-main); line-height: 1.65; }
 
-        /* 🎛️ TOP PREVIEW SWITCHER BAR */
-        .preview-bar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
-            background: #000000; border-bottom: 2px solid var(--accent);
-            padding: 10px 20px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;
-        }
-        .bar-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .bar-btn {
-            background: #222; color: #fff; border: 1px solid #444; padding: 6px 14px;
-            border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; transition: 0.2s;
-        }
-        .bar-btn.active { background: var(--primary-grad); border-color: #fff; }
-
-        /* NAVBAR */
+        /* Professional White Header */
         .navbar {
-            background: rgba(0,0,0,0.4); backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            padding: 15px 6%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
         }
-        .brand { font-size: 24px; font-weight: 700; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .brand-box { background: var(--primary-grad); width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-
-        .container { max-width: 1160px; margin: 0 auto; padding: 30px 20px; }
-
-        /* 🏠 HOMEPAGE STYLES */
-        .hero-box {
-            background: var(--bg-hero); border: 2px solid var(--border-clr);
-            border-radius: 22px; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 30px;
-            align-items: center; margin-bottom: 50px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); }
+        .brand img { height: 42px; width: auto; border-radius: 8px; object-fit: contain; }
+        .brand-fallback {
+            width: 42px; height: 42px; background: var(--primary-grad); color: #fff;
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 22px; font-weight: 700;
         }
-        .badge { background: var(--accent); color: #000; font-weight: 700; padding: 4px 14px; border-radius: 20px; font-size: 13px; display: inline-block; margin-bottom: 12px; }
-        .hero-box h1 { font-size: 36px; line-height: 1.25; margin-bottom: 14px; }
-        .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 25px; }
-        .pill { background: rgba(255,255,255,0.08); padding: 5px 12px; border-radius: 8px; font-size: 14px; border: 1px solid rgba(255,255,255,0.12); }
-        .btn-main {
-            background: var(--primary-grad); color: #fff; text-decoration: none; padding: 13px 28px;
-            border-radius: 10px; font-weight: 700; font-size: 17px; display: inline-block; cursor: pointer; border: none;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        .brand-title { font-size: 24px; font-weight: 700; color: #0F172A; }
+        .brand-title span { color: var(--primary); }
+
+        .nav-links { display: flex; align-items: center; gap: 22px; }
+        .nav-links a { text-decoration: none; color: var(--text-sub); font-weight: 600; font-size: 16px; transition: 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
+        .wa-nav-btn {
+            background: #10B981; color: #fff !important; padding: 8px 18px;
+            border-radius: 8px; font-weight: 600; box-shadow: 0 4px 12px rgba(16,185,129,0.25);
         }
 
-        /* PRODUCT GRID */
-        .sec-title { font-size: 28px; margin-bottom: 8px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 25px; }
-        .card {
-            background: var(--bg-card); border: 1px solid var(--border-clr); border-radius: 16px;
-            overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card-img {
-            height: 155px; background: linear-gradient(135deg, #1e293b, #0f172a);
-            display: flex; align-items: center; justify-content: center; font-size: 48px; position: relative;
-        }
-        .pop-badge { position: absolute; top: 12px; left: 12px; background: #EF4444; color: #fff; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
-        .stk-badge { position: absolute; top: 12px; right: 12px; background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid #10B981; font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
-        .card-body { padding: 20px; }
-        .card-body h3 { font-size: 20px; margin-bottom: 6px; }
-        .price-row { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
-        .price-new { font-size: 22px; font-weight: 700; color: var(--accent); }
-        .price-old { text-decoration: line-through; color: var(--text-muted); font-size: 15px; }
+        .container { max-width: 1180px; margin: 0 auto; padding: 32px 20px; }
 
-        /* 🚀 LANDING PAGE STYLES (GOOGLE AI PRO) */
-        .lp-header {
-            background: var(--bg-card); border: 2px solid var(--border-clr); border-radius: 20px;
-            padding: 35px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 35px; align-items: center; margin-bottom: 40px;
+        /* 🌟 HERO BANNER (SUPER AI TYPING) */
+        .hero-banner {
+            background-color: #0F172A;
+            background-image: radial-gradient(circle at top right, #1E3A8A, #0F172A 75%);
+            background-size: cover;
+            background-position: center;
+            border-radius: 24px;
+            padding: 45px 40px;
+            color: #FFFFFF;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 35px;
+            align-items: center;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+            margin-bottom: 55px;
+            position: relative;
+            overflow: hidden;
         }
-        .lp-thumb {
-            background: radial-gradient(circle, #1D4ED8, #0F172A); height: 290px; border-radius: 16px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px;
-            border: 1px solid rgba(255,255,255,0.15);
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(15,23,42,0.92) 45%, rgba(15,23,42,0.75) 100%);
+            z-index: 1;
         }
-        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-        .spec-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px 14px; border-radius: 10px; font-size: 14px; }
-        .spec-box span { display: block; color: var(--text-muted); font-size: 12px; }
-        .spec-box b { color: #fff; font-size: 15px; }
-
-        .feature-box-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 25px 0 40px; }
-        .f-item { background: var(--bg-card); border: 1px solid rgba(255,255,255,0.08); padding: 22px; border-radius: 14px; }
-        .f-item h4 { font-size: 19px; color: var(--accent); margin-bottom: 8px; }
-
-        .shot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin: 20px 0 40px; }
-        .shot-card { background: #000; height: 160px; border-radius: 12px; border: 1px solid var(--border-clr); display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
-
-        .checkout-box {
-            background: var(--bg-hero); border: 2px solid var(--accent); border-radius: 20px;
-            padding: 35px; max-width: 650px; margin: 0 auto; text-align: center;
+        .hero-left, .hero-right { position: relative; z-index: 2; }
+        .flag-badge {
+            display: inline-block; background: linear-gradient(90deg, #F59E0B, #D97706);
+            color: #fff; font-weight: 700; font-size: 14px; padding: 5px 16px;
+            border-radius: 30px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(245,158,11,0.35);
         }
-        .input-fld { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid #444; background: #0B1120; color: #fff; margin-bottom: 12px; font-size: 16px; }
+        .hero-left h1 { font-size: 38px; line-height: 1.25; margin-bottom: 14px; font-weight: 700; }
+        .hero-left h1 span { color: #38BDF8; }
+        .hero-left p { color: #E2E8F0; font-size: 17px; margin-bottom: 20px; }
+        .pill-group { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+        .pill {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: #F8FAFC; padding: 6px 13px; border-radius: 8px; font-size: 14px; font-weight: 500;
+        }
+        .btn-primary {
+            background: var(--primary-grad); color: #fff; text-decoration: none;
+            padding: 14px 30px; border-radius: 12px; font-size: 17px; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35); transition: 0.25s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(2, 132, 199, 0.5); }
 
-        @media(max-width: 800px) {
-            .hero-box, .lp-header { grid-template-columns: 1fr; }
+        .hero-right {
+            background: rgba(30, 41, 59, 0.85);
+            background-size: cover; background-position: center;
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            border-radius: 20px; padding: 30px 25px; text-align: center;
+            backdrop-filter: blur(8px);
+        }
+        .hero-card-logo {
+            width: 88px; height: 88px; border-radius: 20px; object-fit: contain;
+            margin: 0 auto 14px; display: block; background: #fff; padding: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+        .verified-tag {
+            display: inline-block; background: rgba(16, 185, 129, 0.2);
+            color: #34D399; border: 1px solid #10B981; padding: 5px 14px;
+            border-radius: 20px; font-size: 13px; font-weight: 700; margin-top: 12px;
+        }
+
+        /* 🛍️ PRODUCT GRID (WHITE THEME CARDS) */
+        .section-head { text-align: center; margin-bottom: 35px; }
+        .section-head h2 { font-size: 32px; color: #0F172A; font-weight: 700; }
+        .section-head p { color: var(--text-sub); font-size: 16px; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+        .prod-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .prod-card:hover { transform: translateY(-6px); border-color: #38BDF8; box-shadow: 0 18px 35px rgba(2,132,199,0.12); }
+        .prod-thumb {
+            height: 175px; background: #F1F5F9; position: relative;
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+        }
+        .prod-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .pop-tag {
+            position: absolute; top: 12px; left: 12px; background: #EF4444; color: #fff;
+            font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(239,68,68,0.3);
+        }
+        .stock-tag {
+            position: absolute; top: 12px; right: 12px; background: #ECFDF5; color: #059669;
+            border: 1px solid #A7F3D0; font-size: 12px; font-weight: 700; padding: 4px 11px; border-radius: 20px;
+        }
+        .stock-tag.out { background: #FEF2F2; color: #DC2626; border-color: #FECACA; }
+        .prod-body { padding: 22px; }
+        .prod-body h3 { font-size: 20px; color: #0F172A; margin-bottom: 6px; font-weight: 700; }
+        .prod-body p { font-size: 14px; color: var(--text-sub); margin-bottom: 16px; min-height: 44px; }
+        .price-bar { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+        .price-now { font-size: 24px; font-weight: 700; color: var(--primary); }
+        .price-old { font-size: 15px; color: #94A3B8; text-decoration: line-through; }
+
+        /* 🚀 LANDING PAGE STYLES */
+        .lp-box {
+            background: #FFFFFF; border: 1px solid var(--border); border-radius: 22px;
+            padding: 35px; box-shadow: var(--shadow); margin-bottom: 35px;
+        }
+        .lp-hero-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 35px; align-items: center; }
+        .lp-img-wrap {
+            background: #F8FAFC; border: 1px solid var(--border); border-radius: 18px;
+            overflow: hidden; min-height: 290px; display: flex; align-items: center; justify-content: center;
+        }
+        .lp-img-wrap img { width: 100%; height: auto; max-height: 360px; object-fit: cover; }
+
+        /* Highlighted Spec Boxes */
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 22px 0; }
+        .spec-item {
+            background: #F0F9FF; border: 1.5px solid #BAE6FD; padding: 12px 15px;
+            border-radius: 12px;
+        }
+        .spec-label {
+            display: block; font-size: 13px; font-weight: 700; color: #0369A1;
+            text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 3px;
+        }
+        .spec-val { font-size: 16px; font-weight: 700; color: #0F172A; }
+
+        /* Top Video Grid */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; margin-top: 18px; }
+        .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 14px; overflow: hidden; background: #000; box-shadow: var(--shadow); }
+        .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* Feature Cards */
+        .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 25px 0; }
+        .feat-card {
+            background: #FFFFFF; border: 1px solid var(--border); border-radius: 16px;
+            padding: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: 0.2s;
+        }
+        .feat-card:hover { border-color: var(--primary); }
+        .feat-icon {
+            width: 52px; height: 52px; background: #E0F2FE; color: var(--primary);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            font-size: 26px; margin-bottom: 14px; overflow: hidden;
+        }
+        .feat-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .feat-card h4 { font-size: 19px; color: #0F172A; margin-bottom: 8px; font-weight: 700; }
+        .feat-card p { font-size: 15px; color: var(--text-sub); }
+
+        /* Screenshot Gallery */
+        .shot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 18px; }
+        .shot-item { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--shadow); }
+        .shot-item img { width: 100%; height: 200px; object-fit: cover; display: block; cursor: pointer; }
+        .shot-cap { padding: 10px 14px; font-size: 14px; font-weight: 600; color: var(--text-sub); text-align: center; }
+
+        /* 💳 CHECKOUT SECTION */
+        .checkout-card {
+            background: #FFFFFF; border: 2px solid #0284C7; border-radius: 22px;
+            padding: 35px; max-width: 680px; margin: 40px auto; box-shadow: 0 20px 50px rgba(2,132,199,0.12);
+        }
+        .pay-num-box {
+            background: #ECFDF5; border: 2px dashed #10B981; border-radius: 14px;
+            padding: 18px; text-align: center; margin: 18px 0;
+        }
+        .send-money-badge {
+            display: inline-block; background: #DC2626; color: #fff; font-weight: 700;
+            padding: 3px 12px; border-radius: 20px; font-size: 13px; margin-bottom: 8px;
+        }
+        .inp-group { margin-bottom: 15px; text-align: left; }
+        .inp-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 15px; color: #0F172A; }
+        .inp-fld {
+            width: 100%; padding: 13px 16px; border: 1.5px solid #CBD5E1; border-radius: 10px;
+            font-size: 16px; background: #F8FAFC; color: #0F172A; outline: none;
+        }
+        .inp-fld:focus { border-color: var(--primary); background: #fff; }
+
+        .delivery-result {
+            background: #ECFDF5; border: 2px solid #10B981; border-radius: 14px;
+            padding: 22px; margin-top: 20px; display: none; text-align: left;
+        }
+
+        /* Footer */
+        footer {
+            background: #0F172A; color: #94A3B8; padding: 45px 6% 30px; margin-top: 60px;
+        }
+        .footer-grid {
+            max-width: 1180px; margin: 0 auto; display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; margin-bottom: 30px;
+        }
+        .footer-grid h4 { color: #FFFFFF; font-size: 18px; margin-bottom: 12px; }
+        .footer-grid a { color: #CBD5E1; text-decoration: none; display: block; margin-bottom: 8px; font-size: 15px; }
+        .footer-grid a:hover { color: #38BDF8; }
+
+        @media (max-width: 820px) {
+            .hero-banner, .lp-hero-grid { grid-template-columns: 1fr; padding: 28px 22px; }
+            .hero-left h1 { font-size: 28px; }
+            .nav-links a:not(.wa-nav-btn) { display: none; }
         }
     </style>
 </head>
-<body data-theme="cyber">
+<body>
 
-    <!-- 🎛️ TOP VISUAL CONTROLLER -->
-    <div class="preview-bar">
-        <div class="bar-group">
-            <span style="color:#FBBF24; font-weight:700;">🎨 থিম বাছাই করুন:</span>
-            <button class="bar-btn active" onclick="setTheme('cyber', this)">থিম ১: Cyber Blue</button>
-            <button class="bar-btn" onclick="setTheme('emerald', this)">থিম ২: Royal Emerald</button>
-            <button class="bar-btn" onclick="setTheme('violet', this)">থিম ৩: AI Violet</button>
-        </div>
-        <div class="bar-group">
-            <span style="color:#38BDF8; font-weight:700;">👁️ পেজ ভিউ:</span>
-            <button class="bar-btn active" id="btn-home" onclick="showView('home')">🏠 হোমপেজ (superbd.shop)</button>
-            <button class="bar-btn" id="btn-lp" onclick="showView('lp')">🚀 ল্যান্ডিং পেজ (superbd.shop/google-ai-pro)</button>
-        </div>
-    </div>
-
-    <!-- NAVBAR -->
+    <!-- 🌐 PROFESSIONAL HEADER -->
     <nav class="navbar">
-        <a href="#" class="brand" onclick="showView('home')">
-            <div class="brand-box">S</div>
-            <span>Super Shop BD</span>
+        <a href="/" class="brand" onclick="return goHome(event)">
+            <img id="nav-logo" src="/supershop-logo.png" alt="Super Shop BD" onerror="this.style.display='none'; document.getElementById('nav-fallback').style.display='flex';">
+            <div id="nav-fallback" class="brand-fallback" style="display:none;">S</div>
+            <div class="brand-title" id="nav-brand-name">Super Shop <span>BD</span></div>
         </a>
-        <div>
-            <button class="btn-main" style="padding: 8px 18px; font-size: 14px;" onclick="showView('lp')">Google AI Pro পেজ দেখুন ➔</button>
+        <div class="nav-links">
+            <a href="/" onclick="return goHome(event)">হোমপেজ</a>
+            <a href="/super-typing/">Super AI Typing</a>
+            <a href="/tutorial/">টিউটোরিয়াল</a>
+            <a href="/privacy/">প্রাইভেসি পলিসি</a>
+            <a id="nav-wa-link" href="https://wa.me/8801891125182" target="_blank" class="wa-nav-btn">💬 লাইভ সাপোর্ট</a>
         </div>
     </nav>
 
-    <!-- ==========================================
-         VIEW 1: HOMEPAGE (superbd.shop)
-         ========================================== -->
-    <div id="view-home" class="container">
+    <!-- =====================================================
+         1. HOMEPAGE VIEW (superbd.shop)
+         ===================================================== -->
+    <div id="home-view" class="container">
         
-        <!-- TOP HERO: SUPER AI TYPING -->
-        <div class="hero-box">
-            <div>
-                <span class="badge">🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার</span>
-                <h1>মুখে বললেই টাইপ ও অনুবাদ — <span style="color:var(--accent)">Super AI Typing</span></h1>
-                <p style="color:var(--text-muted); font-size:17px;">পিসির যেকোনো অ্যাপে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন করুন চোখের পলকে।</p>
-                <div class="pills">
-                    <span class="pill">🎙️ বাংলা ও English টাইপিং</span>
-                    <span class="pill">🌐 Super Translation</span>
-                    <span class="pill">📱 ওয়্যারলেস ক্লাউড মাইক</span>
-                    <span class="pill">⚡ Shift চেপে ভাষা বদল</span>
-                </div>
-                <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                    <a href="/super-typing/" class="btn-main">🚀 বিস্তারিত জানুন ও ডাউনলোড করুন</a>
+        <!-- HERO BANNER: SUPER AI TYPING -->
+        <section class="hero-banner" id="hero-banner-box">
+            <div class="hero-overlay" id="hero-overlay"></div>
+            <div class="hero-left">
+                <span class="flag-badge" id="hero-flag">🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার</span>
+                <h1 id="hero-title">মুখে কথা বললেই টাইপ ও অনুবাদ — <span>Super AI Typing</span></h1>
+                <p id="hero-desc">পিসির যেকোনো সফটওয়্যারে (MS Word, ব্রাউজার, মেসেঞ্জার) বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন করুন চোখের পলকে।</p>
+                
+                <div class="pill-group" id="hero-pills"></div>
+
+                <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                    <a id="hero-btn-link" href="/super-typing/" class="btn-primary">
+                        <span id="hero-btn-text">🚀 বিস্তারিত জানুন ও ডাউনলোড করুন</span>
+                    </a>
                 </div>
             </div>
-            <div style="background:rgba(0,0,0,0.35); padding:28px; border-radius:16px; text-align:center; border:1px solid var(--border-clr);">
-                <div style="font-size:55px; margin-bottom:10px;">🎙️</div>
-                <h3>Super AI Typing (Windows)</h3>
-                <p style="color:var(--text-muted); font-size:14px; margin:6px 0 15px;">ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র ৯৯ টাকা</p>
-                <span class="badge" style="background:rgba(16,185,129,0.2); color:#34D399; border:1px solid #10B981;">✔ 100% Verified Software</span>
+
+            <div class="hero-right" id="hero-right-card">
+                <img id="hero-card-img" class="hero-card-logo" src="/super-typing/logo.png" alt="Super AI Typing" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2883/2883841.png'">
+                <h3 id="hero-card-title" style="font-size:22px; color:#fff;">Super AI Typing (Windows)</h3>
+                <p id="hero-card-sub" style="color:#CBD5E1; font-size:15px; margin-top:4px;">ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র ৯৯ টাকা</p>
+                <div class="verified-tag" id="hero-card-badge">✔ 100% Verified Software</div>
             </div>
-        </div>
+        </section>
 
-        <!-- BOTTOM DYNAMIC GRID: PREMIUM SUBSCRIPTIONS -->
-        <div>
-            <h2 class="sec-title">✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস</h2>
-            <p style="color:var(--text-muted);">অ্যাডমিন প্যানেল থেকে যত প্রোডাক্ট যোগ করবেন, নিচে অটোমেটিক কার্ড আকারে যুক্ত হতে থাকবে</p>
-
-            <div class="grid">
-                <!-- Card 1: Google AI Pro -->
-                <div class="card">
-                    <div class="card-img">
-                        <span class="pop-badge">🔥 Best Seller</span>
-                        <span class="stk-badge">🟢 In Stock (45)</span>
-                        🤖
-                    </div>
-                    <div class="card-body">
-                        <h3>Google AI Pro + 2TB Cloud</h3>
-                        <p style="color:var(--text-muted); font-size:14px;">১০০০ Flow ভিডিও ক্রেডিট, ২ টিবি গুগল ড্রাইভ, NotebookLM Plus ও Meet Pro।</p>
-                        <div class="price-row">
-                            <span class="price-new">৳১৯৯</span>
-                            <span class="price-old">৳৫০০</span>
-                            <span style="font-size:12px; color:#34D399;">(অটো-ডেলিভারি)</span>
-                        </div>
-                        <button class="btn-main" style="width:100%; text-align:center;" onclick="showView('lp')">বিস্তারিত ও অর্ডার করুন ➔</button>
-                    </div>
-                </div>
-
-                <!-- Card 2: Canva Pro -->
-                <div class="card">
-                    <div class="card-img">
-                        <span class="pop-badge" style="background:#8B5CF6;">⚡ Trending</span>
-                        <span class="stk-badge">🟢 Unlimited</span>
-                        🎨
-                    </div>
-                    <div class="card-body">
-                        <h3>Canva Pro (অফিসিয়াল)</h3>
-                        <p style="color:var(--text-muted); font-size:14px;">নিজস্ব ইমেইলে আনলিমিটেড প্রিমিয়াম টেমপ্লেট, ব্যাকগ্রাউন্ড রিমুভার ও ব্র্যান্ড কিট।</p>
-                        <div class="price-row">
-                            <span class="price-new">৳৯৯</span>
-                            <span class="price-old">৳৩০০</span>
-                        </div>
-                        <button class="btn-main" style="width:100%; text-align:center;" onclick="showView('lp')">বিস্তারিত ও অর্ডার করুন ➔</button>
-                    </div>
-                </div>
-
-                <!-- Card 3: CapCut Pro -->
-                <div class="card">
-                    <div class="card-img">
-                        <span class="stk-badge">🟢 In Stock (18)</span>
-                        🎬
-                    </div>
-                    <div class="card-body">
-                        <h3>CapCut Pro (PC & Mobile)</h3>
-                        <p style="color:var(--text-muted); font-size:14px;">প্রফেশনাল ভিডিও এডিটিং, প্রিমিয়াম ইফেক্টস, অটো ক্যাপশন এবং ৪কে এক্সপোর্ট।</p>
-                        <div class="price-row">
-                            <span class="price-new">৳১৪৯</span>
-                            <span class="price-old">৳৪৫০</span>
-                        </div>
-                        <button class="btn-main" style="width:100%; text-align:center;" onclick="showView('lp')">বিস্তারিত ও অর্ডার করুন ➔</button>
-                    </div>
-                </div>
-
-                <!-- Card 4: Moose AI -->
-                <div class="card">
-                    <div class="card-img">
-                        <span class="pop-badge" style="background:#0EA5E9;">✨ New</span>
-                        <span class="stk-badge">🟢 In Stock (200)</span>
-                        🚀
-                    </div>
-                    <div class="card-body">
-                        <h3>Moose AI Pro</h3>
-                        <p style="color:var(--text-muted); font-size:14px;">ক্লিন লিংক উদাহরণ: ক্লিক করলেই সরাসরি superbd.shop/mooseai ওপেন হবে।</p>
-                        <div class="price-row">
-                            <span class="price-new">৳২৪৯</span>
-                            <span class="price-old">৳৬০০</span>
-                        </div>
-                        <button class="btn-main" style="width:100%; text-align:center;" onclick="showView('lp')">বিস্তারিত ও অর্ডার করুন ➔</button>
-                    </div>
-                </div>
+        <!-- DYNAMIC PRODUCTS SECTION -->
+        <section id="products-section">
+            <div class="section-head">
+                <h2 id="sec-heading">✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস</h2>
+                <p id="sec-sub">সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন</p>
             </div>
-        </div>
+
+            <div class="product-grid" id="product-grid"></div>
+        </section>
+
     </div>
 
-    <!-- ==========================================
-         VIEW 2: PRODUCT LANDING PAGE (superbd.shop/google-ai-pro)
-         ========================================== -->
-    <div id="view-lp" class="container" style="display:none;">
+    <!-- =====================================================
+         2. DYNAMIC PRODUCT LANDING PAGE VIEW (superbd.shop/slug)
+         ===================================================== -->
+    <div id="lp-view" class="container" style="display:none;">
         
-        <div style="margin-bottom:18px; display:flex; justify-content:space-between; align-items:center;">
-            <span style="color:var(--accent); font-weight:600;">🔗 লাইভ লিংক স্ট্রাকচার: https://superbd.shop/google-ai-pro</span>
-            <button class="bar-btn" onclick="showView('home')">⬅️ হোমপেজে ফিরে যান</button>
+        <div style="margin-bottom:20px;">
+            <a href="/" onclick="return goHome(event)" style="text-decoration:none; color:var(--primary); font-weight:700; font-size:16px;">⬅️ হোমপেজে ফিরে যান</a>
         </div>
 
-        <!-- SECTION 1: PRODUCT HERO & EDITABLE SPECS -->
-        <div class="lp-header">
-            <div class="lp-thumb">
-                <div style="font-size:65px; margin-bottom:10px;">🤖☁️</div>
-                <h2>Google AI Pro</h2>
-                <p style="color:#93C5FD;">Gemini Pro + 1000 Flow Credits + 2TB</p>
-                <span class="badge" style="margin-top:15px;">🟢 ইন স্টক (অটোমেটিক ডেলিভারি)</span>
-            </div>
+        <!-- TOP VIDEO SECTION (IF ENABLED) -->
+        <div id="lp-video-sec" class="lp-box" style="display:none;">
+            <h2 style="font-size:24px; margin-bottom:6px;">🎬 কীভাবে অর্ডার, অ্যাক্টিভ ও ব্যবহার করবেন দেখুন</h2>
+            <p style="color:var(--text-sub); font-size:15px;">অর্ডার করার পূর্বে নিচের সংক্ষিপ্ত গাইড ভিডিওটি দেখে নিন</p>
+            <div class="video-grid" id="lp-video-grid"></div>
+        </div>
 
-            <div>
-                <span class="badge">⭐ প্রিমিয়াম সাবস্ক্রিপশন ক্যাটাগরি</span>
-                <h1 style="font-size:32px; margin-bottom:10px;">Google AI Pro (2TB Cloud + 1000 Flow Video Credits)</h1>
-                <p style="color:var(--text-muted);">কনটেন্ট ক্রিয়েটর, ডিজাইনার, স্টুডেন্ট এবং প্রফেশনালদের জন্য গুগলের সবচেয়ে শক্তিশালী অল-ইন-ওয়ান প্রিমিয়াম এআই ও ক্লাউড প্যাকেজ।</p>
+        <!-- PRODUCT HEADER & SPECS -->
+        <div class="lp-box">
+            <div class="lp-hero-grid">
+                <div class="lp-img-wrap" id="lp-thumb-wrap"></div>
+                <div>
+                    <span id="lp-cat-badge" style="background:#E0F2FE; color:#0284C7; font-weight:700; padding:4px 14px; border-radius:20px; font-size:13px;">প্রিমিয়াম সাবস্ক্রিপশন</span>
+                    <h1 id="lp-title" style="font-size:32px; margin:10px 0; color:#0F172A;"></h1>
+                    <p id="lp-short-desc" style="color:var(--text-sub); font-size:16px;"></p>
 
-                <!-- Dynamic Editable Spec Pills (Admin Can Add/Remove/Toggle) -->
-                <div class="spec-grid">
-                    <div class="spec-box"><span>অ্যাকাউন্ট টাইপ (অন/অফ যোগ্য)</span><b>প্রাইভেট / পার্সোনাল অ্যাক্সেস</b></div>
-                    <div class="spec-box"><span>মেয়াদ (ডিউরেশন)</span><b>১ মাস (৩০ দিন গ্যারান্টি)</b></div>
-                    <div class="spec-box"><span>ডিভাইস লিমিট</span><b>পিসি এবং মোবাইল উভয়ই</b></div>
-                    <div class="spec-box"><span>মাসিক ভিডিও ক্রেডিট</span><b>১,০০০ (1000) Google Flow ক্রেডিট</b></div>
-                </div>
+                    <!-- Dynamic Highlighted Spec Grid -->
+                    <div class="spec-grid" id="lp-spec-grid"></div>
 
-                <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-top:20px;">
-                    <div>
-                        <span style="font-size:32px; font-weight:700; color:var(--accent);">৳১৯৯</span>
-                        <span style="text-decoration:line-through; color:var(--text-muted); margin-left:8px;">৳৫৫০</span>
+                    <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap; margin-top:22px; padding-top:18px; border-top:1px solid var(--border);">
+                        <div>
+                            <span id="lp-price-now" style="font-size:34px; font-weight:700; color:var(--primary);"></span>
+                            <span id="lp-price-old" style="font-size:18px; color:#94A3B8; text-decoration:line-through; margin-left:8px;"></span>
+                        </div>
+                        <a href="#checkout-area" class="btn-primary">🛒 এখনই অর্ডার করুন (Instant Delivery)</a>
                     </div>
-                    <!-- CTA BUTTON 1 -->
-                    <a href="#order-now" class="btn-main">🛒 এখনই অর্ডার করুন (Instant Delivery)</a>
                 </div>
             </div>
         </div>
 
-        <!-- SECTION 2: REAL-TIME GOOGLE AI PRO FEATURES -->
-        <h2 class="sec-title">✨ Google AI Pro-তে কী কী ফিচার পাচ্ছেন? (অ্যাডমিন থেকে এডিটেবল)</h2>
-        <div class="feature-box-grid">
-            <div class="f-item">
-                <h4>🎬 ১. প্রতি মাসে ১,০০০ Flow ও Veo ভিডিও ক্রেডিট</h4>
-                <p style="color:var(--text-muted); font-size:15px;">Google Flow এবং Veo মডেলের মাধ্যমে Text-to-Video, Frames-to-Video এবং প্রফেশনাল AI ভিডিও তৈরির জন্য প্রতি মাসে ১০০০ ক্রেডিট পাবেন।</p>
-            </div>
-            <div class="f-item">
-                <h4>☁️ ২. বিশাল ২ টেরাবাইট (2TB) গুগল ক্লাউড স্টোরেজ</h4>
-                <p style="color:var(--text-muted); font-size:15px;">Google Drive, Gmail এবং Google Photos-এ ফাইল ও হাই-কোয়ালিটি ছবি ব্যাকআপ রাখার জন্য বিশাল স্টোরেজ সুবিধা।</p>
-            </div>
-            <div class="f-item">
-                <h4>📓 ৩. NotebookLM Plus (প্রিমিয়াম রিসার্চ টুল)</h4>
-                <p style="color:var(--text-muted); font-size:15px;">সাধারণ ইউজারদের চেয়ে ৫ গুণ বেশি লিমিট! প্রতিটি নোটবুকে ৩০০টি পর্যন্ত PDF/YouTube লিংক দিয়ে অডিও ওভারভিউ ও স্টাডি গাইড তৈরি করুন।</p>
-            </div>
-            <div class="f-item">
-                <h4>📹 ৪. Google Meet Pro (১০০ জন পার্টিসিপেন্ট)</h4>
-                <p style="color:var(--text-muted); font-size:15px;">১০০ জনকে নিয়ে টানা ২৪ ঘণ্টা পর্যন্ত গ্রুপ মিটিং, অটো নয়েজ ক্যান্সেলেশন এবং মিটিং রেকর্ডিং সরাসরি ড্রাইভে সেভ করার সুবিধা।</p>
-            </div>
-            <div class="f-item">
-                <h4>🧠 ৫. লেটেস্ট Gemini Pro ও Deep Research</h4>
-                <p style="color:var(--text-muted); font-size:15px;">জটিল কোডিং, বিশাল ফাইল অ্যানালাইসিস এবং রিয়েল-টাইম ডিপ রিসার্চ করার জন্য গুগলের সবচেয়ে উন্নত এআই মডেল।</p>
-            </div>
-            <div class="f-item">
-                <h4>📄 ৬. Gmail, Docs ও Sheets-এ সরাসরি AI</h4>
-                <p style="color:var(--text-muted); font-size:15px;">গুগল ডকস, শিট এবং জিমেইলের ভেতরে বসেই এক ক্লিকে ইমেইল লেখা, ডকুমেন্ট সামারি ও ডেটা সাজানোর প্রো সুবিধা।</p>
+        <!-- DETAILED DESCRIPTION & FEATURES -->
+        <div id="lp-features-sec" style="margin-bottom:35px;">
+            <h2 style="font-size:28px; margin-bottom:8px;">✨ কী কী প্রিমিয়াম ফিচার ও সুবিধা পাচ্ছেন?</h2>
+            <p id="lp-long-desc" style="color:var(--text-sub); font-size:16px; margin-bottom:20px;"></p>
+            <div class="feat-grid" id="lp-feat-grid"></div>
+            <div style="text-align:center; margin-top:25px;">
+                <a href="#checkout-area" class="btn-primary">⚡ স্টক শেষ হওয়ার আগেই অর্ডার কনফার্ম করুন ➔</a>
             </div>
         </div>
 
-        <!-- CTA BUTTON 2 (MIDDLE) -->
-        <div style="text-align:center; margin-bottom:45px;">
-            <a href="#order-now" class="btn-main">⚡ স্টক শেষ হওয়ার আগেই অর্ডার কনফার্ম করুন ➔</a>
+        <!-- SCREENSHOT GALLERY (IF ENABLED) -->
+        <div id="lp-shot-sec" class="lp-box" style="display:none;">
+            <h2 style="font-size:24px; margin-bottom:6px;">🖼️ প্রোডাক্ট ও অ্যাকাউন্ট স্ক্রিনশট প্রুফ</h2>
+            <div class="shot-grid" id="lp-shot-grid"></div>
         </div>
 
-        <!-- SECTION 3: OPTIONAL VIDEO & SCREENSHOT GALLERY -->
-        <h2 class="sec-title">🎬 ভিডিও ডেমো ও স্ক্রিনশট গ্যালারি (অ্যাডমিন থেকে অন/অফ করা যাবে)</h2>
-        <div class="shot-grid">
-            <div class="shot-card">▶️ YouTube ভিডিও ১ (লিংক দিলে দেখাবে)</div>
-            <div class="shot-card">🖼️ স্ক্রিনশট ১: 1000 Flow Credits প্রুফ</div>
-            <div class="shot-card">🖼️ স্ক্রিনশট ২: 2TB Google Drive স্টোরেজ</div>
-        </div>
-
-        <!-- SECTION 4: AUTO-VERIFICATION CHECKOUT & CTA 3 -->
-        <div id="order-now" class="checkout-box">
-            <span class="badge">⚡ ১০০% অটোমেটিক ভেরিফিকেশন ও ইনস্ট্যান্ট ডেলিভারি</span>
-            <h2 style="font-size:26px; margin-bottom:8px;">অর্ডার সম্পন্ন করুন</h2>
-            <p style="color:var(--text-muted); margin-bottom:20px;">নিচের বিকাশ/নগদ পার্সোনাল নাম্বারে <b>১৯৯ টাকা</b> Send Money করে TrxID দিন। আমাদের সিস্টেম অটোমেটিক আপনার পেমেন্ট ম্যাচ করে সাথে সাথে স্ক্রিনেই অ্যাকাউন্ট ডেলিভারি দেবে!</p>
-            
-            <div style="background:rgba(0,0,0,0.4); padding:12px; border-radius:10px; margin-bottom:18px; font-size:18px; font-weight:700; color:#34D399;">
-                📲 বিকাশ / নগদ (Personal): 01891-125182
+        <!-- INTEGRATED AUTO-DELIVERY CHECKOUT -->
+        <div id="checkout-area" class="checkout-card">
+            <div style="text-align:center;">
+                <span style="background:#ECFDF5; color:#059669; border:1px solid #10B981; padding:4px 14px; border-radius:20px; font-size:13px; font-weight:700;">⚡ অটোমেটিক ভেরিফিকেশন ও ইনস্ট্যান্ট ডেলিভারি</span>
+                <h2 style="font-size:26px; margin:10px 0 6px;">অর্ডার সম্পন্ন করুন</h2>
+                <p style="color:var(--text-sub); font-size:15px;">নিচের বিকাশ বা নগদ নাম্বারে <b id="chk-amount" style="color:#0284C7; font-size:18px;"></b> টাকা <b>Send Money (পার্সোনাল)</b> করুন:</p>
             </div>
 
-            <input type="text" class="input-fld" placeholder="আপনার মোবাইল নাম্বার বা ইমেইল দিন">
-            <input type="text" class="input-fld" placeholder="বিকাশ/নগদ Transaction ID (TrxID) লিখুন">
-            <button class="btn-main" style="width:100%;" onclick="alert('✅ পেমেন্ট ভেরিফাইড! অ্যাডমিন স্টকের ১ নম্বর বক্স থেকে আপনার ইমেইল ও পাসওয়ার্ড ডেলিভারি দেওয়া হলো!')">✅ পেমেন্ট ভেরিফাই ও ডেলিভারি নিন</button>
+            <div class="pay-num-box">
+                <span class="send-money-badge">⚠️ শুধুমাত্র Send Money করবেন (Personal)</span>
+                <div id="active-payment-numbers" style="font-size:20px; font-weight:700; color:#0F172A; margin-top:6px;"></div>
+            </div>
+
+            <form onsubmit="submitOrder(event)">
+                <div class="inp-group">
+                    <label>১. বিকাশ/নগদ Transaction ID (TrxID) অথবা যে নাম্বার থেকে টাকা পাঠিয়েছেন <span style="color:#DC2626">*</span></label>
+                    <input type="text" id="ord-trx" class="inp-fld" placeholder="যেমন: BCK48291X অথবা আপনার বিকাশ/নগদ নাম্বার" required>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                    <div class="inp-group">
+                        <label>২. আপনার ইমেইল আইডি <span style="color:#64748B; font-weight:400;">(ঐচ্ছিক/Optional)</span></label>
+                        <input type="email" id="ord-email" class="inp-fld" placeholder="example@gmail.com">
+                    </div>
+                    <div class="inp-group">
+                        <label>৩. আপনার WhatsApp নাম্বার <span style="color:#64748B; font-weight:400;">(ঐচ্ছিক/Optional)</span></label>
+                        <input type="text" id="ord-wa" class="inp-fld" placeholder="01XXXXXXXXX">
+                    </div>
+                </div>
+                <button type="submit" id="ord-submit-btn" class="btn-primary" style="width:100%; justify-content:center; font-size:18px; margin-top:8px;">
+                    ✅ পেমেন্ট ভেরিফাই করুন ও ইনস্ট্যান্ট ডেলিভারি নিন
+                </button>
+            </form>
+
+            <!-- Instant Delivery Box -->
+            <div id="delivery-box" class="delivery-result"></div>
         </div>
 
     </div>
+
+    <!-- 🌐 PROFESSIONAL FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4 id="foot-brand">Super Shop BD</h4>
+                <p style="font-size:14px; line-height:1.7;">বাংলাদেশের সবচেয়ে বিশ্বস্ত এআই সফটওয়্যার ও প্রিমিয়াম ডিজিটাল সাবস্ক্রিপশন প্ল্যাটফর্ম। ইনস্ট্যান্ট অটোমেটিক ডেলিভারি ও ২৪/৭ ডেডিকেটেড সাপোর্ট।</p>
+            </div>
+            <div>
+                <h4>গুরুত্বপূর্ণ লিংক</h4>
+                <a href="/super-typing/">Super AI Typing (PC)</a>
+                <a href="/tutorial/">ব্যবহারের টিউটোরিয়াল</a>
+                <a href="/privacy/">প্রাইভেসি পলিসি</a>
+                <a href="/checkout/">সফটওয়্যার চেকআউট</a>
+            </div>
+            <div>
+                <h4>সরাসরি সাপোর্ট ও যোগাযোগ</h4>
+                <p style="font-size:14px; margin-bottom:10px;">যেকোনো সমস্যায় আমাদের হোয়াটসঅ্যাপে মেসেজ দিন:</p>
+                <a id="foot-wa" href="https://wa.me/8801891125182" target="_blank" style="color:#34D399; font-weight:700;">💬 WhatsApp: +880 1891-125182</a>
+            </div>
+        </div>
+        <div style="text-align:center; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px; font-size:14px;">
+            &copy; 2026 Super Shop BD (superbd.shop) — সর্বস্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
 
     <script>
-        function setTheme(themeName, btn) {
-            document.body.setAttribute('data-theme', themeName);
-            btn.parentElement.querySelectorAll('.bar-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        // 🔗 FIREBASE REALTIME DATABASE URL (আপনার ফায়ারবেস প্রজেক্টের সাথে যুক্ত)
+        const DB_URL = "https://super-ai-typing-default-rtdb.firebaseio.com/supershop";
+
+        // Default Initial Data (যদি ডাটাবেসে কিছু না থাকে তবে এটি অটোমেটিক লোড হবে)
+        const DEFAULT_DATA = {
+            settings: {
+                brandName: "Super Shop BD",
+                logoUrl: "/supershop-logo.png",
+                whatsapp: "8801891125182",
+                activePayOption: "52", // "52", "50", or "both"
+                payNumber52: "01633248252",
+                payNumber50: "01643173550",
+                secHeading: "✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস",
+                secSub: "সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন",
+                hero: {
+                    flag: "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার",
+                    title: "মুখে কথা বললেই টাইপ ও অনুবাদ — <span>Super AI Typing</span>",
+                    desc: "পিসির যেকোনো সফটওয়্যারে (MS Word, ব্রাউজার, মেসেঞ্জার) বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন করুন চোখের পলকে।",
+                    bgImage: "/super-typing/hero-banner.png",
+                    pills: ["🎙️ বাংলা ও English টাইপিং", "🌐 Super Translation", "📱 ক্লাউড ফোন মাইক", "⌨️ শর্টকাট Hotkey", "💬 ফ্লোটিং মাইক", "✨ বাংলিশ মোড"],
+                    btnText: "🚀 বিস্তারিত জানুন ও ডাউনলোড করুন",
+                    btnLink: "/super-typing/",
+                    cardLogo: "/super-typing/logo.png",
+                    cardBg: "",
+                    cardTitle: "Super AI Typing (Windows)",
+                    cardSub: "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র ৯৯ টাকা",
+                    cardBadge: "✔ 100% Verified Software"
+                }
+            },
+            products: [
+                {
+                    id: "p1",
+                    slug: "google-ai-pro",
+                    visible: true,
+                    name: "Google AI Pro + 2TB Cloud",
+                    category: "প্রিমিয়াম এআই সাবস্ক্রিপশন",
+                    popBadge: "🔥 Best Seller",
+                    stockMode: "auto", // "unlimited", "manual", or "auto"
+                    manualStockText: "🟢 In Stock",
+                    price: 199,
+                    oldPrice: 550,
+                    btnText: "বিস্তারিত ও অর্ডার করুন ➔",
+                    thumb: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+                    shortDesc: "প্রতি মাসে ১,০০০ Google Flow ও Veo ভিডিও ক্রেডিট, ২ টেরাবাইট গুগল ড্রাইভ স্টোরেজ, NotebookLM Plus এবং Meet Pro।",
+                    longDesc: "কনটেন্ট ক্রিয়েটর, ডিজাইনার, স্টুডেন্ট এবং প্রফেশনালদের জন্য গুগলের সবচেয়ে শক্তিশালী অল-ইন-ওয়ান এআই ও ক্লাউড প্যাকেজ।",
+                    specsEnabled: true,
+                    specs: [
+                        { label: "অ্যাকাউন্ট টাইপ", val: "প্রাইভেট / পার্সোনাল অ্যাক্সেস" },
+                        { label: "মেয়াদ (Duration)", val: "১ মাস (৩০ দিন পূর্ণ গ্যারান্টি)" },
+                        { label: "ডিভাইস লিমিট", val: "পিসি এবং মোবাইল উভয়ই" },
+                        { label: "মাসিক ভিডিও ক্রেডিট", val: "১,০০০ (1000) Google Flow ক্রেডিট" }
+                    ],
+                    videosEnabled: false,
+                    videos: [],
+                    screenshotsEnabled: false,
+                    screenshots: [],
+                    features: [
+                        { icon: "🎬", title: "প্রতি মাসে ১,০০০ Flow ও Veo ভিডিও ক্রেডিট", desc: "Google Flow এবং Veo মডেলের মাধ্যমে Text-to-Video ও প্রফেশনাল AI ভিডিও তৈরির জন্য প্রতি মাসে ১০০০ ক্রেডিট পাবেন।" },
+                        { icon: "☁️", title: "২ টেরাবাইট (2TB) গুগল ক্লাউড স্টোরেজ", desc: "Google Drive, Gmail এবং Google Photos-এ ফাইল ও হাই-কোয়ালিটি ছবি ব্যাকআপ রাখার বিশাল স্টোরেজ।" },
+                        { icon: "📓", title: "NotebookLM Plus (প্রিমিয়াম রিসার্চ টুল)", desc: "সাধারণ ইউজারদের চেয়ে ৫ গুণ বেশি লিমিট! প্রতিটি নোটবুকে ৩০০টি পর্যন্ত সোর্স দিয়ে অডিও ওভারভিউ ও নোট তৈরি।" },
+                        { icon: "📹", title: "Google Meet Pro (১০০ জন পার্টিসিপেন্ট)", desc: "১০০ জনকে নিয়ে টানা ২৪ ঘণ্টা গ্রুপ মিটিং, নয়েজ ক্যান্সেলেশন এবং মিটিং রেকর্ডিং সরাসরি ড্রাইভে সেভ।" },
+                        { icon: "🧠", title: "লেটেস্ট Gemini Pro ও Deep Research", desc: "জটিল কোডিং, বিশাল ফাইল অ্যানালাইসিস এবং রিয়েল-টাইম ডিপ রিসার্চ করার জন্য গুগলের সেরা এআই মডেল।" },
+                        { icon: "📄", title: "Gmail, Docs ও Sheets-এ সরাসরি AI", desc: "গুগল ডকস, শিট এবং জিমেইলের ভেতরে বসেই এক ক্লিকে ইমেইল লেখা ও ডেটা সাজানোর প্রো সুবিধা।" }
+                    ],
+                    stockVault: []
+                }
+            ]
+        };
+
+        let storeData = DEFAULT_DATA;
+        let currentProduct = null;
+
+        async function loadStoreData() {
+            const cached = localStorage.getItem("supershop_cache");
+            if (cached) {
+                try { storeData = JSON.parse(cached); renderApp(); } catch(e){}
+            } else {
+                renderApp();
+            }
+
+            try {
+                const res = await fetch(`${DB_URL}/data.json`);
+                const remote = await res.json();
+                if (remote && remote.settings) {
+                    storeData = remote;
+                    localStorage.setItem("supershop_cache", JSON.stringify(storeData));
+                    renderApp();
+                }
+            } catch (err) {
+                console.log("Using local/default store data");
+            }
         }
-        function showView(view) {
-            document.getElementById('view-home').style.display = (view === 'home') ? 'block' : 'none';
-            document.getElementById('view-lp').style.display = (view === 'lp') ? 'block' : 'none';
-            document.getElementById('btn-home').classList.toggle('active', view === 'home');
-            document.getElementById('btn-lp').classList.toggle('active', view === 'lp');
+
+        function getCleanSlug() {
+            let path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('p')) return params.get('p');
+            const reserved = ['super-typing', 'cloud-mic', 'checkout', 'privacy', 'tutorial', 'update', 'admin', 'index.html'];
+            if (!path || reserved.includes(path.toLowerCase())) return null;
+            return path.toLowerCase();
+        }
+
+        function renderApp() {
+            const s = storeData.settings || DEFAULT_DATA.settings;
+            const h = s.hero || DEFAULT_DATA.settings.hero;
+
+            // Header & Footer
+            document.getElementById('nav-logo').src = s.logoUrl || '/supershop-logo.png';
+            document.getElementById('nav-wa-link').href = `https://wa.me/${s.whatsapp}`;
+            document.getElementById('foot-wa').href = `https://wa.me/${s.whatsapp}`;
+            document.getElementById('foot-wa').innerText = `💬 WhatsApp: +${s.whatsapp}`;
+
+            // Hero Banner
+            document.getElementById('hero-flag').innerText = h.flag;
+            document.getElementById('hero-title').innerHTML = h.title;
+            document.getElementById('hero-desc').innerText = h.desc;
+            document.getElementById('hero-btn-text').innerText = h.btnText;
+            document.getElementById('hero-btn-link').href = h.btnLink;
+            if (h.bgImage) {
+                document.getElementById('hero-banner-box').style.backgroundImage = `url('${h.bgImage}')`;
+            }
+            document.getElementById('hero-pills').innerHTML = (h.pills || []).map(p => `<span class="pill">${p}</span>`).join('');
+            document.getElementById('hero-card-img').src = h.cardLogo || '/super-typing/logo.png';
+            if (h.cardBg) {
+                document.getElementById('hero-right-card').style.backgroundImage = `linear-gradient(rgba(15,23,42,0.82), rgba(15,23,42,0.88)), url('${h.cardBg}')`;
+            }
+            document.getElementById('hero-card-title').innerText = h.cardTitle;
+            document.getElementById('hero-card-sub').innerText = h.cardSub;
+            document.getElementById('hero-card-badge').innerText = h.cardBadge;
+
+            // Section Heading
+            document.getElementById('sec-heading').innerText = s.secHeading || DEFAULT_DATA.settings.secHeading;
+            document.getElementById('sec-sub').innerText = s.secSub || DEFAULT_DATA.settings.secSub;
+
+            // Route Check
+            const slug = getCleanSlug();
+            const products = storeData.products || [];
+            if (slug) {
+                const found = products.find(p => p.slug.toLowerCase() === slug);
+                if (found) {
+                    openProductPage(found, false);
+                    return;
+                }
+            }
+            renderHomeGrid(products);
+        }
+
+        function getStockBadgeInfo(p) {
+            const vaultCount = (p.stockVault || []).filter(x => !x.used).length;
+            if (p.stockMode === 'unlimited') return { text: '🟢 ইন স্টক (Unlimited)', out: false };
+            if (p.stockMode === 'manual') return { text: p.manualStockText || '🟢 ইন স্টক', out: (p.manualStockText || '').includes('Out') };
+            if (vaultCount > 0) return { text: `🟢 ইন স্টক (${vaultCount}টি রেডি)`, out: false };
+            return { text: '🟢 ইন স্টক (অর্ডার করুন)', out: false };
+        }
+
+        function renderHomeGrid(products) {
+            document.getElementById('home-view').style.display = 'block';
+            document.getElementById('lp-view').style.display = 'none';
+            document.title = (storeData.settings?.brandName || "Super Shop BD") + " - অফিসিয়াল হোমপেজ";
+
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.filter(p => p.visible !== false).map(p => {
+                const stk = getStockBadgeInfo(p);
+                return `
+                <div class="prod-card">
+                    <div>
+                        <div class="prod-thumb">
+                            ${p.popBadge ? `<span class="pop-tag">${p.popBadge}</span>` : ''}
+                            <span class="stock-tag ${stk.out ? 'out' : ''}">${stk.text}</span>
+                            <img src="${p.thumb || 'https://via.placeholder.com/400x250'}" alt="${p.name}">
+                        </div>
+                        <div class="prod-body">
+                            <h3>${p.name}</h3>
+                            <p>${p.shortDesc || ''}</p>
+                            <div class="price-bar">
+                                <span class="price-now">৳${p.price}</span>
+                                ${p.oldPrice ? `<span class="price-old">৳${p.oldPrice}</span>` : ''}
+                            </div>
+                            <a href="/${p.slug}" onclick="return navToProduct(event, '${p.slug}')" class="btn-primary" style="width:100%; justify-content:center; padding:11px;">
+                                ${p.btnText || 'বিস্তারিত ও অর্ডার করুন ➔'}
+                            </a>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function navToProduct(e, slug) {
+            e.preventDefault();
+            const found = (storeData.products || []).find(p => p.slug === slug);
+            if (found) {
+                window.history.pushState({}, '', `/${slug}`);
+                openProductPage(found, true);
+            }
+            return false;
+        }
+
+        function goHome(e) {
+            e.preventDefault();
+            window.history.pushState({}, '', '/');
+            renderHomeGrid(storeData.products || []);
             window.scrollTo(0, 0);
+            return false;
         }
+
+        window.addEventListener('popstate', () => renderApp());
+
+        function getYtEmbed(url) {
+            if (!url) return null;
+            if (url.includes('youtu.be/')) return `https://www.youtube.com/embed/${url.split('youtu.be/')[1].split('?')[0]}`;
+            if (url.includes('watch?v=')) return `https://www.youtube.com/embed/${url.split('watch?v=')[1].split('&')[0]}`;
+            if (url.includes('embed/')) return url;
+            return null;
+        }
+
+        function openProductPage(p, scroll) {
+            currentProduct = p;
+            document.getElementById('home-view').style.display = 'none';
+            document.getElementById('lp-view').style.display = 'block';
+            document.title = `${p.name} - Super Shop BD`;
+
+            document.getElementById('lp-thumb-wrap').innerHTML = `<img src="${p.thumb}" alt="${p.name}">`;
+            document.getElementById('lp-cat-badge').innerText = p.category || 'প্রিমিয়াম সাবস্ক্রিপশন';
+            document.getElementById('lp-title').innerText = p.name;
+            document.getElementById('lp-short-desc').innerText = p.shortDesc || '';
+            document.getElementById('lp-long-desc').innerText = p.longDesc || '';
+            document.getElementById('lp-price-now').innerText = `৳${p.price}`;
+            document.getElementById('lp-price-old').innerText = p.oldPrice ? `৳${p.oldPrice}` : '';
+            document.getElementById('chk-amount').innerText = `৳${p.price}`;
+
+            // Specs
+            const specGrid = document.getElementById('lp-spec-grid');
+            if (p.specsEnabled !== false && p.specs && p.specs.length > 0) {
+                specGrid.style.display = 'grid';
+                specGrid.innerHTML = p.specs.map(sp => `
+                    <div class="spec-item">
+                        <span class="spec-label">${sp.label}</span>
+                        <div class="spec-val">${sp.val}</div>
+                    </div>
+                `).join('');
+            } else {
+                specGrid.style.display = 'none';
+            }
+
+            // Videos
+            const validVideos = (p.videos || []).map(getYtEmbed).filter(Boolean);
+            const vidSec = document.getElementById('lp-video-sec');
+            if (p.videosEnabled && validVideos.length > 0) {
+                vidSec.style.display = 'block';
+                document.getElementById('lp-video-grid').innerHTML = validVideos.map(v => `
+                    <div class="video-wrap"><iframe src="${v}" allowfullscreen></iframe></div>
+                `).join('');
+            } else {
+                vidSec.style.display = 'none';
+            }
+
+            // Features
+            document.getElementById('lp-feat-grid').innerHTML = (p.features || []).map(f => {
+                const isImg = f.icon && (f.icon.startsWith('http') || f.icon.startsWith('/'));
+                return `
+                <div class="feat-card">
+                    <div class="feat-icon">${isImg ? `<img src="${f.icon}">` : (f.icon || '✨')}</div>
+                    <h4>${f.title}</h4>
+                    <p>${f.desc}</p>
+                </div>`;
+            }).join('');
+
+            // Screenshots
+            const shotSec = document.getElementById('lp-shot-sec');
+            if (p.screenshotsEnabled && p.screenshots && p.screenshots.length > 0) {
+                shotSec.style.display = 'block';
+                document.getElementById('lp-shot-grid').innerHTML = p.screenshots.map(sh => `
+                    <div class="shot-item">
+                        <img src="${sh.url}" onclick="window.open('${sh.url}', '_blank')">
+                        ${sh.caption ? `<div class="shot-cap">${sh.caption}</div>` : ''}
+                    </div>
+                `).join('');
+            } else {
+                shotSec.style.display = 'none';
+            }
+
+            // Payment Numbers (52 / 50 Switcher)
+            const s = storeData.settings || DEFAULT_DATA.settings;
+            let payHtml = '';
+            if (s.activePayOption === '52') {
+                payHtml = `📲 বিকাশ / নগদ (Personal): <span style="color:#0284C7;">${s.payNumber52}</span>`;
+            } else if (s.activePayOption === '50') {
+                payHtml = `📲 বিকাশ / নগদ (Personal): <span style="color:#0284C7;">${s.payNumber50}</span>`;
+            } else {
+                payHtml = `
+                    <div>📲 বিকাশ / নগদ ১ (Personal): <span style="color:#0284C7;">${s.payNumber52}</span></div>
+                    <div style="margin-top:4px;">📲 বিকাশ / নগদ ২ (Personal): <span style="color:#0284C7;">${s.payNumber50}</span></div>
+                `;
+            }
+            document.getElementById('active-payment-numbers').innerHTML = payHtml;
+            document.getElementById('delivery-box').style.display = 'none';
+
+            if (scroll) window.scrollTo(0, 0);
+        }
+
+        // ⚡ ORDER & AUTO-VERIFICATION + STOCK VAULT DELIVERY
+        async function submitOrder(e) {
+            e.preventDefault();
+            if (!currentProduct) return;
+
+            const btn = document.getElementById('ord-submit-btn');
+            const trxInput = document.getElementById('ord-trx').value.trim();
+            const emailInput = document.getElementById('ord-email').value.trim();
+            const waInput = document.getElementById('ord-wa').value.trim();
+            const delBox = document.getElementById('delivery-box');
+
+            btn.disabled = true;
+            btn.innerText = "⏳ পেমেন্ট যাচাই করা হচ্ছে...";
+
+            const orderId = "ORD_" + Date.now();
+            const orderObj = {
+                id: orderId,
+                productSlug: currentProduct.slug,
+                productName: currentProduct.name,
+                amount: currentProduct.price,
+                trxOrPhone: trxInput,
+                email: emailInput || "দেওয়া হয়নি",
+                whatsapp: waInput || "দেওয়া হয়নি",
+                status: "Pending",
+                deliveredAccount: "",
+                time: new Date().toLocaleString()
+            };
+
+            try {
+                // Check if SMS auto-verifier already logged this TrxID or sender number in Firebase
+                const smsRes = await fetch(`${DB_URL}/sms_logs.json`);
+                const smsLogs = await smsRes.json() || {};
+                let matchedSmsKey = null;
+
+                for (let k in smsLogs) {
+                    const log = smsLogs[k];
+                    if (!log.used && log.body && log.body.toLowerCase().includes(trxInput.toLowerCase())) {
+                        matchedSmsKey = k;
+                        break;
+                    }
+                }
+
+                // Fetch latest store data to pop Stock Box #1
+                const dataRes = await fetch(`${DB_URL}/data.json`);
+                const freshData = await dataRes.json() || storeData;
+                const pIndex = (freshData.products || []).findIndex(x => x.slug === currentProduct.slug);
+
+                if (matchedSmsKey && pIndex > -1) {
+                    const vault = freshData.products[pIndex].stockVault || [];
+                    const freeIdx = vault.findIndex(item => !item.used);
+
+                    if (freeIdx > -1) {
+                        const accountData = vault[freeIdx].content;
+                        freshData.products[pIndex].stockVault[freeIdx].used = true;
+                        freshData.products[pIndex].stockVault[freeIdx].usedBy = trxInput;
+
+                        orderObj.status = "Approved (Auto)";
+                        orderObj.deliveredAccount = accountData;
+
+                        await fetch(`${DB_URL}/sms_logs/${matchedSmsKey}/used.json`, { method: 'PUT', body: 'true' });
+                        await fetch(`${DB_URL}/data.json`, { method: 'PUT', body: JSON.stringify(freshData) });
+                        await fetch(`${DB_URL}/orders/${orderId}.json`, { method: 'PUT', body: JSON.stringify(orderObj) });
+
+                        showDeliveredAccount(accountData, orderId);
+                        btn.disabled = false;
+                        btn.innerText = "✅ ডেলিভারি সম্পন্ন হয়েছে!";
+                        return;
+                    }
+                }
+
+                // Save order for instant polling (when Admin clicks Approve or SMS arrives a few seconds later)
+                await fetch(`${DB_URL}/orders/${orderId}.json`, { method: 'PUT', body: JSON.stringify(orderObj) });
+
+                delBox.style.display = 'block';
+                delBox.innerHTML = `
+                    <h4 style="color:#0369A1; font-size:18px; margin-bottom:6px;">⏳ আপনার অর্ডারটি গ্রহণ করা হয়েছে! (Order ID: ${orderId})</h4>
+                    <p style="font-size:15px; color:#334155;">সিস্টেম আপনার ট্রানজেকশন আইডি (<b>${trxInput}</b>) ভেরিফাই করছে। পেমেন্ট ম্যাচ হওয়ার সাথে সাথেই <b>এই বক্সেই আপনার প্রোডাক্ট/অ্যাকাউন্ট ডিটেইলস অটোমেটিক চলে আসবে!</b> পেজটি কাটবেন না...</p>
+                `;
+
+                // Live Listener for Auto-Delivery
+                const timer = setInterval(async () => {
+                    const chk = await fetch(`${DB_URL}/orders/${orderId}.json`);
+                    const ord = await chk.json();
+                    if (ord && ord.status.includes("Approved") && ord.deliveredAccount) {
+                        clearInterval(timer);
+                        showDeliveredAccount(ord.deliveredAccount, orderId);
+                    }
+                }, 4000);
+
+            } catch (err) {
+                alert("অর্ডার সাবমিট হয়েছে! যেকোনো প্রয়োজনে হোয়াটসঅ্যাপে যোগাযোগ করুন।");
+            }
+            btn.disabled = false;
+            btn.innerText = "✅ পেমেন্ট ভেরিফাই করুন ও ইনস্ট্যান্ট ডেলিভারি নিন";
+        }
+
+        function showDeliveredAccount(accountText, orderId) {
+            const delBox = document.getElementById('delivery-box');
+            delBox.style.display = 'block';
+            delBox.innerHTML = `
+                <h3 style="color:#059669; font-size:21px; margin-bottom:8px;">🎉 অভিনন্দন! আপনার পেমেন্ট ভেরিফাইড ও ডেলিভারি সম্পন্ন!</h3>
+                <p style="font-size:14px; color:#475569; margin-bottom:10px;">নিচে আপনার প্রোডাক্ট / অ্যাকাউন্টের বিস্তারিত তথ্য দেওয়া হলো (কপি করে সেভ করে রাখুন):</p>
+                <pre id="acc-details-text" style="background:#0F172A; color:#38BDF8; padding:16px; border-radius:10px; font-size:16px; white-space:pre-wrap; word-break:break-all; margin-bottom:12px;">${accountText}</pre>
+                <button type="button" class="btn-primary" onclick="navigator.clipboard.writeText(document.getElementById('acc-details-text').innerText); alert('কপি হয়েছে!');" style="padding:10px 20px; font-size:15px;">📋 তথ্যগুলো কপি করুন</button>
+            `;
+        }
+
+        loadStoreData();
     </script>
 </body>
 </html>
