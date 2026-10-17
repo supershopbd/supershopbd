@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Super Shop BD - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ</title>
+    <title id="page-title">Super Shop BD - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ</title>
     <link id="dynamic-favicon" rel="icon" type="image/png" href="supershop-logo.png">
     <link rel="apple-touch-icon" href="supershop-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -63,21 +63,42 @@
 
         .container { max-width: 1180px; margin: 0 auto; padding: 30px 20px; }
 
-        /* 🌟 HERO BANNER */
+        /* 🌟 HERO BANNER (CRYSTAL CLEAR HD RENDERING - NO BLUR) */
         .hero-banner {
-            background-color: #0F172A; background-image: url('hero-banner.png');
-            background-size: cover; background-position: center;
-            border-radius: 24px; padding: 40px; color: #FFFFFF;
-            display: grid; grid-template-columns: 1.35fr 1fr; gap: 35px;
-            align-items: center; min-height: 360px;
+            background-color: #070E1A;
+            border-radius: 24px;
+            padding: 36px 40px;
+            color: #FFFFFF;
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 35px;
+            align-items: center;
+            min-height: 350px;
             box-shadow: 0 20px 45px rgba(15, 23, 42, 0.16);
-            margin-bottom: 55px; position: relative; overflow: hidden;
+            margin-bottom: 55px;
+            position: relative;
+            overflow: hidden;
             border: 2px solid rgba(16, 185, 129, 0.35);
+        }
+        /* Direct HD Image Element prevents browser CSS background blur */
+        .hero-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+            z-index: 0;
+            image-rendering: -webkit-optimize-contrast;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            pointer-events: none;
         }
         .hero-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(90deg, rgba(15,23,42,0.18) 0%, rgba(15,23,42,0.55) 100%);
+            background: transparent;
             z-index: 1;
+            display: none;
         }
         .hero-left {
             position: relative; z-index: 2; display: flex; flex-direction: column;
@@ -89,7 +110,7 @@
             color: #fff; font-weight: 700; font-size: 14px; padding: 6px 18px;
             border-radius: 30px; box-shadow: 0 4px 15px rgba(245,158,11,0.45);
         }
-        .hero-text-block { margin: 18px 0; background: rgba(15,23,42,0.75); padding: 18px; border-radius: 14px; }
+        .hero-text-block { margin: 18px 0; background: rgba(15,23,42,0.88); padding: 18px; border-radius: 14px; }
         .hero-text-block h1 { font-size: 34px; line-height: 1.25; margin-bottom: 10px; font-weight: 800; }
         .hero-text-block p { color: #E2E8F0; font-size: 16.5px; }
 
@@ -101,10 +122,11 @@
         }
         .btn-green-main:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16, 185, 129, 0.55); }
 
+        /* Removed backdrop-filter blur so Chromium never blurs the underlying banner */
         .hero-right-card {
-            background: rgba(15, 23, 42, 0.9); background-size: cover; background-position: center;
-            border: 1.5px solid rgba(16, 185, 129, 0.5); border-radius: 20px; padding: 30px 25px;
-            text-align: center; backdrop-filter: blur(10px); box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            background: rgba(11, 19, 35, 0.94); background-size: cover; background-position: center;
+            border: 1.5px solid rgba(16, 185, 129, 0.55); border-radius: 20px; padding: 30px 25px;
+            text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.45);
         }
         .hero-card-logo {
             width: 86px; height: 86px; border-radius: 20px; object-fit: contain;
@@ -405,12 +427,14 @@
     <!-- 1. HOMEPAGE VIEW -->
     <div id="home-view" class="container">
         <section class="hero-banner" id="hero-banner-box">
+            <!-- Direct Crisp HD Image Tag for Zero Blur -->
+            <img id="hero-bg-img-el" class="hero-bg-img" src="hero-banner.png" alt="Super AI Typing Banner" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='/super-typing/hero-banner.png';}">
             <div class="hero-overlay" id="hero-overlay"></div>
             <div class="hero-left">
-                <span class="flag-badge" id="hero-flag">🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার</span>
+                <span class="flag-badge" id="hero-flag">🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার</span>
                 <div class="hero-text-block" id="hero-solid-text" style="display:none;">
                     <h1 id="hero-title">মুখে কথা বললেই টাইপ ও অনুবাদ — Super AI Typing</h1>
-                    <p id="hero-desc">পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।</p>
+                    <p id="hero-desc">পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।</p>
                 </div>
                 <div style="margin-top:auto; padding-top:20px;">
                     <a id="hero-btn-link" href="/super-typing/" class="btn-green-main">
@@ -423,7 +447,7 @@
                 <div class="hero-right-card" id="hero-right-card">
                     <img id="hero-card-img" class="hero-card-logo" src="logo.png" alt="Super AI Typing" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='/super-typing/logo.png';}">
                     <h3 id="hero-card-title" style="font-size:22px; color:#fff; font-weight:800;">Super AI Typing (Windows)</h3>
-                    <p id="hero-card-sub" style="color:#CBD5E1; font-size:15px; margin-top:4px;">ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা</p>
+                    <p id="hero-card-sub" style="color:#CBD5E1; font-size:15px; margin-top:4px;">ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা</p>
                     <div class="verified-tag" id="hero-card-badge">✔ 100% Verified Software</div>
                 </div>
             </div>
@@ -431,8 +455,8 @@
 
         <section id="products-section">
             <div class="section-head">
-                <h2 id="sec-heading">✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস</h2>
-                <p id="sec-sub">সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন</p>
+                <h2 id="sec-heading">✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস</h2>
+                <p id="sec-sub">সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন</p>
             </div>
             <div class="product-grid" id="product-grid"></div>
         </section>
@@ -449,7 +473,7 @@
             <div class="lp-hero-grid">
                 <div class="lp-img-wrap" id="lp-thumb-wrap"></div>
                 <div>
-                    <span id="lp-cat-badge" style="background:var(--blue-light); color:var(--blue-dark); border:1px solid var(--blue-border); font-weight:800; padding:5px 14px; border-radius:20px; font-size:13px;">প্রিমিয়াম সাবস্ক্রিপশন</span>
+                    <span id="lp-cat-badge" style="background:var(--blue-light); color:var(--blue-dark); border:1px solid var(--blue-border); font-weight:800; padding:5px 14px; border-radius:20px; font-size:13px;">প্রিমিয়াম সাবস্ক্রিপশন</span>
                     <h1 id="lp-title" style="font-size:32px; margin:10px 0; color:#0F172A; font-weight:800;"></h1>
                     <p id="lp-short-desc" style="color:var(--text-sub); font-size:16px; font-weight:500;"></p>
 
@@ -476,17 +500,17 @@
         </div>
 
         <div id="lp-features-sec" style="margin-bottom:35px;">
-            <h2 style="font-size:28px; margin-bottom:8px; font-weight:800;">✨ কী কী প্রিমিয়াম ফিচার ও সুবিধা পাচ্ছেন?</h2>
+            <h2 style="font-size:28px; margin-bottom:8px; font-weight:800;">✨ কী কী প্রিমিয়াম ফিচার ও সুবিধা পাচ্ছেন?</h2>
             <p id="lp-long-desc" style="color:var(--text-sub); font-size:16px; margin-bottom:20px; font-weight:500;"></p>
             <div class="feat-grid" id="lp-feat-grid"></div>
             <div style="text-align:center; margin-top:25px;">
-                <a href="#checkout-area" class="btn-green-main">⚡ স্টক শেষ হওয়ার আগেই অর্ডার কনফার্ম করুন ➔</a>
+                <a href="#checkout-area" class="btn-green-main">⚡ স্টক শেষ হওয়ার আগেই অর্ডার কনফার্ম করুন ➔</a>
             </div>
         </div>
 
         <!-- 🎬 AUTOPLAY VIDEO SECTION (BELOW FEATURES) -->
         <div id="lp-video-sec" class="lp-box" style="display:none;">
-            <h2 style="font-size:25px; margin-bottom:6px; font-weight:800;">🎬 ভিডিও প্রিভিউ ও ব্যবহারের নিয়ম</h2>
+            <h2 style="font-size:25px; margin-bottom:6px; font-weight:800;">🎬 ভিডিও প্রিভিউ ও ব্যবহারের নিয়ম</h2>
             <p style="color:var(--text-sub); font-size:15px;">প্রোডাক্টটি কীভাবে কাজ করে এবং কীভাবে ব্যবহার করবেন দেখুন</p>
             <div class="video-grid" id="lp-video-grid"></div>
         </div>
@@ -495,7 +519,7 @@
         <div id="lp-shot-sec" class="lp-box" style="display:none;">
             <div style="text-align:center; margin-bottom:15px;">
                 <h2 style="font-size:25px; margin-bottom:4px; font-weight:800;">🖼️ প্রোডাক্ট ও অ্যাকাউন্ট স্ক্রিনশট প্রুফ</h2>
-                <p style="color:var(--text-sub); font-size:14.5px;">যেকোনো স্ক্রিনশটের ওপর ক্লিক করে বড় করে ভিজিট বা জুম করে দেখতে পারবেন</p>
+                <p style="color:var(--text-sub); font-size:14.5px;">যেকোনো স্ক্রিনশটের ওপর ক্লিক করে বড় করে ভিজিট বা জুম করে দেখতে পারবেন</p>
             </div>
             <div class="carousel-container">
                 <button type="button" class="carousel-nav-btn prev" onclick="moveCarousel(-1)">❮</button>
@@ -525,7 +549,7 @@
 
             <form onsubmit="submitOrder(event)">
                 <div class="inp-group">
-                    <label>1. বিকাশ/নগদ Transaction ID (TrxID) অথবা যে নাম্বার থেকে পাঠিয়েছেন ওই নাম্বারটি দিন <span style="color:#DC2626">*</span></label>
+                    <label>1. বিকাশ/নগদ Transaction ID (TrxID) অথবা যে নাম্বার থেকে পাঠিয়েছেন ওই নাম্বারটি দিন <span style="color:#DC2626">*</span></label>
                     <input type="text" id="ord-trx" class="inp-fld" placeholder="যেমন: BCK48291X অথবা 017XXXXXXXX" required>
                 </div>
                 <div class="two-col-inputs">
@@ -555,9 +579,9 @@
 
         <div class="lp-box" style="max-width:820px; margin:0 auto;">
             <div style="text-align:center; margin-bottom:24px;">
-                <span style="background:var(--blue-light); color:var(--blue-dark); border:1px solid var(--blue-border); padding:5px 15px; border-radius:20px; font-size:13px; font-weight:800;">📦 লগইন ছাড়াই অর্ডার ও ডেলিভারি ট্র্যাকার</span>
+                <span style="background:var(--blue-light); color:var(--blue-dark); border:1px solid var(--blue-border); padding:5px 15px; border-radius:20px; font-size:13px; font-weight:800;">📦 লগইন ছাড়াই অর্ডার ও ডেলিভারি ট্র্যাকার</span>
                 <h1 style="font-size:28px; margin:10px 0 6px; font-weight:800;">আমার অর্ডার ও প্রোডাক্ট ডেলিভারি</h1>
-                <p style="color:var(--text-sub); font-size:15.5px;">আপনি পেমেন্ট করার পর পেইজ কেটে গেলে বা কপি করতে ভুলে গেলে নিচে আপনার <b>Transaction ID (TrxID)</b> অথবা <b>বিকাশ/নগদ মোবাইল নাম্বার</b> লিখে সার্চ করলেই প্রোডাক্ট পেয়ে যাবেন!</p>
+                <p style="color:var(--text-sub); font-size:15.5px;">আপনি পেমেন্ট করার পর পেইজ কেটে গেলে বা কপি করতে ভুলে গেলে নিচে আপনার <b>Transaction ID (TrxID)</b> অথবা <b>বিকাশ/নগদ মোবাইল নাম্বার</b> লিখে সার্চ করলেই প্রোডাক্ট পেয়ে যাবেন!</p>
             </div>
 
             <!-- TrxID / Phone Search Box -->
@@ -616,7 +640,7 @@
 
             <div id="modal-fail-state" style="display:none;">
                 <div style="width:70px; height:70px; background:#FEF2F2; color:#DC2626; border:2px solid #EF4444; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:34px; margin:0 auto 12px;">⚠️</div>
-                <h2 id="fail-modal-title" style="font-size:22px; color:#DC2626; font-weight:800; margin-bottom:8px;">অটোমেটিক ভেরিফাই করা সম্ভব হয়নি!</h2>
+                <h2 id="fail-modal-title" style="font-size:22px; color:#DC2626; font-weight:800; margin-bottom:8px;">অটোমেটিক ভেরিফাই করা সম্ভব হয়নি!</h2>
                 <p id="fail-modal-desc" style="color:var(--text-sub); font-size:15px; line-height:1.6;"></p>
 
                 <button type="button" onclick="closeVerifyModal(); openOrdersView();" class="btn-green-main" style="width:100%; margin-top:14px; background:var(--blue-main);">📦 আমার অর্ডার সেকশনে স্ট্যাটাস দেখুন</button>
@@ -632,7 +656,7 @@
         <div class="footer-grid">
             <div>
                 <h4 id="foot-brand">Super Shop BD</h4>
-                <p style="font-size:14px; line-height:1.7;">বাংলাদেশের সবচেয়ে বিশ্বস্ত এআই সফটওয়্যার ও প্রিমিয়াম ডিজিটাল সাবস্ক্রিপশন প্ল্যাটফর্ম। ইনস্ট্যান্ট অটোমেটিক ডেলিভারি ও 24/7 সাপোর্ট।</p>
+                <p style="font-size:14px; line-height:1.7;">বাংলাদেশের সবচেয়ে বিশ্বস্ত এআই সফটওয়্যার ও প্রিমিয়াম ডিজিটাল সাবস্ক্রিপশন প্ল্যাটফর্ম। ইনস্ট্যান্ট অটোমেটিক ডেলিভারি ও 24/7 সাপোর্ট।</p>
             </div>
             <div>
                 <h4>গুরুত্বপূর্ণ লিংক</h4>
@@ -709,33 +733,33 @@
                 activePayOption: "52",
                 payNumber52: "01633248252",
                 payNumber50: "01643173550",
-                secHeading: "✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস",
-                secSub: "সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন",
+                secHeading: "✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস",
+                secSub: "সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন",
                 hero: {
                     bannerOnlyMode: true,
-                    flag: "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার",
+                    flag: "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার",
                     title: "মুখে কথা বললেই টাইপ ও অনুবাদ — Super AI Typing",
-                    desc: "পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।",
+                    desc: "পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।",
                     bgImage: "hero-banner.png",
                     btnText: "🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন",
                     btnLink: "/super-typing/",
                     cardLogo: "logo.png",
                     cardBg: "",
                     cardTitle: "Super AI Typing (Windows)",
-                    cardSub: "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা",
+                    cardSub: "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা",
                     cardBadge: "✔ 100% Verified Software"
                 }
             },
             products: [
                 {
                     id: "p_canva", slug: "canva-pro", visible: true, name: "Canva Pro Official",
-                    category: "গ্রাফিক ডিজাইন ও ক্রিয়েটিভ টুল", popBadge: "🔥 #1 Best Seller", stockMode: "auto", manualStockText: "🟢 In Stock",
+                    category: "গ্রাফিক ডিজাইন ও ক্রিয়েটিভ টুল", popBadge: "🔥 #1 Best Seller", stockMode: "auto", manualStockText: "🟢 In Stock",
                     price: 99, oldPrice: 250, btnText: "বিস্তারিত ও অর্ডার করুন ➔",
                     thumb: makeArtwork("#6D28D9", "#0EA5E9", "OFFICIAL SUBSCRIPTION", "Canva Pro", "100M+ Templates • Magic AI • Brand Kit", "🎨"),
-                    shortDesc: "আপনার নিজস্ব ইমেইলে Canva Pro সাবস্ক্রিপশন। 100M+ প্রিমিয়াম টেমপ্লেট, ব্যাকগ্রাউন্ড রিমুভার ও Magic AI টুলস।",
-                    longDesc: "গ্রাফিক ডিজাইনার, উদ্যোক্তা এবং সোশ্যাল মিডিয়া মার্কেটারদের জন্য শতভাগ অফিসিয়াল Canva Pro সাবস্ক্রিপশন।",
-                    deliveryTemplate: "🎉 অভিনন্দন! আপনার Canva Pro সাবস্ক্রিপশন নিচে দেওয়া হলো।",
-                    variantsEnabled: true, variantTitle: "📦 আপনার পছন্দের মেয়াদ / ভেরিয়েন্ট বাছাই করুন:",
+                    shortDesc: "আপনার নিজস্ব ইমেইলে Canva Pro সাবস্ক্রিপশন। 100M+ প্রিমিয়াম টেমপ্লেট, ব্যাকগ্রাউন্ড রিমুভার ও Magic AI টুলস।",
+                    longDesc: "গ্রাফিক ডিজাইনার, উদ্যোক্তা এবং সোশ্যাল মিডিয়া মার্কেটারদের জন্য শতভাগ অফিসিয়াল Canva Pro সাবস্ক্রিপশন।",
+                    deliveryTemplate: "🎉 অভিনন্দন! আপনার Canva Pro সাবস্ক্রিপশন নিচে দেওয়া হলো।",
+                    variantsEnabled: true, variantTitle: "📦 আপনার পছন্দের মেয়াদ / ভেরিয়েন্ট বাছাই করুন:",
                     variants: [
                         { name: "1 Month (30 Days)", price: 99, oldPrice: 250, stockVault: [] },
                         { name: "6 Months (180 Days)", price: 299, oldPrice: 600, stockVault: [] },
@@ -744,15 +768,15 @@
                     stockVault: [], specsEnabled: true,
                     specs: [
                         { label: "Account Type (অ্যাকাউন্টের ধরণ)", val: "Personal Email / Official Invite" },
-                        { label: "Duration (মেয়াদ)", val: "30 Days - 365 Days (Warranty)" },
+                        { label: "Duration (মেয়াদ)", val: "30 Days - 365 Days (Warranty)" },
                         { label: "Device Limit (ডিভাইস লিমিট)", val: "PC & Mobile (Unlimited Devices)" },
                         { label: "Delivery Time (ডেলিভারি)", val: "Instant Auto-Delivery" }
                     ],
                     videosEnabled: false, videos: [], screenshotsEnabled: false, screenshots: [],
                     features: [
-                        { icon: "🎨", title: "100+ Million প্রিমিয়াম টেমপ্লেট ও গ্রাফিক্স", desc: "সোশ্যাল মিডিয়া পোস্ট, ব্যানার, লোগো ও ইউটিউব থাম্বনেইল তৈরির আনলিমিটেড প্রো অ্যাসেট।" },
+                        { icon: "🎨", title: "100+ Million প্রিমিয়াম টেমপ্লেট ও গ্রাফিক্স", desc: "সোশ্যাল মিডিয়া পোস্ট, ব্যানার, লোগো ও ইউটিউব থাম্বনেইল তৈরির আনলিমিটেড প্রো অ্যাসেট।" },
                         { icon: "✨", title: "1-Click Background Remover & Magic Studio", desc: "এক ক্লিকে যেকোনো ছবি বা ভিডিওর ব্যাকগ্রাউন্ড রিমুভ এবং Magic AI টুলস।" },
-                        { icon: "🔤", title: "কাস্টম ফন্ট আপলোড ও 4K ডাউনলোড", desc: "যেকোনো বাংলা ও ইংলিশ প্রিমিয়াম ফন্ট ব্যবহার এবং হাই-কোয়ালিটি এক্সপোর্ট সুবিধা।" }
+                        { icon: "🔤", title: "কাস্টম ফন্ট আপলোড ও 4K ডাউনলোড", desc: "যেকোনো বাংলা ও ইংলিশ প্রিমিয়াম ফন্ট ব্যবহার এবং হাই-কোয়ালিটি এক্সপোর্ট সুবিধা।" }
                     ]
                 },
                 {
@@ -760,10 +784,10 @@
                     category: "প্রফেশনাল ভিডিও এডিটিং", popBadge: "⚡ Hot Selling", stockMode: "auto", manualStockText: "🟢 In Stock",
                     price: 149, oldPrice: 400, btnText: "বিস্তারিত ও অর্ডার করুন ➔",
                     thumb: makeArtwork("#0F172A", "#0284C7", "PRO VIDEO EDITOR", "CapCut Pro", "4K 60FPS Export • Auto Captions • Pro Effects", "🎬"),
-                    shortDesc: "পিসি ও মোবাইলে প্রফেশনাল ভিডিও এডিটিং, প্রিমিয়াম ট্রানজিশন, AI অটো ক্যাপশন ও 4K এক্সপোর্ট।",
-                    longDesc: "কনটেন্ট ক্রিয়েটর, ইউটিউবার ও রিলস এডিটরদের জন্য সব প্রো ইফেক্টস ও AI টুলস আনলকড অফিসিয়াল CapCut Pro।",
-                    deliveryTemplate: "🎉 অভিনন্দন! আপনার 30 দিনের CapCut Pro সাবস্ক্রিপশনের মেইল ও পাসওয়ার্ড নিচে দেওয়া হলো।",
-                    variantsEnabled: true, variantTitle: "📦 আপনার পছন্দের সাবস্ক্রিপশন মেয়াদ বাছাই করুন:",
+                    shortDesc: "পিসি ও মোবাইলে প্রফেশনাল ভিডিও এডিটিং, প্রিমিয়াম ট্রানজিশন, AI অটো ক্যাপশন ও 4K এক্সপোর্ট।",
+                    longDesc: "কনটেন্ট ক্রিয়েটর, ইউটিউবার ও রিলস এডিটরদের জন্য সব প্রো ইফেক্টস ও AI টুলস আনলকড অফিসিয়াল CapCut Pro।",
+                    deliveryTemplate: "🎉 অভিনন্দন! আপনার 30 দিনের CapCut Pro সাবস্ক্রিপশনের মেইল ও পাসওয়ার্ড নিচে দেওয়া হলো।",
+                    variantsEnabled: true, variantTitle: "📦 আপনার পছন্দের সাবস্ক্রিপশন মেয়াদ বাছাই করুন:",
                     variants: [
                         { name: "1 Month (30 Days)", price: 149, oldPrice: 400, stockVault: [] },
                         { name: "2 Months (60 Days)", price: 279, oldPrice: 750, stockVault: [] },
@@ -772,26 +796,26 @@
                     stockVault: [], specsEnabled: true,
                     specs: [
                         { label: "Account Type (অ্যাকাউন্টের ধরণ)", val: "Ready Pro Account (Email & Pass)" },
-                        { label: "Duration (মেয়াদ)", val: "30 Days / 60 Days / 90 Days" },
+                        { label: "Duration (মেয়াদ)", val: "30 Days / 60 Days / 90 Days" },
                         { label: "Device Limit (ডিভাইস লিমিট)", val: "Windows PC, Mac, Android & iOS" },
                         { label: "Cloud Storage (ক্লাউড স্টোরেজ)", val: "100 GB CapCut Cloud Space" }
                     ],
                     videosEnabled: false, videos: [], screenshotsEnabled: false, screenshots: [],
                     features: [
-                        { icon: "🎬", title: "সকল Pro Effects, Transitions ও Color Grading", desc: "ওয়াটারমার্ক ছাড়া হাজার হাজার প্রিমিয়াম ভিডিও ইফেক্ট ও ট্রানজিশন ব্যবহার করুন।" },
-                        { icon: "🎙️", title: "AI Auto Captions ও Vocal Isolation", desc: "এক ক্লিকেই ভিডিওর ব্যাকগ্রাউন্ড নয়েজ রিমুভ এবং অটোমেটিক সাবটাইটেল তৈরি করুন।" },
-                        { icon: "🚀", title: "4K 60FPS আল্ট্রা ফাস্ট এক্সপোর্ট", desc: "পিসি এবং মোবাইল উভয় ডিভাইসেই সর্বোচ্চ কোয়ালিটিতে রেন্ডারিং সুবিধা।" }
+                        { icon: "🎬", title: "সকল Pro Effects, Transitions ও Color Grading", desc: "ওয়াটারমার্ক ছাড়া হাজার হাজার প্রিমিয়াম ভিডিও ইফেক্ট ও ট্রানজিশন ব্যবহার করুন।" },
+                        { icon: "🎙️", title: "AI Auto Captions ও Vocal Isolation", desc: "এক ক্লিকেই ভিডিওর ব্যাকগ্রাউন্ড নয়েজ রিমুভ এবং অটোমেটিক সাবটাইটেল তৈরি করুন।" },
+                        { icon: "🚀", title: "4K 60FPS আল্ট্রা ফাস্ট এক্সপোর্ট", desc: "পিসি এবং মোবাইল উভয় ডিভাইসেই সর্বোচ্চ কোয়ালিটিতে রেন্ডারিং সুবিধা।" }
                     ]
                 },
                 {
                     id: "p_google_ai", slug: "google-ai-pro", visible: true, name: "Google AI Pro + 2TB Cloud",
-                    category: "প্রিমিয়াম এআই ও ক্লাউড প্যাক", popBadge: "🔥 Best Value", stockMode: "auto", manualStockText: "🟢 In Stock",
+                    category: "প্রিমিয়াম এআই ও ক্লাউড প্যাক", popBadge: "🔥 Best Value", stockMode: "auto", manualStockText: "🟢 In Stock",
                     price: 199, oldPrice: 550, btnText: "বিস্তারিত ও অর্ডার করুন ➔",
                     thumb: makeArtwork("#047857", "#1D4ED8", "GEMINI PRO + VEO VIDEO", "Google AI Pro", "1,000 Flow Video Credits + 2TB Cloud Storage", "🤖"),
                     shortDesc: "প্রতি মাসে 1,000 Google Flow ও Veo ভিডিও ক্রেডিট, 2TB গুগল ড্রাইভ স্টোরেজ, NotebookLM Plus এবং Meet Pro।",
-                    longDesc: "কনটেন্ট ক্রিয়েটর, ডিজাইনার, স্টুডেন্ট এবং প্রফেশনালদের জন্য গুগলের সবচেয়ে শক্তিশালী অল-ইন-ওয়ান প্রিমিয়াম এআই ও ক্লাউড প্যাকেজ।",
-                    deliveryTemplate: "🎉 অভিনন্দন! আপনার Google AI Pro + 2TB Cloud সাবস্ক্রিপশন ডিটেইলস নিচে দেওয়া হলো।",
-                    variantsEnabled: true, variantTitle: "📦 আপনার পছন্দের সাবস্ক্রিপশন মেয়াদ বাছাই করুন:",
+                    longDesc: "কনটেন্ট ক্রিয়েটর, ডিজাইনার, স্টুডেন্ট এবং প্রফেশনালদের জন্য গুগলের সবচেয়ে শক্তিশালী অল-ইন-ওয়ান প্রিমিয়াম এআই ও ক্লাউড প্যাকেজ।",
+                    deliveryTemplate: "🎉 অভিনন্দন! আপনার Google AI Pro + 2TB Cloud সাবস্ক্রিপশন ডিটেইলস নিচে দেওয়া হলো।",
+                    variantsEnabled: true, variantTitle: "📦 আপনার পছন্দের সাবস্ক্রিপশন মেয়াদ বাছাই করুন:",
                     variants: [
                         { name: "1 Month (30 Days)", price: 199, oldPrice: 550, stockVault: [] },
                         { name: "2 Months (60 Days)", price: 369, oldPrice: 1000, stockVault: [] },
@@ -800,17 +824,17 @@
                     stockVault: [], specsEnabled: true,
                     specs: [
                         { label: "Account Type (অ্যাকাউন্টের ধরণ)", val: "Private / Personal Access" },
-                        { label: "Duration (মেয়াদ)", val: "30 Days (100% Full Warranty)" },
+                        { label: "Duration (মেয়াদ)", val: "30 Days (100% Full Warranty)" },
                         { label: "Device Limit (ডিভাইস লিমিট)", val: "PC & Mobile (Both Supported)" },
                         { label: "Monthly Video Credits (মাসিক ক্রেডিট)", val: "1,000 Google Flow & Veo Credits" }
                     ],
                     videosEnabled: false, videos: [], screenshotsEnabled: false, screenshots: [],
                     features: [
                         { icon: "🎬", title: "প্রতি মাসে 1,000 Google Flow ও Veo ভিডিও ক্রেডিট", desc: "Google Flow এবং Veo মডেলের মাধ্যমে Text-to-Video ও প্রফেশনাল AI ভিডিও তৈরির জন্য প্রতি মাসে 1,000 ক্রেডিট পাবেন।" },
-                        { icon: "☁️", title: "2 Terabyte (2TB) গুগল ক্লাউড স্টোরেজ", desc: "Google Drive, Gmail এবং Google Photos-এ ফাইল ও হাই-কোয়ালিটি ছবি ব্যাকআপ রাখার বিশাল স্টোরেজ।" },
-                        { icon: "📓", title: "NotebookLM Plus (প্রিমিয়াম রিসার্চ টুল)", desc: "সাধারণ ইউজারদের চেয়ে 5 গুণ বেশি লিমিট! প্রতিটি নোটবুকে 300টি পর্যন্ত সোর্স দিয়ে অডিও ওভারভিউ ও নোট তৈরি।" },
-                        { icon: "📹", title: "Google Meet Pro (100 পার্টিসিপেন্ট)", desc: "100 জনকে নিয়ে টানা 24 ঘণ্টা গ্রুপ মিটিং, নয়েজ ক্যান্সেলেশন এবং মিটিং রেকর্ডিং সরাসরি ড্রাইভে সেভ।" },
-                        { icon: "🧠", title: "লেটেস্ট Gemini Pro ও Deep Research", desc: "জটিল কোডিং, বিশাল ফাইল অ্যানালাইসিস এবং রিয়েল-টাইম ডিপ রিসার্চ করার জন্য গুগলের সেরা এআই মডেল।" },
+                        { icon: "☁️", title: "2 Terabyte (2TB) গুগল ক্লাউড স্টোরেজ", desc: "Google Drive, Gmail এবং Google Photos-এ ফাইল ও হাই-কোয়ালিটি ছবি ব্যাকআপ রাখার বিশাল স্টোরেজ।" },
+                        { icon: "📓", title: "NotebookLM Plus (প্রিমিয়াম রিসার্চ টুল)", desc: "সাধারণ ইউজারদের চেয়ে 5 গুণ বেশি লিমিট! প্রতিটি নোটবুকে 300টি পর্যন্ত সোর্স দিয়ে অডিও ওভারভিউ ও নোট তৈরি।" },
+                        { icon: "📹", title: "Google Meet Pro (100 পার্টিসিপেন্ট)", desc: "100 জনকে নিয়ে টানা 24 ঘণ্টা গ্রুপ মিটিং, নয়েজ ক্যান্সেলেশন এবং মিটিং রেকর্ডিং সরাসরি ড্রাইভে সেভ।" },
+                        { icon: "🧠", title: "লেটেস্ট Gemini Pro ও Deep Research", desc: "জটিল কোডিং, বিশাল ফাইল অ্যানালাইসিস এবং রিয়েল-টাইম ডিপ রিসার্চ করার জন্য গুগলের সেরা এআই মডেল।" },
                         { icon: "📄", title: "Gmail, Docs ও Sheets-এ সরাসরি AI", desc: "গুগল ডকস, শিট এবং জিমেইলের ভেতরে বসেই এক ক্লিকে ইমেইল লেখা ও ডেটা সাজানোর প্রো সুবিধা।" }
                     ]
                 },
@@ -820,8 +844,8 @@
                     price: 249, oldPrice: 650, btnText: "বিস্তারিত ও অর্ডার করুন ➔",
                     thumb: makeArtwork("#4C1D95", "#DB2777", "HIGH-SPEED AI TOKENS", "Muse.ai Pro", "1 Billion • 2 Billion • 3 Billion Tokens", "🚀"),
                     shortDesc: "হাই-স্পিড AI জেনারেশন, 4K AI ভিডিও হোস্টিং, অটো ট্রান্সক্রিপশন এবং 1 Billion থেকে 3 Billion পর্যন্ত বিশাল টোকেন প্যাক।",
-                    longDesc: "Muse.ai প্রো প্ল্যাটফর্মে পাচ্ছেন আল্ট্রা-ফাস্ট এআই টোকেন ব্যালেন্স, অ্যাডভান্সড এআই ভিডিও ইনডেক্সিং, ট্রান্সক্রিপশন এবং প্রফেশনাল ওয়ার্কফ্লো সুবিধা।",
-                    deliveryTemplate: "🎉 অভিনন্দন! আপনার Muse.ai Pro টোকেন অ্যাকাউন্টের ইমেইল ও পাসওয়ার্ড নিচে দেওয়া হলো।",
+                    longDesc: "Muse.ai প্রো প্ল্যাটফর্মে পাচ্ছেন আল্ট্রা-ফাস্ট এআই টোকেন ব্যালেন্স, অ্যাডভান্সড এআই ভিডিও ইনডেক্সিং, ট্রান্সক্রিপশন এবং প্রফেশনাল ওয়ার্কফ্লো সুবিধা।",
+                    deliveryTemplate: "🎉 অভিনন্দন! আপনার Muse.ai Pro টোকেন অ্যাকাউন্টের ইমেইল ও পাসওয়ার্ড নিচে দেওয়া হলো।",
                     variantsEnabled: true, variantTitle: "⚡ আপনার পছন্দের টোকেন ভেরিয়েন্ট (Token Pack) বাছাই করুন:",
                     variants: [
                         { name: "1 Billion Tokens", price: 249, oldPrice: 650, stockVault: [] },
@@ -837,9 +861,9 @@
                     ],
                     videosEnabled: false, videos: [], screenshotsEnabled: false, screenshots: [],
                     features: [
-                        { icon: "🚀", title: "1 Billion থেকে 3 Billion পর্যন্ত হাই-স্পিড টোকেন", desc: "আপনার প্রজেক্টের চাহিদা অনুযায়ী 1B, 2B অথবা 3B টোকেন ভেরিয়েন্ট বাছাই করার সুবিধা।" },
-                        { icon: "🎥", title: "4K AI Video Hosting & Deep Search", desc: "ভিডিওর ভেতরের যেকোনো সংলাপ, দৃশ্য বা ফ্রেম এক সেকেন্ডে এআই দিয়ে সার্চ ও বিশ্লেষণ করুন।" },
-                        { icon: "⚡", title: "অটো ট্রান্সক্রিপশন ও ফাস্ট জেনারেশন স্পিড", desc: "কোনো ওয়েটিং কিউ ছাড়াই সুপার ফাস্ট এআই জেনারেশন এবং কমার্শিয়াল রাইটস সুবিধা।" }
+                        { icon: "🚀", title: "1 Billion থেকে 3 Billion পর্যন্ত হাই-স্পিড টোকেন", desc: "আপনার প্রজেক্টের চাহিদা অনুযায়ী 1B, 2B অথবা 3B টোকেন ভেরিয়েন্ট বাছাই করার সুবিধা।" },
+                        { icon: "🎥", title: "4K AI Video Hosting & Deep Search", desc: "ভিডিওর ভেতরের যেকোনো সংলাপ, দৃশ্য বা ফ্রেম এক সেকেন্ডে এআই দিয়ে সার্চ ও বিশ্লেষণ করুন।" },
+                        { icon: "⚡", title: "অটো ট্রান্সক্রিপশন ও ফাস্ট জেনারেশন স্পিড", desc: "কোনো ওয়েটিং কিউ ছাড়াই সুপার ফাস্ট এআই জেনারেশন এবং কমার্শিয়াল রাইটস সুবিধা।" }
                     ]
                 }
             ]
@@ -905,7 +929,7 @@
             document.getElementById('modal-fb-btn').href = fbUrl;
             document.getElementById('modal-wa-btn').href = `https://wa.me/${waNum}`;
 
-            document.getElementById('hero-flag').innerText = h.flag || "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার";
+            document.getElementById('hero-flag').innerText = h.flag || "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার";
             document.getElementById('hero-btn-text').innerText = h.btnText || "🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন";
             document.getElementById('hero-btn-link').href = h.btnLink || "/super-typing/";
 
@@ -918,11 +942,14 @@
                 document.getElementById('hero-desc').innerText = h.desc || "";
             }
 
-            if (h.bgImage) document.getElementById('hero-banner-box').style.backgroundImage = `url('${resolveAssetPath(h.bgImage)}')`;
+            const heroBgEl = document.getElementById('hero-bg-img-el');
+            if (h.bgImage && heroBgEl) {
+                heroBgEl.src = resolveAssetPath(h.bgImage);
+            }
             if (h.cardBg) document.getElementById('hero-right-card').style.backgroundImage = `linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.9)), url('${resolveAssetPath(h.cardBg)}')`;
             document.getElementById('hero-card-img').src = resolveAssetPath(h.cardLogo || 'logo.png');
             document.getElementById('hero-card-title').innerText = h.cardTitle || "Super AI Typing (Windows)";
-            document.getElementById('hero-card-sub').innerText = h.cardSub || "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা";
+            document.getElementById('hero-card-sub').innerText = h.cardSub || "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা";
             document.getElementById('hero-card-badge').innerText = h.cardBadge || "✔ 100% Verified Software";
 
             document.getElementById('sec-heading').innerText = s.secHeading || DEFAULT_DATA.settings.secHeading;
@@ -965,7 +992,7 @@
             document.getElementById('home-view').style.display = 'block';
             document.getElementById('lp-view').style.display = 'none';
             document.getElementById('orders-view').style.display = 'none';
-            document.title = (storeData.settings?.brandName || "Super Shop BD") + " - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ";
+            document.title = (storeData.settings?.brandName || "Super Shop BD") + " - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ";
 
             const grid = document.getElementById('product-grid');
             grid.innerHTML = products.filter(p => p.visible !== false).map(p => {
@@ -1053,12 +1080,12 @@
                     if (allOrders[id]) matched.push(allOrders[id]);
                 });
                 if (matched.length === 0) {
-                    box.innerHTML = `<div style="background:#F8FAFC; border:1.5px dashed #CBD5E1; padding:25px; border-radius:14px; text-align:center; color:#475569; font-weight:600;">এই ব্রাউজার থেকে সাম্প্রতিক কোনো অর্ডার পাওয়া যায়নি। উপরে আপনার <b>Transaction ID (TrxID)</b> বা <b>মোবাইল নাম্বার</b> লিখে সার্চ করুন!</div>`;
+                    box.innerHTML = `<div style="background:#F8FAFC; border:1.5px dashed #CBD5E1; padding:25px; border-radius:14px; text-align:center; color:#475569; font-weight:600;">এই ব্রাউজার থেকে সাম্প্রতিক কোনো অর্ডার পাওয়া যায়নি। উপরে আপনার <b>Transaction ID (TrxID)</b> বা <b>মোবাইল নাম্বার</b> লিখে সার্চ করুন!</div>`;
                     return;
                 }
                 renderCustomerOrderCards(matched.reverse(), "📱 আপনার এই ডিভাইস থেকে করা অর্ডারসমূহ:");
             } catch (err) {
-                box.innerHTML = `<p style="color:#DC2626; text-align:center;">নেটওয়ার্ক সমস্যা, আবার চেষ্টা করুন।</p>`;
+                box.innerHTML = `<p style="color:#DC2626; text-align:center;">নেটওয়ার্ক সমস্যা, আবার চেষ্টা করুন।</p>`;
             }
         }
 
@@ -1067,7 +1094,7 @@
             const q = document.getElementById('lookup-trx-input').value.trim().toLowerCase();
             if (!q) return;
             const box = document.getElementById('customer-orders-results');
-            box.innerHTML = `<p style="text-align:center; color:#0284C7; font-weight:800;">🔍 "${q}" দিয়ে আপনার অর্ডার খোঁজা হচ্ছে...</p>`;
+            box.innerHTML = `<p style="text-align:center; color:#0284C7; font-weight:800;">🔍 "${q}" দিয়ে আপনার অর্ডার খোঁজা হচ্ছে...</p>`;
             try {
                 const res = await fetch(`${DB_URL}/orders.json`);
                 const allOrders = await res.json() || {};
@@ -1081,12 +1108,12 @@
                     }
                 }
                 if (matched.length === 0) {
-                    box.innerHTML = `<div style="background:#FEF2F2; border:1.5px solid #FCA5A5; padding:22px; border-radius:14px; text-align:center; color:#DC2626; font-weight:700;">❌ "${q}" ট্রানজেকশন আইডি বা নাম্বার দিয়ে কোনো অর্ডার পাওয়া যায়নি! সঠিক TrxID বা নাম্বার দিয়ে আবার সার্চ করুন।</div>`;
+                    box.innerHTML = `<div style="background:#FEF2F2; border:1.5px solid #FCA5A5; padding:22px; border-radius:14px; text-align:center; color:#DC2626; font-weight:700;">❌ "${q}" ট্রানজেকশন আইডি বা নাম্বার দিয়ে কোনো অর্ডার পাওয়া যায়নি! সঠিক TrxID বা নাম্বার দিয়ে আবার সার্চ করুন।</div>`;
                     return;
                 }
                 renderCustomerOrderCards(matched.reverse(), `✅ "${q}" এর জন্য প্রাপ্ত অর্ডার ও ডেলিভারি তথ্য:`);
             } catch (err) {
-                box.innerHTML = `<p style="color:#DC2626; text-align:center;">সার্চ করা সম্ভব হয়নি, আবার চেষ্টা করুন।</p>`;
+                box.innerHTML = `<p style="color:#DC2626; text-align:center;">সার্চ করা সম্ভব হয়নি, আবার চেষ্টা করুন।</p>`;
             }
         }
 
@@ -1101,23 +1128,23 @@
                     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
                         <b style="font-size:18px; color:#0F172A;">${o.productName} — [${o.variantName || 'Standard'}] (৳${o.amount})</b>
                         <span style="padding:4px 12px; border-radius:20px; font-size:13px; font-weight:800; background:#fff; border:1px solid #CBD5E1;">
-                            ${isApproved ? '✅ ডেলিভারি সম্পন্ন' : (isRejected ? '❌ ভেরিফাই হয়নি' : '⏳ ভেরিফিকেশন পেন্ডিং')}
+                            ${isApproved ? '✅ ডেলিভারি সম্পন্ন' : (isRejected ? '❌ ভেরিফাই হয়নি' : '⏳ ভেরিফিকেশন পেন্ডিং')}
                         </span>
                     </div>
                     <div style="font-size:14px; color:#475569; font-weight:600; margin-bottom:10px;">
-                        TrxID / নাম্বার: <b>${o.trxOrPhone}</b> | সময়: ${o.time}
+                        TrxID / নাম্বার: <b>${o.trxOrPhone}</b> | সময়: ${o.time}
                     </div>
                     ${isApproved ? `
                         <div style="background:#FFFFFF; border:1.5px solid #6EE7B7; border-radius:12px; padding:16px; margin-top:10px;">
                             <div style="font-size:14.5px; color:#0F172A; font-weight:600; white-space:pre-line; margin-bottom:10px;">${o.customMessage || ''}</div>
                             <div style="font-size:12.5px; font-weight:800; color:#059669;">🔐 আপনার প্রোডাক্ট / অ্যাকাউন্ট তথ্য:</div>
                             <div class="cred-code-box" id="ord-cred-${idx}">${o.deliveredAccount}</div>
-                            <button type="button" class="btn-green-main" style="padding:10px 18px; font-size:14px;" onclick="navigator.clipboard.writeText(document.getElementById('ord-cred-${idx}').innerText); alert('✅ কপি হয়েছে!');">📋 অ্যাকাউন্ট তথ্য কপি করুন</button>
+                            <button type="button" class="btn-green-main" style="padding:10px 18px; font-size:14px;" onclick="navigator.clipboard.writeText(document.getElementById('ord-cred-${idx}').innerText); alert('✅ কপি হয়েছে!');">📋 অ্যাকাউন্ট তথ্য কপি করুন</button>
                         </div>
                     ` : isRejected ? `
-                        <p style="font-size:14px; color:#DC2626; font-weight:700;">পেমেন্টের তথ্য মেলেনি। অনুগ্রহ করে আমাদের ফেসবুক পেইজে বা হোয়াটসঅ্যাপ সাপোর্টে যোগাযোগ করুন।</p>
+                        <p style="font-size:14px; color:#DC2626; font-weight:700;">পেমেন্টের তথ্য মেলেনি। অনুগ্রহ করে আমাদের ফেসবুক পেইজে বা হোয়াটসঅ্যাপ সাপোর্টে যোগাযোগ করুন।</p>
                     ` : `
-                        <p style="font-size:14px; color:#B45309; font-weight:700;">আপনার অর্ডারটি যাচাই করা হচ্ছে। অ্যাডমিন অ্যাপ্রুভ করার সাথে সাথেই এখানে আপনার আইডি-পাসওয়ার্ড চলে আসবে! <button type="button" onclick="loadSavedDeviceOrders()" style="margin-left:8px; padding:4px 10px; border-radius:6px; border:none; background:#0284C7; color:#fff; font-weight:700; cursor:pointer;">🔄 স্ট্যাটাস রিফ্রেশ করুন</button></p>
+                        <p style="font-size:14px; color:#B45309; font-weight:700;">আপনার অর্ডারটি যাচাই করা হচ্ছে। অ্যাডমিন অ্যাপ্রুভ করার সাথে সাথেই এখানে আপনার আইডি-পাসওয়ার্ড চলে আসবে! <button type="button" onclick="loadSavedDeviceOrders()" style="margin-left:8px; padding:4px 10px; border-radius:6px; border:none; background:#0284C7; color:#fff; font-weight:700; cursor:pointer;">🔄 স্ট্যাটাস রিফ্রেশ করুন</button></p>
                     `}
                 </div>`;
             }).join('');
@@ -1282,7 +1309,7 @@
         function copyNum(num, btnEl) {
             navigator.clipboard.writeText(num);
             const oldTxt = btnEl.innerText;
-            btnEl.innerText = "✔ কপি হয়েছে!";
+            btnEl.innerText = "✔ কপি হয়েছে!";
             btnEl.style.background = "#10B981";
             setTimeout(() => { btnEl.innerText = oldTxt; btnEl.style.background = "#0F172A"; }, 1800);
         }
@@ -1316,7 +1343,7 @@
             updateFavicon(storeData.settings?.logoUrl || 'supershop-logo.png');
 
             document.getElementById('lp-thumb-wrap').innerHTML = `<img src="${p.thumb}" alt="${p.name}">`;
-            document.getElementById('lp-cat-badge').innerText = p.category || 'প্রিমিয়াম সাবস্ক্রিপশন';
+            document.getElementById('lp-cat-badge').innerText = p.category || 'প্রিমিয়াম সাবস্ক্রিপশন';
             document.getElementById('lp-title').innerText = p.name;
             document.getElementById('lp-short-desc').innerText = p.shortDesc || '';
             document.getElementById('lp-long-desc').innerText = p.longDesc || '';
@@ -1437,7 +1464,7 @@
                 whatsapp: waInput || "N/A",
                 status: "Pending",
                 deliveredAccount: "",
-                customMessage: currentProduct.deliveryTemplate || "ধন্যবাদ! আপনার প্রোডাক্টের তথ্য নিচে দেওয়া হলো:",
+                customMessage: currentProduct.deliveryTemplate || "ধন্যবাদ! আপনার প্রোডাক্টের তথ্য নিচে দেওয়া হলো:",
                 time: new Date().toLocaleString()
             };
 
@@ -1459,8 +1486,8 @@
                         }
                         if (ordData.status.includes("Rejected")) {
                             showFailInModal(
-                                "❌ আপনার পেমেন্টটি ভেরিফাই করা যায়নি!",
-                                "দুঃখিত! আপনার দেওয়া ট্রানজেকশন আইডি বা নাম্বারের সাথে আমাদের পেমেন্টের কোনো তথ্য মেলেনি। সঠিক নাম্বারে টাকা পাঠিয়ে থাকলে আমাদের ফেসবুক পেইজে বা হোয়াটসঅ্যাপ সাপোর্টে মেসেজ দিন।"
+                                "❌ আপনার পেমেন্টটি ভেরিফাই করা যায়নি!",
+                                "দুঃখিত! আপনার দেওয়া ট্রানজেকশন আইডি বা নাম্বারের সাথে আমাদের পেমেন্টের কোনো তথ্য মেলেনি। সঠিক নাম্বারে টাকা পাঠিয়ে থাকলে আমাদের ফেসবুক পেইজে বা হোয়াটসঅ্যাপ সাপোর্টে মেসেজ দিন।"
                             );
                             return;
                         }
@@ -1531,8 +1558,8 @@
                     secEl.innerText = 0;
                     ringEl.style.strokeDashoffset = 345;
                     showFailInModal(
-                        "⚠️ নির্ধারিত ৩০ সেকেন্ডে ভেরিফাই সম্পন্ন হয়নি!",
-                        "চিন্তা করবেন না! আপনার অর্ডারটি আমাদের সিস্টেমে জমা আছে। নিচের <b>'আমার অর্ডার সেকশনে স্ট্যাটাস দেখুন'</b> বাটনে গিয়ে আপনার TrxID দিয়ে সার্চ করলেই ডেলিভারি পেয়ে যাবেন, অথবা সরাসরি আমাদের ফেসবুক পেইজে/হোয়াটসঅ্যাপে মেসেজ দিন।"
+                        "⚠️ নির্ধারিত ৩০ সেকেন্ডে ভেরিফাই সম্পন্ন হয়নি!",
+                        "চিন্তা করবেন না! আপনার অর্ডারটি আমাদের সিস্টেমে জমা আছে। নিচের <b>'আমার অর্ডার সেকশনে স্ট্যাটাস দেখুন'</b> বাটনে গিয়ে আপনার TrxID দিয়ে সার্চ করলেই ডেলিভারি পেয়ে যাবেন, অথবা সরাসরি আমাদের ফেসবুক পেইজে/হোয়াটসঅ্যাপে মেসেজ দিন।"
                     );
                 }
             }, 1000);
@@ -1546,7 +1573,7 @@
             document.getElementById('modal-fail-state').style.display = 'none';
             document.getElementById('modal-success-state').style.display = 'block';
             document.getElementById('del-prod-title').innerText = title;
-            document.getElementById('del-custom-msg').innerText = customMsg || "ধন্যবাদ! আপনার প্রোডাক্টের বিস্তারিত তথ্য নিচে দেওয়া হলো:";
+            document.getElementById('del-custom-msg').innerText = customMsg || "ধন্যবাদ! আপনার প্রোডাক্টের বিস্তারিত তথ্য নিচে দেওয়া হলো:";
             document.getElementById('del-account-code').innerText = accountText;
         }
 
@@ -1565,7 +1592,7 @@
             const msg = document.getElementById('del-custom-msg').innerText;
             const code = document.getElementById('del-account-code').innerText;
             navigator.clipboard.writeText(`${msg}\n\n${code}`);
-            alert("✅ সম্পূর্ণ তথ্য কপি হয়েছে!");
+            alert("✅ সম্পূর্ণ তথ্য কপি হয়েছে!");
         }
 
         function closeVerifyModal() {
