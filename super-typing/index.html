@@ -63,56 +63,129 @@
 
         .container { max-width: 1180px; margin: 0 auto; padding: 30px 20px; }
 
-        /* 🌟 HERO BANNER (CRYSTAL CLEAR HD RENDERING - NO BLUR) */
+        /* 🌟 PURE SOLID GRAPHIC HERO BANNER (NO IMAGE OVERLAP, VIBRANT COLORS) */
         .hero-banner {
-            background-color: #070E1A;
-            border-radius: 24px;
-            padding: 36px 40px;
+            background: radial-gradient(circle at 15% 20%, #1E293B 0%, #090F1D 55%, #050914 100%);
+            border-radius: 26px;
+            padding: 42px 42px;
             color: #FFFFFF;
             display: grid;
-            grid-template-columns: 1.35fr 1fr;
-            gap: 35px;
+            grid-template-columns: 1.45fr 0.95fr;
+            gap: 36px;
             align-items: center;
-            min-height: 350px;
-            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.16);
+            box-shadow: 0 22px 50px rgba(15, 23, 42, 0.22), inset 0 1px 0 rgba(255,255,255,0.1);
             margin-bottom: 55px;
             position: relative;
             overflow: hidden;
-            border: 2px solid rgba(16, 185, 129, 0.35);
+            border: 2px solid rgba(56, 189, 248, 0.28);
         }
-        /* Direct HD Image Element prevents browser CSS background blur */
-        .hero-bg-img {
+        /* Decorative Pure CSS Glow Orbs (Gives a 3D Poster Look without any image file) */
+        .hero-banner::before {
+            content: "";
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: left center;
-            z-index: 0;
-            image-rendering: -webkit-optimize-contrast;
-            transform: translateZ(0);
-            backface-visibility: hidden;
+            top: -120px;
+            left: -80px;
+            width: 340px;
+            height: 340px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.22) 0%, transparent 70%);
             pointer-events: none;
+            z-index: 0;
         }
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: transparent;
-            z-index: 1;
-            display: none;
+        .hero-banner::after {
+            content: "";
+            position: absolute;
+            bottom: -140px;
+            right: -60px;
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
         }
+
         .hero-left {
-            position: relative; z-index: 2; display: flex; flex-direction: column;
-            justify-content: space-between; height: 100%; min-height: 270px; align-items: flex-start;
+            position: relative; z-index: 2;
+            display: flex; flex-direction: column;
+            align-items: flex-start;
         }
         .hero-right { position: relative; z-index: 2; }
+
         .flag-badge {
-            display: inline-block; background: linear-gradient(90deg, #F59E0B, #D97706);
-            color: #fff; font-weight: 700; font-size: 14px; padding: 6px 18px;
-            border-radius: 30px; box-shadow: 0 4px 15px rgba(245,158,11,0.45);
+            display: inline-flex; align-items: center; gap: 6px;
+            background: linear-gradient(90deg, #F59E0B, #EA580C);
+            color: #fff; font-weight: 800; font-size: 13.5px; padding: 6px 18px;
+            border-radius: 30px; box-shadow: 0 6px 18px rgba(245,158,11,0.4);
+            border: 1px solid rgba(255,255,255,0.25);
+            margin-bottom: 18px; letter-spacing: 0.3px;
         }
-        .hero-text-block { margin: 18px 0; background: rgba(15,23,42,0.88); padding: 18px; border-radius: 14px; }
-        .hero-text-block h1 { font-size: 34px; line-height: 1.25; margin-bottom: 10px; font-weight: 800; }
-        .hero-text-block p { color: #E2E8F0; font-size: 16.5px; }
+
+        .hero-main-heading {
+            font-size: 35px;
+            line-height: 1.28;
+            font-weight: 800;
+            margin-bottom: 14px;
+            color: #FFFFFF;
+            letter-spacing: -0.3px;
+        }
+        .grad-cyan {
+            background: linear-gradient(90deg, #38BDF8, #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .grad-emerald {
+            background: linear-gradient(90deg, #34D399, #FBBF24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub-desc {
+            color: #CBD5E1;
+            font-size: 16.5px;
+            line-height: 1.65;
+            margin-bottom: 22px;
+            font-weight: 500;
+        }
+        .hero-sub-desc b {
+            color: #F8FAFC;
+            font-weight: 700;
+        }
+        .hero-sub-desc .hl-tag {
+            color: #38BDF8;
+            font-weight: 800;
+            background: rgba(56, 189, 248, 0.12);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
+        /* 6 Colorful Feature Pills Grid */
+        .hero-pills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            gap: 10px;
+            margin-bottom: 26px;
+            width: 100%;
+        }
+        .h-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 11px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #F8FAFC;
+            background: rgba(30, 41, 59, 0.85);
+            transition: 0.25s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .h-pill:hover { transform: translateY(-2px); }
+        .h-pill.c1 { border: 1.5px solid rgba(56, 189, 248, 0.45); background: linear-gradient(135deg, rgba(14,165,233,0.18), rgba(15,23,42,0.9)); }
+        .h-pill.c2 { border: 1.5px solid rgba(16, 185, 129, 0.45); background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(15,23,42,0.9)); }
+        .h-pill.c3 { border: 1.5px solid rgba(168, 85, 247, 0.45); background: linear-gradient(135deg, rgba(168,85,247,0.18), rgba(15,23,42,0.9)); }
+        .h-pill.c4 { border: 1.5px solid rgba(245, 158, 11, 0.45); background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(15,23,42,0.9)); }
+        .h-pill.c5 { border: 1.5px solid rgba(236, 72, 153, 0.45); background: linear-gradient(135deg, rgba(236,72,153,0.18), rgba(15,23,42,0.9)); }
+        .h-pill.c6 { border: 1.5px solid rgba(45, 212, 191, 0.45); background: linear-gradient(135deg, rgba(45,212,191,0.18), rgba(15,23,42,0.9)); }
 
         .btn-green-main {
             background: var(--green-grad); color: #fff; text-decoration: none;
@@ -122,20 +195,24 @@
         }
         .btn-green-main:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16, 185, 129, 0.55); }
 
-        /* Removed backdrop-filter blur so Chromium never blurs the underlying banner */
+        /* 100% Solid Opaque Right Card */
         .hero-right-card {
-            background: rgba(11, 19, 35, 0.94); background-size: cover; background-position: center;
-            border: 1.5px solid rgba(16, 185, 129, 0.55); border-radius: 20px; padding: 30px 25px;
-            text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+            background: linear-gradient(160deg, #111C33 0%, #0A1120 100%);
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            border-radius: 22px;
+            padding: 32px 26px;
+            text-align: center;
+            box-shadow: 0 18px 40px rgba(0,0,0,0.55);
         }
         .hero-card-logo {
-            width: 86px; height: 86px; border-radius: 20px; object-fit: contain;
-            margin: 0 auto 14px; display: block; background: #fff; padding: 8px;
+            width: 88px; height: 88px; border-radius: 20px; object-fit: contain;
+            margin: 0 auto 15px; display: block; background: #fff; padding: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
         }
         .verified-tag {
-            display: inline-block; background: rgba(16, 185, 129, 0.2);
-            color: #34D399; border: 1px solid #10B981; padding: 6px 16px;
-            border-radius: 20px; font-size: 13px; font-weight: 700; margin-top: 12px;
+            display: inline-block; background: rgba(16, 185, 129, 0.18);
+            color: #34D399; border: 1.5px solid #10B981; padding: 6px 18px;
+            border-radius: 20px; font-size: 13.5px; font-weight: 800; margin-top: 14px;
         }
 
         /* 🛍️ PRODUCT GRID */
@@ -398,8 +475,10 @@
         .footer-grid h4 { color: #FFFFFF; font-size: 18px; margin-bottom: 12px; }
         .footer-grid a { color: #CBD5E1; text-decoration: none; display: block; margin-bottom: 8px; font-size: 15px; }
 
-        @media (max-width: 820px) {
+        @media (max-width: 860px) {
             .hero-banner, .lp-hero-grid, .two-col-inputs, .support-btn-row { grid-template-columns: 1fr; }
+            .hero-pills-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-main-heading { font-size: 27px; }
             .hero-banner, .lp-box, .checkout-card { padding: 26px 20px; }
             .carousel-slide img { height: 260px; }
             .nav-links a:not(.wa-nav-btn):not(.my-orders-btn) { display: none; }
@@ -427,16 +506,28 @@
     <!-- 1. HOMEPAGE VIEW -->
     <div id="home-view" class="container">
         <section class="hero-banner" id="hero-banner-box">
-            <!-- Direct Crisp HD Image Tag for Zero Blur -->
-            <img id="hero-bg-img-el" class="hero-bg-img" src="hero-banner.png" alt="Super AI Typing Banner" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='/super-typing/hero-banner.png';}">
-            <div class="hero-overlay" id="hero-overlay"></div>
             <div class="hero-left">
                 <span class="flag-badge" id="hero-flag">🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার</span>
-                <div class="hero-text-block" id="hero-solid-text" style="display:none;">
-                    <h1 id="hero-title">মুখে কথা বললেই টাইপ ও অনুবাদ — Super AI Typing</h1>
-                    <p id="hero-desc">পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।</p>
+                
+                <h1 class="hero-main-heading" id="hero-title">
+                    কীবোর্ড ছুঁয়েও দেখতে হবে না! কথা বললেই ঝড়ের গতিতে টাইপ ও <span class="grad-cyan">Live Translation</span> — <span class="grad-emerald">Super AI Typing</span>
+                </h1>
+                
+                <p class="hero-sub-desc" id="hero-desc">
+                    পিসির যেকোনো সফটওয়্যারে (<b>MS Word, Browser, Messenger</b>) নির্ভুল <b>বাংলা ও English টাইপ করুন</b> এবং যেকোনো ভাষায় রিয়েল-টাইম <span class="hl-tag">Voice Translation</span> করুন চোখের পলকে!
+                </p>
+
+                <!-- 6 Colorful Premium Feature Badges -->
+                <div class="hero-pills-grid" id="hero-pills">
+                    <div class="h-pill c1">🎙️ বাংলা ও English টাইপিং</div>
+                    <div class="h-pill c2">🌐 Super Translation</div>
+                    <div class="h-pill c3">📱 ক্লাউড ফোন মাইক</div>
+                    <div class="h-pill c4">⌨️ শর্টকাট Hotkey</div>
+                    <div class="h-pill c5">💬 ফ্লোটিং মাইক</div>
+                    <div class="h-pill c6">✨ বাংলিশ ও Mix Mode</div>
                 </div>
-                <div style="margin-top:auto; padding-top:20px;">
+
+                <div>
                     <a id="hero-btn-link" href="/super-typing/" class="btn-green-main">
                         <span id="hero-btn-text">🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন</span>
                     </a>
@@ -446,8 +537,8 @@
             <div class="hero-right">
                 <div class="hero-right-card" id="hero-right-card">
                     <img id="hero-card-img" class="hero-card-logo" src="logo.png" alt="Super AI Typing" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='/super-typing/logo.png';}">
-                    <h3 id="hero-card-title" style="font-size:22px; color:#fff; font-weight:800;">Super AI Typing (Windows)</h3>
-                    <p id="hero-card-sub" style="color:#CBD5E1; font-size:15px; margin-top:4px;">ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা</p>
+                    <h3 id="hero-card-title" style="font-size:23px; color:#fff; font-weight:800;">Super AI Typing (Windows)</h3>
+                    <p id="hero-card-sub" style="color:#CBD5E1; font-size:15.5px; margin-top:6px; font-weight:600;">ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা</p>
                     <div class="verified-tag" id="hero-card-badge">✔ 100% Verified Software</div>
                 </div>
             </div>
@@ -736,15 +827,11 @@
                 secHeading: "✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস",
                 secSub: "সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন",
                 hero: {
-                    bannerOnlyMode: true,
+                    bannerOnlyMode: false,
                     flag: "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার",
-                    title: "মুখে কথা বললেই টাইপ ও অনুবাদ — Super AI Typing",
-                    desc: "পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।",
-                    bgImage: "hero-banner.png",
                     btnText: "🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন",
                     btnLink: "/super-typing/",
                     cardLogo: "logo.png",
-                    cardBg: "",
                     cardTitle: "Super AI Typing (Windows)",
                     cardSub: "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা",
                     cardBadge: "✔ 100% Verified Software"
@@ -879,7 +966,7 @@
         let carouselTimer = null;
 
         async function loadStoreData() {
-            const cached = localStorage.getItem("supershop_cache_v8");
+            const cached = localStorage.getItem("supershop_cache_v9");
             if (cached) {
                 try { storeData = JSON.parse(cached); renderApp(); } catch(e){ renderApp(); }
             } else {
@@ -891,7 +978,7 @@
                 const remote = await res.json();
                 if (remote && remote.products && remote.products.length > 0) {
                     storeData = remote;
-                    localStorage.setItem("supershop_cache_v8", JSON.stringify(storeData));
+                    localStorage.setItem("supershop_cache_v9", JSON.stringify(storeData));
                     renderApp();
                 } else {
                     await fetch(`${DB_URL}/data.json`, { method: 'PUT', body: JSON.stringify(DEFAULT_DATA) });
@@ -933,20 +1020,6 @@
             document.getElementById('hero-btn-text').innerText = h.btnText || "🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন";
             document.getElementById('hero-btn-link').href = h.btnLink || "/super-typing/";
 
-            const solidTextEl = document.getElementById('hero-solid-text');
-            if (h.bannerOnlyMode !== false) {
-                solidTextEl.style.display = 'none';
-            } else {
-                solidTextEl.style.display = 'block';
-                document.getElementById('hero-title').innerHTML = h.title || "";
-                document.getElementById('hero-desc').innerText = h.desc || "";
-            }
-
-            const heroBgEl = document.getElementById('hero-bg-img-el');
-            if (h.bgImage && heroBgEl) {
-                heroBgEl.src = resolveAssetPath(h.bgImage);
-            }
-            if (h.cardBg) document.getElementById('hero-right-card').style.backgroundImage = `linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.9)), url('${resolveAssetPath(h.cardBg)}')`;
             document.getElementById('hero-card-img').src = resolveAssetPath(h.cardLogo || 'logo.png');
             document.getElementById('hero-card-title').innerText = h.cardTitle || "Super AI Typing (Windows)";
             document.getElementById('hero-card-sub').innerText = h.cardSub || "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা";
