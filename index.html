@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Shop BD - Master Admin Panel</title>
+    <link rel="icon" type="image/png" href="../supershop-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif; }
@@ -67,14 +68,33 @@
 </head>
 <body>
 
-    <!-- LOGIN OVERLAY -->
-    <div id="login-screen" style="position:fixed; inset:0; background:#0F172A; z-index:9999; display:flex; align-items:center; justify-content:center;">
-        <div style="background:#fff; padding:35px; border-radius:16px; width:360px; text-align:center;">
-            <h2 style="margin-bottom:15px;">🔒 Super Shop Admin</h2>
-            <input type="password" id="adm-pass" class="inp" placeholder="অ্যাডমিন পাসওয়ার্ড দিন (admin123)" style="margin-bottom:15px;">
-            <button class="btn-green" style="width:100%; padding:12px; font-size:16px;" onclick="checkLogin()">লগইন করুন</button>
-        </div>
+    <!-- 🔒 STANDALONE INSTANT LOGIN OVERLAY -->
+    <div id="login-screen" style="position:fixed; inset:0; background:#0F172A; z-index:9999; display:flex; align-items:center; justify-content:center; padding:15px;">
+        <form onsubmit="return handleAdminLogin(event)" style="background:#fff; padding:35px; border-radius:18px; width:100%; max-width:370px; text-align:center; box-shadow:0 20px 50px rgba(0,0,0,0.5);">
+            <h2 style="margin-bottom:8px; font-weight:800;">🔒 Super Shop Admin</h2>
+            <p style="font-size:13.5px; color:#64748B; margin-bottom:16px;">পাসওয়ার্ড: <b>admin123</b> অথবা <b>123</b></p>
+            <input type="password" id="adm-pass" class="inp" placeholder="পাসওয়ার্ড লিখুন..." style="margin-bottom:12px;" autofocus>
+            <div id="login-err-msg" style="color:#DC2626; font-size:13.5px; font-weight:700; margin-bottom:10px; display:none;">❌ ভুল পাসওয়ার্ড! admin123 অথবা 123 দিন।</div>
+            <button type="submit" class="btn-green" style="width:100%; padding:13px; font-size:16px;">লগইন করুন</button>
+        </form>
     </div>
+
+    <script>
+        // Standalone Login Handler (Never blocked by anything)
+        function handleAdminLogin(e) {
+            if (e) e.preventDefault();
+            var val = document.getElementById('adm-pass').value.trim().toLowerCase();
+            if (val === 'admin123' || val === '123' || val === 'admin') {
+                document.getElementById('login-screen').style.display = 'none';
+                if (typeof window.initAdmin === 'function') {
+                    window.initAdmin();
+                }
+            } else {
+                document.getElementById('login-err-msg').style.display = 'block';
+            }
+            return false;
+        }
+    </script>
 
     <div class="topbar">
         <div style="font-size:19px; font-weight:800;">⚡ Super Shop BD — মাস্টার অ্যাডমিন প্যানেল</div>
@@ -105,7 +125,7 @@
             <div class="card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                 <div>
                     <h3 style="border:none; margin:0; padding:0;">📦 প্রোডাক্ট, ভেরিয়েন্ট (ON/OFF) ও স্টক ভল্ট ম্যানেজার</h3>
-                    <p style="font-size:14px; color:#64748B;">যেকোনো প্রোডাক্টে ভেরিয়েন্ট চালু/বন্ধ এবং ইনফো বক্স (`Account Type`, `Duration` ইত্যাদি) কম-বেশি করতে পারবেন</p>
+                    <p style="font-size:14px; color:#64748B;">যেকোনো প্রোডাক্টে ভেরিয়েন্ট চালু/বন্ধ এবং ইনফো বক্স (Account Type, Duration ইত্যাদি) কম-বেশি করতে পারবেন</p>
                 </div>
                 <button class="btn-green" onclick="addNewProduct()">➕ নতুন প্রোডাক্ট যোগ করুন</button>
             </div>
@@ -128,7 +148,7 @@
                 </div>
                 <div class="grid-2">
                     <div class="fld">
-                        <label>📘 অফিসিয়াল Facebook Page লিংক (ভেরিফিকেশন ফেল হলে যে পেইজে মেসেজ দিতে বলবে)</label>
+                        <label>📘 অফিসিয়াল Facebook Page লিংক</label>
                         <input type="text" id="set-fb" class="inp" value="https://www.facebook.com/profile.php?id=100093538660645">
                     </div>
                     <div class="fld">
@@ -233,19 +253,9 @@
 
     <script>
         const DB_URL = "https://super-ai-typing-default-rtdb.firebaseio.com/supershop_v3";
-        const ADMIN_PASS = "admin123";
         const PRESET_ICONS = ["🎬", "☁️", "📓", "📹", "🧠", "📄", "🎨", "⚡", "🛡️", "🔑", "💻", "📱", "🌐", "🚀", "💎"];
 
         let appData = { settings: {}, products: [] };
-
-        function checkLogin() {
-            if (document.getElementById('adm-pass').value === ADMIN_PASS) {
-                document.getElementById('login-screen').style.display = 'none';
-                initAdmin();
-            } else {
-                alert("ভুল পাসওয়ার্ড!");
-            }
-        }
 
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-sec').forEach(el => el.style.display = 'none');
@@ -254,14 +264,14 @@
             btn.classList.add('active');
         }
 
-        async function initAdmin() {
+        window.initAdmin = async function() {
             try {
-                const res = await fetch(`${DB_URL}/data.json`);
+                const res = await fetch(DB_URL + "/data.json");
                 const remote = await res.json();
-                if (remote && remote.products) {
+                if (remote && remote.products && remote.products.length > 0) {
                     appData = remote;
                 } else {
-                    const cached = localStorage.getItem("supershop_cache_v5");
+                    const cached = localStorage.getItem("supershop_cache_v6");
                     if (cached) appData = JSON.parse(cached);
                 }
             } catch (e) {}
@@ -269,13 +279,13 @@
             populateSettingsForm();
             renderProductsEditor();
             loadOrders();
-        }
+        };
 
         function populateSettingsForm() {
             const s = appData.settings || {};
             const h = s.hero || {};
             document.getElementById('set-brand').value = s.brandName || "Super Shop BD";
-            document.getElementById('set-logo').value = s.logoUrl || "/supershop-logo.png";
+            document.getElementById('set-logo').value = s.logoUrl || "supershop-logo.png";
             document.getElementById('set-fb').value = s.fbPageUrl || "https://www.facebook.com/profile.php?id=100093538660645";
             document.getElementById('set-wa').value = s.whatsapp || "8801891125182";
             document.getElementById('set-sec-head').value = s.secHeading || "✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস";
@@ -287,14 +297,72 @@
 
             document.getElementById('h-banner-mode').value = (h.bannerOnlyMode !== false) ? "true" : "false";
             document.getElementById('h-flag').value = h.flag || "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার";
-            document.getElementById('h-bg').value = h.bgImage || "/super-typing/hero-banner.png";
+            document.getElementById('h-bg').value = h.bgImage || "hero-banner.png";
             document.getElementById('h-btn-txt').value = h.btnText || "🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন";
             document.getElementById('h-btn-lnk').value = h.btnLink || "/super-typing/";
-            document.getElementById('h-card-logo').value = h.cardLogo || "/super-typing/logo.png";
+            document.getElementById('h-card-logo').value = h.cardLogo || "logo.png";
             document.getElementById('h-card-bg').value = h.cardBg || "";
             document.getElementById('h-card-title').value = h.cardTitle || "Super AI Typing (Windows)";
             document.getElementById('h-card-sub').value = h.cardSub || "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা";
             document.getElementById('h-card-badge').value = h.cardBadge || "✔ 100% Verified Software";
+        }
+
+        function buildVariantBoxesHtml(p, idx) {
+            if (p.variantsEnabled === false) {
+                const sVault = p.stockVault || [];
+                const freeCnt = sVault.filter(x => !x.used).length;
+                const boxes = sVault.map((stk, kIdx) =>
+                    '<div class="stock-box-item">' +
+                        '<span class="stock-num">বক্স #' + (kIdx + 1) + '</span>' +
+                        '<input type="text" class="inp" value="' + (stk.content || '').replace(/"/g, '&quot;') + '" placeholder="Email / Password লিখুন..." oninput="appData.products[' + idx + '].stockVault[' + kIdx + '].content = this.value">' +
+                        '<button class="btn-del" onclick="appData.products[' + idx + '].stockVault.splice(' + kIdx + ',1); renderProductsEditor();">✖</button>' +
+                    '</div>'
+                ).join('');
+
+                return '<div class="var-admin-card">' +
+                    '<div class="grid-2">' +
+                        '<div class="fld"><label>সিঙ্গেল দাম (৳)</label><input type="number" class="inp" value="' + (p.price || 149) + '" oninput="updateProd(' + idx + ', \'price\', Number(this.value))"></div>' +
+                        '<div class="fld"><label>আগের কাটা দাম (৳)</label><input type="number" class="inp" value="' + (p.oldPrice || '') + '" oninput="updateProd(' + idx + ', \'oldPrice\', Number(this.value))"></div>' +
+                    '</div>' +
+                    '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">' +
+                        '<b>🔐 স্টক ভল্ট (রেডি: ' + freeCnt + ' টি)</b>' +
+                        '<div style="display:flex; gap:6px;">' +
+                            '<button class="btn-green" onclick="addSingleStockBox(' + idx + ')">➕ ১টি স্টক বক্স</button>' +
+                            '<button class="btn" onclick="bulkAddSingleStock(' + idx + ')">📋 একসাথে পেস্ট</button>' +
+                        '</div>' +
+                    '</div>' + boxes +
+                '</div>';
+            }
+
+            return (p.variants || []).map((v, vIdx) => {
+                const vVault = v.stockVault || [];
+                const freeCnt = vVault.filter(x => !x.used).length;
+                const stockRows = vVault.map((stk, kIdx) =>
+                    '<div class="stock-box-item">' +
+                        '<span class="stock-num">বক্স #' + (kIdx + 1) + '</span>' +
+                        '<input type="text" class="inp" value="' + (stk.content || '').replace(/"/g, '&quot;') + '" placeholder="Email / Password / Key লিখুন..." oninput="appData.products[' + idx + '].variants[' + vIdx + '].stockVault[' + kIdx + '].content = this.value">' +
+                        '<span style="font-size:12px; font-weight:800; min-width:75px; color:' + (stk.used ? '#DC2626' : '#059669') + ';">' + (stk.used ? '❌ ব্যবহৃত' : '🟢 রেডি') + '</span>' +
+                        '<button class="btn-del" onclick="appData.products[' + idx + '].variants[' + vIdx + '].stockVault.splice(' + kIdx + ',1); renderProductsEditor();">✖</button>' +
+                    '</div>'
+                ).join('');
+
+                return '<div class="var-admin-card">' +
+                    '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">' +
+                        '<b style="color:#065F46; font-size:16px;">ভেরিয়েন্ট #' + (vIdx + 1) + ': ' + v.name + ' (রেডি স্টক: ' + freeCnt + ' টি)</b>' +
+                        '<div style="display:flex; gap:6px;">' +
+                            '<button class="btn-green" onclick="addVarStockBox(' + idx + ', ' + vIdx + ')">➕ ১টি স্টক বক্স</button>' +
+                            '<button class="btn" onclick="bulkAddVarStock(' + idx + ', ' + vIdx + ')">📋 একসাথে ৫০-২০০টি পেস্ট</button>' +
+                            '<button class="btn-del" onclick="deleteVariant(' + idx + ', ' + vIdx + ')">🗑️ মুছুন</button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="grid-3">' +
+                        '<div class="fld"><label>ভেরিয়েন্টের নাম</label><input type="text" class="inp" value="' + (v.name || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].variants[' + vIdx + '].name = this.value"></div>' +
+                        '<div class="fld"><label>ভেরিয়েন্টের দাম (৳)</label><input type="number" class="inp" value="' + (v.price || 0) + '" oninput="appData.products[' + idx + '].variants[' + vIdx + '].price = Number(this.value)"></div>' +
+                        '<div class="fld"><label>আগের কাটা দাম (৳)</label><input type="number" class="inp" value="' + (v.oldPrice || '') + '" oninput="appData.products[' + idx + '].variants[' + vIdx + '].oldPrice = Number(this.value)"></div>' +
+                    '</div>' +
+                    '<div style="max-height:220px; overflow-y:auto; margin-top:6px;">' + stockRows + '</div>' +
+                '</div>';
+            }).join('');
         }
 
         function renderProductsEditor() {
@@ -305,12 +373,28 @@
                 p.variants = p.variants || [{ name: "1 Month Pack", price: p.price || 199, oldPrice: p.oldPrice || 450, stockVault: [] }];
                 p.stockVault = p.stockVault || [];
                 const isVarOn = p.variantsEnabled !== false;
-                const singleFreeCnt = p.stockVault.filter(x => !x.used).length;
+
+                const specsRows = (p.specs || []).map((sp, sIdx) =>
+                    '<div style="display:flex; gap:10px; margin-bottom:8px;">' +
+                        '<input type="text" class="inp" value="' + (sp.label || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].specs[' + sIdx + '].label = this.value">' +
+                        '<input type="text" class="inp" value="' + (sp.val || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].specs[' + sIdx + '].val = this.value">' +
+                        '<button class="btn-del" onclick="appData.products[' + idx + '].specs.splice(' + sIdx + ',1); renderProductsEditor();">✖</button>' +
+                    '</div>'
+                ).join('');
+
+                const featRows = (p.features || []).map((f, fIdx) =>
+                    '<div style="display:grid; grid-template-columns: 90px 1fr 1.5fr 40px; gap:8px; margin-bottom:8px;">' +
+                        '<input type="text" class="inp" value="' + (f.icon || '✨').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].features[' + fIdx + '].icon = this.value">' +
+                        '<input type="text" class="inp" value="' + (f.title || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].features[' + fIdx + '].title = this.value">' +
+                        '<input type="text" class="inp" value="' + (f.desc || '').replace(/"/g, '&quot;') + '" oninput="appData.products[' + idx + '].features[' + fIdx + '].desc = this.value">' +
+                        '<button class="btn-del" onclick="appData.products[' + idx + '].features.splice(' + fIdx + ',1); renderProductsEditor();">✖</button>' +
+                    '</div>'
+                ).join('');
 
                 return `
                 <div class="card" style="border-left: 6px solid #10B981;">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
-                        <h3>#${idx + 1} প্রোডাক্ট: ${p.name} <span style="font-size:14px; color:#0284C7;">(লিংক: superbd.shop/${p.slug})</span></h3>
+                        <h3>#${idx + 1} প্রোডাক্ট: ${p.name} <span style="font-size:14px; color:#0284C7;">(লিংক: ?p=${p.slug} / /${p.slug})</span></h3>
                         <button class="btn-del" onclick="deleteProduct(${idx})">🗑️ প্রোডাক্ট ডিলিট করুন</button>
                     </div>
 
@@ -320,7 +404,7 @@
                             <input type="text" class="inp" value="${p.name}" oninput="updateProd(${idx}, 'name', this.value)">
                         </div>
                         <div class="fld">
-                            <label>ক্লিন লিংক (Slug - স্পেস ছাড়া ছোট হাতের)</label>
+                            <label>ক্লিন লিংক (Slug)</label>
                             <input type="text" class="inp" value="${p.slug}" oninput="updateProd(${idx}, 'slug', this.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))">
                         </div>
                         <div class="fld">
@@ -334,11 +418,11 @@
 
                     <div class="grid-3">
                         <div class="fld">
-                            <label>পপুলারিটি ব্যাজ (যেমন: 🔥 Best Seller)</label>
+                            <label>পপুলারিটি ব্যাজ</label>
                             <input type="text" class="inp" value="${p.popBadge || ''}" oninput="updateProd(${idx}, 'popBadge', this.value)">
                         </div>
                         <div class="fld">
-                            <label>প্রোডাক্টের ছবি (Image URL বা ফাইলের নাম)</label>
+                            <label>প্রোডাক্টের ছবি (Image URL)</label>
                             <input type="text" class="inp" value="${p.thumb || ''}" oninput="updateProd(${idx}, 'thumb', this.value)">
                         </div>
                         <div class="fld">
@@ -348,7 +432,7 @@
                     </div>
 
                     <div class="fld">
-                        <label>কার্ডের সংক্ষিপ্ত বিবরণ (হোমপেজে যা দেখাবে)</label>
+                        <label>কার্ডের সংক্ষিপ্ত বিবরণ</label>
                         <input type="text" class="inp" value="${p.shortDesc || ''}" oninput="updateProd(${idx}, 'shortDesc', this.value)">
                     </div>
 
@@ -357,138 +441,33 @@
                         <textarea class="inp" rows="2" oninput="updateProd(${idx}, 'deliveryTemplate', this.value)">${p.deliveryTemplate || ''}</textarea>
                     </div>
 
-                    <!-- 🎛️ VARIANT ON/OFF & STOCK VAULT -->
                     <div style="background:#F8FAFC; padding:18px; border-radius:14px; border:2px solid #0284C7; margin-bottom:16px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
-                            <div>
-                                <h4 style="font-size:18px; color:#0369A1;">🎛️ ভেরিয়েন্ট সিস্টেম (ON / OFF) এবং অটো-ডেলিভারি স্টক ভল্ট</h4>
-                            </div>
+                            <h4 style="font-size:18px; color:#0369A1;">🎛️ ভেরিয়েন্ট সিস্টেম (ON / OFF) এবং স্টক ভল্ট</h4>
                             <select class="inp" style="width:auto; font-weight:800; color:#059669;" onchange="updateProd(${idx}, 'variantsEnabled', this.value === 'true'); renderProductsEditor();">
                                 <option value="true" ${isVarOn ? 'selected' : ''}>🟢 ভেরিয়েন্ট সিস্টেম চালু (Variants ON)</option>
                                 <option value="false" ${!isVarOn ? 'selected' : ''}>⚪ ভেরিয়েন্ট বন্ধ — সিঙ্গেল প্রাইস (Variants OFF)</option>
                             </select>
                         </div>
-
-                        ${isVarOn ? `
-                            <div class="fld">
-                                <label>ভেরিয়েন্ট সেকশনের হেডলাইন</label>
-                                <input type="text" class="inp" value="${p.variantTitle || '⚡ আপনার পছন্দের ভেরিয়েন্ট / প্যাকেজ বাছাই করুন:'}" oninput="updateProd(${idx}, 'variantTitle', this.value)">
-                            </div>
-                            <div style="margin-bottom:12px;">
-                                <button class="btn" onclick="addVariant(${idx})">➕ নতুন ভেরিয়েন্ট যোগ করুন</button>
-                            </div>
-                            ${p.variants.map((v, vIdx) => {
-                                const vVault = v.stockVault || [];
-                                const freeCnt = vVault.filter(x => !x.used).length;
-                                return `
-                                <div class="var-admin-card">
-                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
-                                        <b style="color:#065F46; font-size:16px;">ভেরিয়েন্ট #${vIdx + 1}: ${v.name} (রেডি স্টক: ${freeCnt} টি)</b>
-                                        <div style="display:flex; gap:6px;">
-                                            <button class="btn-green" onclick="addVarStockBox(${idx}, ${vIdx})">➕ ১টি স্টক বক্স</button>
-                                            <button class="btn" onclick="bulkAddVarStock(${idx}, ${vIdx})">📋 একসাথে ৫০-২০০টি পেস্ট</button>
-                                            <button class="btn-del" onclick="deleteVariant(${idx}, ${vIdx})">🗑️ মুছুন</button>
-                                        </div>
-                                    </div>
-                                    <div class="grid-3">
-                                        <div class="fld">
-                                            <label>ভেরিয়েন্টের নাম</label>
-                                            <input type="text" class="inp" value="${v.name}" oninput="appData.products[${idx}].variants[${vIdx}].name = this.value">
-                                        </div>
-                                        <div class="fld">
-                                            <label>ভেরিয়েন্টের দাম (৳)</label>
-                                            <input type="number" class="inp" value="${v.price}" oninput="appData.products[${idx}].variants[${vIdx}].price = Number(this.value)">
-                                        </div>
-                                        <div class="fld">
-                                            <label>আগের কাটা দাম (৳)</label>
-                                            <input type="number" class="inp" value="${v.oldPrice || ''}" oninput="appData.products[${idx}].variants[${vIdx}].oldPrice = Number(this.value)">
-                                        </div>
-                                    </div>
-                                    <div style="max-height:220px; overflow-y:auto; margin-top:6px;">
-                                        ${vVault.map((stk, kIdx) => `
-                                            <div class="stock-box-item" style="${stk.used ? 'opacity:0.55; background:#E2E8F0;' : ''}">
-                                                <span class="stock-num">বক্স #${kIdx + 1}</span>
-                                                <input type="text" class="inp" value="${stk.content}" placeholder="Email / Password / Key লিখুন..." oninput="appData.products[${idx}].variants[${vIdx}].stockVault[${kIdx}].content = this.value">
-                                                <span style="font-size:12px; font-weight:800; min-width:85px; color:${stk.used ? '#DC2626' : '#059669'};">
-                                                    ${stk.used ? '❌ ব্যবহৃত' : '🟢 রেডি'}
-                                                </span>
-                                                <button class="btn-del" onclick="appData.products[${idx}].variants[${vIdx}].stockVault.splice(${kIdx},1); renderProductsEditor();">✖</button>
-                                            </div>
-                                        `).join('')}
-                                    </div>
-                                </div>`;
-                            }).join('')}
-                        ` : `
-                            <div class="var-admin-card">
-                                <div class="grid-2">
-                                    <div class="fld">
-                                        <label>প্রোডাক্টের সিঙ্গেল দাম (৳)</label>
-                                        <input type="number" class="inp" value="${p.price}" oninput="updateProd(${idx}, 'price', Number(this.value))">
-                                    </div>
-                                    <div class="fld">
-                                        <label>আগের কাটা দাম (৳)</label>
-                                        <input type="number" class="inp" value="${p.oldPrice \vert{}\vert{} ''}" oninput="updateProd(${idx}, 'oldPrice', Number(this.value))">
-                                    </div>
-                                </div>
-                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                                    <b>🔐 স্টক ভল্ট (রেডি স্টক: ${singleFreeCnt} টি)</b>
-                                    <div style="display:flex; gap:6px;">
-                                        <button class="btn-green" onclick="addSingleStockBox(${idx})">➕ ১টি স্টক বক্স</button>
-                                        <button class="btn" onclick="bulkAddSingleStock(${idx})">📋 একসাথে ৫০-২০০টি পেস্ট</button>
-                                    </div>
-                                </div>
-                                <div style="max-height:220px; overflow-y:auto;">
-                                    ${p.stockVault.map((stk, kIdx) => `
-                                        <div class="stock-box-item" style="${stk.used ? 'opacity:0.55; background:#E2E8F0;' : ''}">
-                                            <span class="stock-num">বক্স #${kIdx + 1}</span>
-                                            <input type="text" class="inp" value="${stk.content}" placeholder="Email / Password লিখুন..." oninput="appData.products[${idx}].stockVault[${kIdx}].content = this.value">
-                                            <button class="btn-del" onclick="appData.products[${idx}].stockVault.splice(${kIdx},1); renderProductsEditor();">✖</button>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        `}
+                        ${isVarOn ? `<div style="margin-bottom:12px;"><button class="btn" onclick="addVariant(${idx})">➕ নতুন ভেরিয়েন্ট যোগ করুন</button></div>` : ''}
+                        ${buildVariantBoxesHtml(p, idx)}
                     </div>
 
-                    <!-- SPECS MANAGER -->
                     <div style="background:#F0F9FF; padding:15px; border-radius:12px; margin-bottom:15px; border:1px solid #BAE6FD;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                            <b>📌 প্রোডাক্ট ইনফো কার্ডসমূহ (Account Type, Duration, Device Limit — যত খুশি যোগ বা ডিলিট করুন):</b>
-                            <div>
-                                <label style="display:inline; margin-right:10px;">
-                                    <input type="checkbox" ${p.specsEnabled !== false ? 'checked' : ''} onchange="updateProd(${idx}, 'specsEnabled', this.checked); renderProductsEditor();"> চালু রাখুন
-                                </label>
-                                <button class="btn" onclick="addSpec(${idx})">➕ বক্স যোগ করুন</button>
-                            </div>
+                            <b>📌 প্রোডাক্ট ইনফো কার্ডসমূহ (Account Type, Duration, Device Limit):</b>
+                            <button class="btn" onclick="addSpec(${idx})">➕ বক্স যোগ করুন</button>
                         </div>
-                        ${(p.specs || []).map((sp, sIdx) => `
-                            <div style="display:flex; gap:10px; margin-bottom:8px;">
-                                <input type="text" class="inp" value="${sp.label}" oninput="appData.products[${idx}].specs[${sIdx}].label = this.value">
-                                <input type="text" class="inp" value="${sp.val}" oninput="appData.products[${idx}].specs[${sIdx}].val = this.value">
-                                <button class="btn-del" onclick="appData.products[${idx}].specs.splice(${sIdx},1); renderProductsEditor();">✖</button>
-                            </div>
-                        `).join('')}
+                        ${specsRows}
                     </div>
 
-                    <!-- FEATURES MANAGER -->
                     <div style="background:#F8FAFC; padding:15px; border-radius:12px; border:1px solid #CBD5E1;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                             <b>✨ ফিচার কার্ডসমূহ:</b>
                             <button class="btn" onclick="addFeature(${idx})">➕ নতুন ফিচার যোগ করুন</button>
                         </div>
-                        <div style="margin-bottom:8px; font-size:13px;">
-                            আইকন কপি করুন: ${PRESET_ICONS.map(ic => `<button type="button" class="icon-preset" onclick="navigator.clipboard.writeText('${ic}')">${ic}</button>`).join(' ')}
-                        </div>
-                        ${(p.features || []).map((f, fIdx) => `
-                            <div style="display:grid; grid-template-columns: 90px 1fr 1.5fr 40px; gap:8px; margin-bottom:8px;">
-                                <input type="text" class="inp" value="${f.icon || '✨'}" oninput="appData.products[${idx}].features[${fIdx}].icon = this.value">
-                                <input type="text" class="inp" value="${f.title}" oninput="appData.products[${idx}].features[${fIdx}].title = this.value">
-                                <input type="text" class="inp" value="${f.desc}" oninput="appData.products[${idx}].features[${fIdx}].desc = this.value">
-                                <button class="btn-del" onclick="appData.products[${idx}].features.splice(${fIdx},1); renderProductsEditor();">✖</button>
-                            </div>
-                        `).join('')}
+                        ${featRows}
                     </div>
-
                 </div>`;
             }).join('');
         }
@@ -548,15 +527,15 @@
                 category: "প্রিমিয়াম সাবস্ক্রিপশন", popBadge: "✨ New", stockMode: "auto",
                 price: 149, oldPrice: 400, btnText: "বিস্তারিত ও অর্ডার করুন ➔",
                 thumb: "",
-                shortDesc: `${name} অফিসিয়াল প্রিমিয়াম সাবস্ক্রিপশন।`,
-                longDesc: `${name}-এর সকল প্রো ফিচার আনলক করুন।`,
-                deliveryTemplate: `🎉 অভিনন্দন! আপনার ${name} সাবস্ক্রিপশন নিচে দেওয়া হলো:`,
+                shortDesc: name + " অফিসিয়াল প্রিমিয়াম সাবস্ক্রিপশন।",
+                longDesc: name + "-এর সকল প্রো ফিচার আনলক করুন।",
+                deliveryTemplate: "🎉 অভিনন্দন! আপনার " + name + " সাবস্ক্রিপশন নিচে দেওয়া হলো:",
                 variantsEnabled: true,
                 variantTitle: "⚡ আপনার পছন্দের ভেরিয়েন্ট বাছাই করুন:",
                 variants: [{ name: "1 Month (30 Days)", price: 149, oldPrice: 400, stockVault: [] }],
                 stockVault: [],
                 specsEnabled: true,
-                specs: [{ label: "Account Type (অ্যাকাউন্টের ধরণ)", val: "Official Pro Access" }, { label: "Duration (মেয়াদ)", val: "30 Days" }],
+                specs: [{ label: "Account Type", val: "Official Pro Access" }, { label: "Duration", val: "30 Days" }],
                 features: [{ icon: "⚡", title: "100% Pro Access", desc: "সকল ফিচার আনলকড।" }]
             });
             renderProductsEditor();
@@ -595,15 +574,15 @@
                 }
             };
 
-            localStorage.setItem("supershop_cache_v5", JSON.stringify(appData));
-            await fetch(`${DB_URL}/data.json`, { method: 'PUT', body: JSON.stringify(appData) });
+            localStorage.setItem("supershop_cache_v6", JSON.stringify(appData));
+            await fetch(DB_URL + "/data.json", { method: 'PUT', body: JSON.stringify(appData) });
             alert("✅ সব পরিবর্তন ক্লাউডে সেভ ও ওয়েবসাইটে লাইভ হয়ে গেছে!");
         }
 
         async function loadOrders() {
             const box = document.getElementById('orders-container');
             try {
-                const res = await fetch(`${DB_URL}/orders.json`);
+                const res = await fetch(DB_URL + "/orders.json");
                 const ords = await res.json() || {};
                 const keys = Object.keys(ords).reverse();
                 if (keys.length === 0) { box.innerHTML = "<p>এখনো কোনো অর্ডার আসেনি।</p>"; return; }
@@ -611,21 +590,17 @@
                     const o = ords[k];
                     const isPending = o.status === "Pending";
                     const isRejected = o.status && o.status.includes("Rejected");
-                    return `
-                    <div style="border:1.5px solid #CBD5E1; padding:15px; border-radius:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:${isPending ? '#FFFBEB' : (isRejected ? '#FEF2F2' : '#F0FDF4')};">
-                        <div>
-                            <b>${o.productName} — [${o.variantName || 'Standard'}] (৳${o.amount})</b><br>
-                            <span style="color:#059669; font-weight:800;">TrxID/নাম্বার: ${o.trxOrPhone}</span> | সময়: ${o.time}<br>
-                            <small>ইমেইল: ${o.email} | WA: ${o.whatsapp} | স্ট্যাটাস: <b>${o.status}</b> ${o.deliveredAccount ? `| ডেলিভারড: <code>${o.deliveredAccount}</code>` : ''}</small>
-                        </div>
-                        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                            ${isPending ? `
-                                <button class="btn-green" onclick="approveAndDeliver('${k}', '${o.productSlug}',${o.variantIdx || 0})">✅ Approve ও ডেলিভারি দিন</button>
-                                <button class="btn-warn" onclick="rejectOrder('${k}')">❌ Cancel (পেমেন্ট পাওয়া যায়নি)</button>
-                            ` : ''}
-                            <button class="btn-del" onclick="deleteOrder('${k}')">🗑️ ডিলিট</button>
-                        </div>
-                    </div>`;
+                    return '<div style="border:1.5px solid #CBD5E1; padding:15px; border-radius:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; background:' + (isPending ? '#FFFBEB' : (isRejected ? '#FEF2F2' : '#F0FDF4')) + ';">' +
+                        '<div>' +
+                            '<b>' + o.productName + ' — [' + (o.variantName || 'Standard') + '] (৳' + o.amount + ')</b><br>' +
+                            '<span style="color:#059669; font-weight:800;">TrxID/নাম্বার: ' + o.trxOrPhone + '</span> | সময়: ' + o.time + '<br>' +
+                            '<small>ইমেইল: ' + o.email + ' | WA: ' + o.whatsapp + ' | স্ট্যাটাস: <b>' + o.status + '</b></small>' +
+                        '</div>' +
+                        '<div style="display:flex; gap:8px; flex-wrap:wrap;">' +
+                            (isPending ? '<button class="btn-green" onclick="approveAndDeliver(\'' + k + '\', \'' + o.productSlug + '\', ' + (o.variantIdx || 0) + ')">✅ Approve ও ডেলিভারি দিন</button><button class="btn-warn" onclick="rejectOrder(\'' + k + '\')">❌ Cancel (পেমেন্ট পাওয়া যায়নি)</button>' : '') +
+                            '<button class="btn-del" onclick="deleteOrder(\'' + k + '\')">🗑️ ডিলিট</button>' +
+                        '</div>' +
+                    '</div>';
                 }).join('');
             } catch (e) { box.innerHTML = "অর্ডার লোড করা যায়নি।"; }
         }
@@ -651,9 +626,9 @@
                 if (!accountToDeliver) return;
             }
 
-            await fetch(`${DB_URL}/data.json`, { method: 'PUT', body: JSON.stringify(appData) });
-            await fetch(`${DB_URL}/orders/${orderId}/status.json`, { method: 'PUT', body: JSON.stringify("Approved") });
-            await fetch(`${DB_URL}/orders/${orderId}/deliveredAccount.json`, { method: 'PUT', body: JSON.stringify(accountToDeliver) });
+            await fetch(DB_URL + "/data.json", { method: 'PUT', body: JSON.stringify(appData) });
+            await fetch(DB_URL + "/orders/" + orderId + "/status.json", { method: 'PUT', body: JSON.stringify("Approved") });
+            await fetch(DB_URL + "/orders/" + orderId + "/deliveredAccount.json", { method: 'PUT', body: JSON.stringify(accountToDeliver) });
 
             alert("✅ ডেলিভারি সম্পন্ন! কাস্টমারের স্ক্রিনে সাথে সাথে প্রোডাক্ট বক্স চলে গেছে।");
             loadOrders();
@@ -662,13 +637,13 @@
 
         async function rejectOrder(orderId) {
             if (!confirm("আপনি কি নিশ্চিত যে এই পেমেন্টটি পাওয়া যায়নি এবং অর্ডারটি Cancel করতে চান?")) return;
-            await fetch(`${DB_URL}/orders/${orderId}/status.json`, { method: 'PUT', body: JSON.stringify("Rejected") });
-            alert("❌ অর্ডারটি ক্যানসেল করা হয়েছে! কাস্টমারের স্ক্রিনে সাথে সাথে সাপোর্ট পেইজে যোগাযোগের মেসেজ চলে গেছে।");
+            await fetch(DB_URL + "/orders/" + orderId + "/status.json", { method: 'PUT', body: JSON.stringify("Rejected") });
+            alert("❌ অর্ডারটি ক্যানসেল করা হয়েছে!");
             loadOrders();
         }
 
         async function deleteOrder(orderId) {
-            await fetch(`${DB_URL}/orders/${orderId}.json`, { method: 'DELETE' });
+            await fetch(DB_URL + "/orders/" + orderId + ".json", { method: 'DELETE' });
             loadOrders();
         }
     </script>
