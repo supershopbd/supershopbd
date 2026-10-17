@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Shop BD - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ</title>
+    <title id="page-title">Super Shop BD - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ</title>
+    <!-- Browser Tab Logo (Favicon) for Homepage & Product Pages -->
+    <link id="dynamic-favicon" rel="icon" type="image/png" href="supershop-logo.png">
+    <link rel="apple-touch-icon" href="supershop-logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -36,10 +39,10 @@
             position: sticky; top: 0; z-index: 900; box-shadow: 0 2px 15px rgba(0,0,0,0.03);
         }
         .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); }
-        .brand img { height: 42px; width: auto; border-radius: 8px; object-fit: contain; }
+        .brand img { height: 44px; width: auto; border-radius: 8px; object-fit: contain; display: block; }
         .brand-fallback {
             width: 42px; height: 42px; background: var(--green-grad); color: #fff;
-            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            border-radius: 10px; display: none; align-items: center; justify-content: center;
             font-size: 22px; font-weight: 800;
         }
         .brand-title { font-size: 24px; font-weight: 800; color: #0F172A; }
@@ -58,7 +61,7 @@
         /* 🌟 HERO BANNER */
         .hero-banner {
             background-color: #0F172A;
-            background-image: url('/super-typing/hero-banner.png');
+            background-image: url('hero-banner.png');
             background-size: cover; background-position: center;
             border-radius: 24px; padding: 40px; color: #FFFFFF;
             display: grid; grid-template-columns: 1.35fr 1fr; gap: 35px;
@@ -115,7 +118,7 @@
             border-radius: 20px; font-size: 13px; font-weight: 700; margin-top: 12px;
         }
 
-        /* 🛍️ PRODUCT GRID (PERFECT BUTTON ALIGNMENT ACROSS CARDS) */
+        /* 🛍️ PRODUCT GRID (ALIGNED BUTTONS) */
         .section-head { text-align: center; margin-bottom: 35px; }
         .section-head h2 { font-size: 32px; color: #0F172A; font-weight: 800; }
         .section-head p { color: var(--text-sub); font-size: 16.5px; margin-top: 4px; font-weight: 500; }
@@ -140,25 +143,20 @@
             position: absolute; top: 12px; right: 12px; background: #ECFDF5; color: #047857;
             border: 1.5px solid #6EE7B7; font-size: 12.5px; font-weight: 800; padding: 4px 12px; border-radius: 20px; z-index: 2;
         }
-        .prod-body {
-            padding: 22px; display: flex; flex-direction: column; flex: 1;
-        }
+        .prod-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
         .prod-body h3 { font-size: 20.5px; color: #0F172A; margin-bottom: 8px; font-weight: 800; }
         .prod-body p { font-size: 15px; color: var(--text-sub); margin-bottom: 18px; font-weight: 500; flex: 1; }
         .prod-footer-fixed { margin-top: auto; }
         .price-bar { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
-        /* All Prices in Vibrant Green */
         .price-now { font-size: 27px; font-weight: 800; color: var(--green-dark); }
         .price-old { font-size: 16px; color: #94A3B8; text-decoration: line-through; font-weight: 700; }
 
-        /* 🚀 LANDING PAGE STYLES (NO BLANK SPACE BELOW IMAGE) */
+        /* 🚀 LANDING PAGE STYLES */
         .lp-box {
             background: #FFFFFF; border: 1.5px solid var(--border); border-radius: 22px;
             padding: 35px; box-shadow: var(--shadow); margin-bottom: 35px;
         }
-        .lp-hero-grid {
-            display: grid; grid-template-columns: 1fr 1.35fr; gap: 35px; align-items: center;
-        }
+        .lp-hero-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 35px; align-items: center; }
         .lp-img-wrap {
             background: #0F172A; border: 1.5px solid var(--border); border-radius: 18px;
             overflow: hidden; height: 100%; min-height: 310px; max-height: 370px;
@@ -166,7 +164,6 @@
         }
         .lp-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 🎛️ BLUE-OUTLINED VARIANT SELECTOR WITH GREEN PRICES */
         .variant-box-wrap {
             background: var(--blue-light); border: 2px solid var(--blue-border); border-radius: 16px;
             padding: 18px; margin: 18px 0;
@@ -196,30 +193,20 @@
         .var-price-txt { font-size: 19px; font-weight: 800; color: var(--green-dark); }
         .var-old-txt { font-size: 13px; color: #94A3B8; text-decoration: line-through; margin-left: 6px; font-weight: 600; }
 
-        /* 📌 FULL-WIDTH HORIZONTAL SPEC BAR (FILLS SPACE EVENLY BELOW HERO) */
-        .spec-full-section {
-            margin-top: 28px; padding-top: 25px; border-top: 1.5px dashed #CBD5E1;
-        }
-        .spec-sec-heading {
-            font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 14px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .spec-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;
-        }
+        .spec-full-section { margin-top: 28px; padding-top: 25px; border-top: 1.5px dashed #CBD5E1; }
+        .spec-sec-heading { font-size: 16px; font-weight: 800; color: #0F172A; margin-bottom: 14px; }
+        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
         .spec-item {
             background: #F8FAFC; border: 1.5px solid var(--blue-border);
             border-left: 4px solid var(--blue-main);
-            padding: 14px 16px; border-radius: 12px; transition: 0.2s;
+            padding: 14px 16px; border-radius: 12px;
         }
-        .spec-item:hover { background: var(--blue-light); }
         .spec-label {
             display: block; font-size: 13px; font-weight: 800; color: var(--blue-dark);
             margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px;
         }
         .spec-val { font-size: 16.5px; font-weight: 800; color: #0F172A; }
 
-        /* Features & Videos */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; margin-top: 18px; }
         .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 14px; overflow: hidden; background: #000; }
         .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
@@ -243,7 +230,7 @@
         .shot-item img { width: 100%; height: 200px; object-fit: cover; display: block; cursor: pointer; }
         .shot-cap { padding: 10px 14px; font-size: 14px; font-weight: 700; color: var(--text-sub); text-align: center; }
 
-        /* 💳 CHECKOUT SECTION (SEPARATE BKASH & NAGAD BRANDED CARDS + COPY BUTTON) */
+        /* 💳 CHECKOUT SECTION */
         .checkout-card {
             background: #FFFFFF; border: 2.5px solid var(--green-main); border-radius: 24px;
             padding: 38px 35px; max-width: 720px; margin: 40px auto; box-shadow: 0 20px 50px rgba(16,185,129,0.14);
@@ -252,13 +239,10 @@
             background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 16px;
             padding: 20px; margin: 20px 0 24px;
         }
-        .send-money-warning {
-            text-align: center; margin-bottom: 14px;
-        }
+        .send-money-warning { text-align: center; margin-bottom: 14px; }
         .send-money-badge {
             display: inline-block; background: #DC2626; color: #fff; font-weight: 800;
             padding: 5px 16px; border-radius: 20px; font-size: 13.5px;
-            box-shadow: 0 4px 12px rgba(220,38,38,0.25);
         }
         .method-row {
             display: flex; align-items: center; justify-content: space-between;
@@ -272,7 +256,7 @@
         .method-left { display: flex; align-items: center; gap: 12px; }
         .method-logo-pill {
             padding: 6px 14px; border-radius: 8px; color: #fff; font-weight: 800;
-            font-size: 15px; letter-spacing: 0.3px; min-width: 82px; text-align: center;
+            font-size: 15px; min-width: 82px; text-align: center;
         }
         .bkash .method-logo-pill { background: var(--bkash-pink); }
         .nagad .method-logo-pill { background: var(--nagad-orange); }
@@ -282,30 +266,22 @@
         .method-sub { font-size: 12.5px; font-weight: 700; color: #475569; }
 
         .method-right { display: flex; align-items: center; gap: 10px; }
-        .method-num { font-size: 20px; font-weight: 800; color: #0F172A; letter-spacing: 0.5px; }
+        .method-num { font-size: 20px; font-weight: 800; color: #0F172A; }
         .copy-num-btn {
             background: #0F172A; color: #fff; border: none; padding: 7px 14px;
             border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer;
-            transition: 0.2s; display: inline-flex; align-items: center; gap: 5px;
         }
-        .copy-num-btn:hover { background: var(--green-dark); }
 
-        /* Aligned Checkout Inputs */
         .inp-group { margin-bottom: 16px; text-align: left; display: flex; flex-direction: column; justify-content: flex-end; }
-        .inp-group label {
-            display: block; font-weight: 700; margin-bottom: 7px; font-size: 15px;
-            color: #0F172A; line-height: 1.35;
-        }
-        .two-col-inputs {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: end;
-        }
+        .inp-group label { display: block; font-weight: 700; margin-bottom: 7px; font-size: 15px; color: #0F172A; line-height: 1.35; }
+        .two-col-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: end; }
         .inp-fld {
             width: 100%; height: 50px; padding: 0 16px; border: 1.5px solid #CBD5E1; border-radius: 10px;
             font-size: 16px; background: #F8FAFC; color: #0F172A; font-weight: 600; outline: none;
         }
         .inp-fld:focus { border-color: var(--green-main); background: #fff; }
 
-        /* 🔄 30-SECOND BLUR MODAL WITH CLOSE (✖) BUTTON & TIMEOUT/REJECT SUPPORT */
+        /* 🔄 30-SECOND BLUR MODAL */
         .verify-overlay {
             position: fixed; inset: 0; z-index: 99999;
             background: rgba(15, 23, 42, 0.78);
@@ -315,22 +291,17 @@
         .verify-modal {
             background: #FFFFFF; border: 2.5px solid var(--green-main); border-radius: 24px;
             padding: 38px 32px; max-width: 560px; width: 100%; text-align: center;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.45); animation: popIn 0.3s ease;
-            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.45); position: relative;
         }
-        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
         .modal-close-x {
             position: absolute; top: 16px; right: 16px; width: 36px; height: 36px;
             border-radius: 50%; background: #F1F5F9; border: 1.5px solid #CBD5E1;
             color: #334155; font-size: 18px; font-weight: 800; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; transition: 0.2s;
+            display: flex; align-items: center; justify-content: center;
         }
-        .modal-close-x:hover { background: #FEE2E2; color: #DC2626; border-color: #FCA5A5; }
+        .modal-close-x:hover { background: #FEE2E2; color: #DC2626; }
 
-        .timer-circle-wrap {
-            position: relative; width: 135px; height: 135px; margin: 0 auto 20px;
-        }
+        .timer-circle-wrap { position: relative; width: 135px; height: 135px; margin: 0 auto 20px; }
         .timer-svg { transform: rotate(-90deg); width: 135px; height: 135px; }
         .timer-bg { fill: none; stroke: #E2E8F0; stroke-width: 10; }
         .timer-prog {
@@ -353,13 +324,11 @@
             font-size: 16px; font-weight: 700; white-space: pre-wrap; word-break: break-all;
             margin: 12px 0; border: 1px solid #334155;
         }
-        .support-btn-row {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px;
-        }
+        .support-btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
         .btn-fb-page {
             background: #1877F2; color: #fff; text-decoration: none; padding: 13px 16px;
             border-radius: 12px; font-weight: 700; font-size: 15px; display: flex;
-            align-items: center; justify-content: center; gap: 8px; box-shadow: 0 6px 16px rgba(24,119,242,0.3);
+            align-items: center; justify-content: center; gap: 8px;
         }
 
         footer { background: #0F172A; color: #94A3B8; padding: 45px 6% 30px; margin-top: 60px; }
@@ -381,13 +350,13 @@
 
     <!-- 🌐 HEADER -->
     <nav class="navbar">
-        <a href="/" class="brand" onclick="return goHome(event)">
-            <img id="nav-logo" src="/supershop-logo.png" alt="Super Shop BD" onerror="this.style.display='none'; document.getElementById('nav-fallback').style.display='flex';">
-            <div id="nav-fallback" class="brand-fallback" style="display:none;">S</div>
+        <a href="./" class="brand" onclick="return goHome(event)">
+            <img id="nav-logo" src="supershop-logo.png" alt="Super Shop BD" onerror="handleLogoError(this)">
+            <div id="nav-fallback" class="brand-fallback">S</div>
             <div class="brand-title" id="nav-brand-name">Super Shop <span>BD</span></div>
         </a>
         <div class="nav-links">
-            <a href="/" onclick="return goHome(event)">হোমপেজ</a>
+            <a href="./" onclick="return goHome(event)">হোমপেজ</a>
             <a href="/super-typing/">Super AI Typing</a>
             <a href="/tutorial/">টিউটোরিয়াল</a>
             <a href="/privacy/">প্রাইভেসি পলিসি</a>
@@ -395,21 +364,16 @@
         </div>
     </nav>
 
-    <!-- =====================================================
-         1. HOMEPAGE VIEW (superbd.shop)
-         ===================================================== -->
+    <!-- 1. HOMEPAGE VIEW -->
     <div id="home-view" class="container">
-        
         <section class="hero-banner" id="hero-banner-box">
             <div class="hero-overlay" id="hero-overlay"></div>
             <div class="hero-left">
                 <span class="flag-badge" id="hero-flag">🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার</span>
-                
                 <div class="hero-text-block" id="hero-solid-text" style="display:none;">
                     <h1 id="hero-title">মুখে কথা বললেই টাইপ ও অনুবাদ — Super AI Typing</h1>
                     <p id="hero-desc">পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।</p>
                 </div>
-
                 <div style="margin-top:auto; padding-top:20px;">
                     <a id="hero-btn-link" href="/super-typing/" class="btn-green-main">
                         <span id="hero-btn-text">🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন</span>
@@ -419,7 +383,7 @@
 
             <div class="hero-right">
                 <div class="hero-right-card" id="hero-right-card">
-                    <img id="hero-card-img" class="hero-card-logo" src="/super-typing/logo.png" alt="Super AI Typing" onerror="this.src='https://cdn-icons-png.flaticon.com/512/2883/2883841.png'">
+                    <img id="hero-card-img" class="hero-card-logo" src="logo.png" alt="Super AI Typing" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='/super-typing/logo.png';}">
                     <h3 id="hero-card-title" style="font-size:22px; color:#fff; font-weight:800;">Super AI Typing (Windows)</h3>
                     <p id="hero-card-sub" style="color:#CBD5E1; font-size:15px; margin-top:4px;">ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা</p>
                     <div class="verified-tag" id="hero-card-badge">✔ 100% Verified Software</div>
@@ -432,29 +396,22 @@
                 <h2 id="sec-heading">✨ প্রিমিয়াম সাবস্ক্রিপশন ও AI টুলস</h2>
                 <p id="sec-sub">সাশ্রয়ী মূল্যে শতভাগ অফিসিয়াল ও ইনস্ট্যান্ট অটো-ডেলিভারি ডিজিটাল সাবস্ক্রিপশন</p>
             </div>
-
             <div class="product-grid" id="product-grid"></div>
         </section>
-
     </div>
 
-    <!-- =====================================================
-         2. DYNAMIC PRODUCT LANDING PAGE VIEW
-         ===================================================== -->
+    <!-- 2. DYNAMIC PRODUCT LANDING PAGE VIEW -->
     <div id="lp-view" class="container" style="display:none;">
-        
         <div style="margin-bottom:20px;">
-            <a href="/" onclick="return goHome(event)" style="text-decoration:none; color:var(--green-dark); font-weight:800; font-size:16px;">⬅️ হোমপেজে ফিরে যান</a>
+            <a href="./" onclick="return goHome(event)" style="text-decoration:none; color:var(--green-dark); font-weight:800; font-size:16px;">⬅️ হোমপেজে ফিরে যান</a>
         </div>
 
-        <!-- TOP VIDEO SECTION -->
         <div id="lp-video-sec" class="lp-box" style="display:none;">
             <h2 style="font-size:24px; margin-bottom:6px; font-weight:800;">🎬 কীভাবে অর্ডার, অ্যাক্টিভ ও ব্যবহার করবেন দেখুন</h2>
             <p style="color:var(--text-sub); font-size:15px;">অর্ডার করার পূর্বে নিচের গাইড ভিডিওটি দেখে নিন</p>
             <div class="video-grid" id="lp-video-grid"></div>
         </div>
 
-        <!-- PRODUCT HEADER, VARIANTS & FULL-WIDTH SPECS BELOW -->
         <div class="lp-box">
             <div class="lp-hero-grid">
                 <div class="lp-img-wrap" id="lp-thumb-wrap"></div>
@@ -463,7 +420,6 @@
                     <h1 id="lp-title" style="font-size:32px; margin:10px 0; color:#0F172A; font-weight:800;"></h1>
                     <p id="lp-short-desc" style="color:var(--text-sub); font-size:16px; font-weight:500;"></p>
 
-                    <!-- 🎛️ PROMINENT VARIANT SELECTOR -->
                     <div class="variant-box-wrap" id="lp-variant-sec" style="display:none;">
                         <div class="variant-head-title" id="lp-variant-title">⚡ আপনার পছন্দের ভেরিয়েন্ট / প্যাকেজ বাছাই করুন:</div>
                         <div class="variant-pills" id="lp-variant-pills"></div>
@@ -480,14 +436,12 @@
                 </div>
             </div>
 
-            <!-- 📌 FULL-WIDTH SPEC ROW (ELIMINATES LEFT EMPTY SPACE) -->
             <div class="spec-full-section" id="lp-spec-sec">
                 <div class="spec-sec-heading">📌 প্রোডাক্টের বিস্তারিত তথ্য ও স্পেসিফিকেশন:</div>
                 <div class="spec-grid" id="lp-spec-grid"></div>
             </div>
         </div>
 
-        <!-- DETAILED FEATURES -->
         <div id="lp-features-sec" style="margin-bottom:35px;">
             <h2 style="font-size:28px; margin-bottom:8px; font-weight:800;">✨ কী কী প্রিমিয়াম ফিচার ও সুবিধা পাচ্ছেন?</h2>
             <p id="lp-long-desc" style="color:var(--text-sub); font-size:16px; margin-bottom:20px; font-weight:500;"></p>
@@ -497,13 +451,11 @@
             </div>
         </div>
 
-        <!-- SCREENSHOT GALLERY -->
         <div id="lp-shot-sec" class="lp-box" style="display:none;">
             <h2 style="font-size:24px; margin-bottom:6px; font-weight:800;">🖼️ প্রোডাক্ট ও অ্যাকাউন্ট স্ক্রিনশট প্রুফ</h2>
             <div class="shot-grid" id="lp-shot-grid"></div>
         </div>
 
-        <!-- 💳 INTEGRATED CHECKOUT (SEPARATE BKASH & NAGAD ROWS + COPY BUTTON) -->
         <div id="checkout-area" class="checkout-card">
             <div style="text-align:center;">
                 <span style="background:var(--green-light); color:var(--green-dark); border:1px solid #6EE7B7; padding:5px 15px; border-radius:20px; font-size:13px; font-weight:800;">⚡ অটোমেটিক ভেরিফিকেশন ও ইনস্ট্যান্ট ডেলিভারি</span>
@@ -541,17 +493,13 @@
                 </button>
             </form>
         </div>
-
     </div>
 
-    <!-- =====================================================
-         🔄 30-SECOND BLUR OVERLAY WITH (✖) CLOSE, TIMEOUT & REJECT STATES
-         ===================================================== -->
+    <!-- 🔄 30-SECOND BLUR MODAL -->
     <div id="verify-overlay" class="verify-overlay">
         <div class="verify-modal">
             <button type="button" class="modal-close-x" onclick="closeVerifyModal()" title="বন্ধ করুন">✖</button>
             
-            <!-- STATE 1: 30s COUNTDOWN SPINNER -->
             <div id="modal-loading-state">
                 <div class="timer-circle-wrap">
                     <svg class="timer-svg">
@@ -567,7 +515,6 @@
                 <p style="color:var(--text-sub); font-size:15.5px;">সিস্টেমে আপনার ট্রানজেকশন মেলানো হচ্ছে। ৫-২০ সেকেন্ডের মধ্যেই এই স্ক্রিনে আপনার প্রোডাক্ট ও অ্যাকাউন্ট তথ্য চলে আসবে!</p>
             </div>
 
-            <!-- STATE 2: DELIVERED PRODUCT BOX -->
             <div id="modal-success-state" style="display:none;">
                 <div style="width:70px; height:70px; background:var(--green-light); color:var(--green-dark); border:2px solid var(--green-main); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:36px; margin:0 auto 12px;">🎉</div>
                 <h2 style="font-size:24px; color:var(--green-dark); font-weight:800;">ভেরিফিকেশন সফল ও ডেলিভারি সম্পন্ন!</h2>
@@ -583,22 +530,19 @@
                 </div>
             </div>
 
-            <!-- STATE 3: 30s TIMEOUT OR ADMIN CANCEL/REJECT STATE -->
             <div id="modal-fail-state" style="display:none;">
                 <div style="width:70px; height:70px; background:#FEF2F2; color:#DC2626; border:2px solid #EF4444; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:34px; margin:0 auto 12px;">⚠️</div>
                 <h2 id="fail-modal-title" style="font-size:22px; color:#DC2626; font-weight:800; margin-bottom:8px;">অটোমেটিক ভেরিফাই করা সম্ভব হয়নি!</h2>
-                <p id="fail-modal-desc" style="color:var(--text-sub); font-size:15px; line-height:1.6;">কানেকশন প্রবলেম বা কারিগরি সমস্যার কারণে এই মুহূর্তে অটোমেটিক ভেরিফাই করা সম্ভব হয়নি। আপনি পেমেন্ট করে থাকলে নিচের বাটনে ক্লিক করে আমাদের <b>Super Shop ফেসবুক পেইজে</b> অথবা <b>WhatsApp সাপোর্ট নাম্বারে</b> মেসেজ করুন, এখনই আপনার প্রোডাক্ট বুঝিয়ে দেওয়া হবে।</p>
+                <p id="fail-modal-desc" style="color:var(--text-sub); font-size:15px; line-height:1.6;">কানেকশন প্রবলেম বা কারিগরি সমস্যার কারণে এই মুহূর্তে অটোমেটিক ভেরিফাই করা সম্ভব হয়নি। আপনি পেমেন্ট করে থাকলে নিচের বাটনে ক্লিক করে আমাদের <b>Super Shop ফেসবুক পেইজে</b> অথবা <b>WhatsApp সাপোর্ট নাম্বারে</b> মেসেজ করুন।</p>
 
                 <div class="support-btn-row">
                     <a id="modal-fb-btn" href="https://www.facebook.com/profile.php?id=100093538660645" target="_blank" class="btn-fb-page">📘 ফেসবুক পেইজে মেসেজ দিন</a>
                     <a id="modal-wa-btn" href="https://wa.me/8801891125182" target="_blank" class="btn-green-main" style="padding:13px 16px; font-size:15px;">💬 WhatsApp সাপোর্টে মেসেজ</a>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- 🌐 FOOTER -->
     <footer>
         <div class="footer-grid">
             <div>
@@ -626,6 +570,47 @@
     <script>
         const DB_URL = "https://super-ai-typing-default-rtdb.firebaseio.com/supershop_v3";
 
+        // Smart Base Directory Detection (Works on both GitHub subfolder /super-typing/ AND root domain superbd.shop)
+        function getBaseDir() {
+            const p = window.location.pathname;
+            if (p.startsWith('/super-typing')) return '/super-typing/';
+            return '/';
+        }
+
+        function resolveAssetPath(path) {
+            if (!path) return '';
+            if (path.startsWith('http') || path.startsWith('data:')) return path;
+            const clean = path.replace(/^\/+/, '');
+            const base = getBaseDir();
+            if (base === '/super-typing/' && !clean.startsWith('super-typing/')) {
+                return '/super-typing/' + clean;
+            }
+            return '/' + clean;
+        }
+
+        function handleLogoError(imgEl) {
+            if (!imgEl.dataset.try1) {
+                imgEl.dataset.try1 = "1";
+                imgEl.src = "supershop-logo.png";
+            } else if (!imgEl.dataset.try2) {
+                imgEl.dataset.try2 = "1";
+                imgEl.src = "/super-typing/supershop-logo.png";
+            } else if (!imgEl.dataset.try3) {
+                imgEl.dataset.try3 = "1";
+                imgEl.src = "logo.png";
+            } else {
+                imgEl.style.display = 'none';
+                document.getElementById('nav-fallback').style.display = 'flex';
+            }
+        }
+
+        function updateFavicon(logoPath) {
+            const fav = document.getElementById('dynamic-favicon');
+            if (fav) {
+                fav.href = resolveAssetPath(logoPath || 'supershop-logo.png');
+            }
+        }
+
         function makeArtwork(bg1, bg2, badgeText, mainTitle, subTitle, iconText) {
             const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
                 <defs>
@@ -650,7 +635,7 @@
         const DEFAULT_DATA = {
             settings: {
                 brandName: "Super Shop BD",
-                logoUrl: "/supershop-logo.png",
+                logoUrl: "supershop-logo.png",
                 whatsapp: "8801891125182",
                 fbPageUrl: "https://www.facebook.com/profile.php?id=100093538660645",
                 activePayOption: "52",
@@ -663,10 +648,10 @@
                     flag: "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার",
                     title: "মুখে কথা বললেই টাইপ ও অনুবাদ — Super AI Typing",
                     desc: "পিসির যেকোনো সফটওয়্যারে বাংলা, ইংরেজি, বাংলিশ ভয়েস টাইপিং এবং রিয়েল-টাইম সুপার ট্রান্সলেশন।",
-                    bgImage: "/super-typing/hero-banner.png",
+                    bgImage: "hero-banner.png",
                     btnText: "🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন",
                     btnLink: "/super-typing/",
-                    cardLogo: "/super-typing/logo.png",
+                    cardLogo: "logo.png",
                     cardBg: "",
                     cardTitle: "Super AI Typing (Windows)",
                     cardSub: "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা",
@@ -839,7 +824,7 @@
         let pollInterval = null;
 
         async function loadStoreData() {
-            const cached = localStorage.getItem("supershop_cache_v5");
+            const cached = localStorage.getItem("supershop_cache_v6");
             if (cached) {
                 try { storeData = JSON.parse(cached); renderApp(); } catch(e){ renderApp(); }
             } else {
@@ -851,7 +836,7 @@
                 const remote = await res.json();
                 if (remote && remote.products && remote.products.length > 0) {
                     storeData = remote;
-                    localStorage.setItem("supershop_cache_v5", JSON.stringify(storeData));
+                    localStorage.setItem("supershop_cache_v6", JSON.stringify(storeData));
                     renderApp();
                 } else {
                     await fetch(`${DB_URL}/data.json`, { method: 'PUT', body: JSON.stringify(DEFAULT_DATA) });
@@ -861,11 +846,16 @@
             }
         }
 
+        // Works with ?p=muse-ai (Zero 404 on Refresh!) AND /muse-ai or /super-typing/muse-ai
         function getCleanSlug() {
-            let path = window.location.pathname.replace(/^\/+|\/+$/g, '');
             const params = new URLSearchParams(window.location.search);
-            if (params.get('p')) return params.get('p');
-            const reserved = ['super-typing', 'cloud-mic', 'checkout', 'privacy', 'tutorial', 'update', 'admin', 'index.html'];
+            if (params.get('p')) return params.get('p').toLowerCase();
+
+            let path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+            if (path.startsWith('super-typing/')) {
+                path = path.replace('super-typing/', '');
+            }
+            const reserved = ['super-typing', 'cloud-mic', 'checkout', 'privacy', 'tutorial', 'update', 'admin', 'index.html', '404.html'];
             if (!path || reserved.includes(path.toLowerCase())) return null;
             return path.toLowerCase();
         }
@@ -876,7 +866,13 @@
             const fbUrl = s.fbPageUrl || DEFAULT_DATA.settings.fbPageUrl;
             const waNum = s.whatsapp || DEFAULT_DATA.settings.whatsapp;
 
-            document.getElementById('nav-logo').src = s.logoUrl || '/supershop-logo.png';
+            const resolvedLogo = resolveAssetPath(s.logoUrl || 'supershop-logo.png');
+            const navLogoEl = document.getElementById('nav-logo');
+            navLogoEl.style.display = 'block';
+            document.getElementById('nav-fallback').style.display = 'none';
+            navLogoEl.src = resolvedLogo;
+            updateFavicon(s.logoUrl || 'supershop-logo.png');
+
             document.getElementById('nav-wa-link').href = `https://wa.me/${waNum}`;
             document.getElementById('foot-wa').href = `https://wa.me/${waNum}`;
             document.getElementById('foot-wa').innerText = `💬 WhatsApp: +${waNum}`;
@@ -884,7 +880,6 @@
             document.getElementById('modal-fb-btn').href = fbUrl;
             document.getElementById('modal-wa-btn').href = `https://wa.me/${waNum}`;
 
-            // Hero Banner Setup
             document.getElementById('hero-flag').innerText = h.flag || "🔥 ফ্ল্যাগশিপ পিসি সফটওয়্যার";
             document.getElementById('hero-btn-text').innerText = h.btnText || "🚀 বিস্তারিত জানুন ও ফ্রি ডাউনলোড করুন";
             document.getElementById('hero-btn-link').href = h.btnLink || "/super-typing/";
@@ -899,12 +894,12 @@
             }
 
             if (h.bgImage) {
-                document.getElementById('hero-banner-box').style.backgroundImage = `url('${h.bgImage}')`;
+                document.getElementById('hero-banner-box').style.backgroundImage = `url('${resolveAssetPath(h.bgImage)}')`;
             }
             if (h.cardBg) {
-                document.getElementById('hero-right-card').style.backgroundImage = `linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.9)), url('${h.cardBg}')`;
+                document.getElementById('hero-right-card').style.backgroundImage = `linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.9)), url('${resolveAssetPath(h.cardBg)}')`;
             }
-            document.getElementById('hero-card-img').src = h.cardLogo || '/super-typing/logo.png';
+            document.getElementById('hero-card-img').src = resolveAssetPath(h.cardLogo || 'logo.png');
             document.getElementById('hero-card-title').innerText = h.cardTitle || "Super AI Typing (Windows)";
             document.getElementById('hero-card-sub').innerText = h.cardSub || "ফ্রি ট্রায়াল সুবিধা | প্রো প্যাক মাত্র 99 টাকা";
             document.getElementById('hero-card-badge').innerText = h.cardBadge || "✔ 100% Verified Software";
@@ -936,9 +931,19 @@
             return count;
         }
 
+        // Generates Refresh-Safe Product URL (Never 404s on GitHub Pages or Cloudflare!)
+        function getProductUrl(slug) {
+            const base = getBaseDir();
+            if (window.location.hostname.includes('github.io')) {
+                return `${base}?p=${slug}`;
+            }
+            return `/${slug}`;
+        }
+
         function renderHomeGrid(products) {
             document.getElementById('home-view').style.display = 'block';
             document.getElementById('lp-view').style.display = 'none';
+            document.title = (storeData.settings?.brandName || "Super Shop BD") + " - প্রিমিয়াম সফটওয়্যার ও ডিজিটাল সাবস্ক্রিপশন শপ";
 
             const grid = document.getElementById('product-grid');
             grid.innerHTML = products.filter(p => p.visible !== false).map(p => {
@@ -947,6 +952,7 @@
                 const hasVars = p.variantsEnabled !== false && p.variants && p.variants.length > 0;
                 const startPrice = hasVars ? p.variants[0].price : p.price;
                 const startOld = hasVars ? p.variants[0].oldPrice : p.oldPrice;
+                const prodLink = getProductUrl(p.slug);
 
                 return `
                 <div class="prod-card">
@@ -963,7 +969,7 @@
                                 <span class="price-now">৳${startPrice}</span>
                                 ${startOld ? `<span class="price-old">৳${startOld}</span>` : ''}
                             </div>
-                            <a href="/${p.slug}" onclick="return navToProduct(event, '${p.slug}')" class="btn-green-main" style="width:100%; padding:12px;">
+                            <a href="${prodLink}" onclick="return navToProduct(event, '${p.slug}')" class="btn-green-main" style="width:100%; padding:12px;">
                                 ${p.btnText || 'বিস্তারিত ও অর্ডার করুন ➔'}
                             </a>
                         </div>
@@ -977,7 +983,8 @@
             closeVerifyModal();
             const found = (storeData.products || []).find(p => p.slug === slug);
             if (found) {
-                window.history.pushState({}, '', `/${slug}`);
+                const targetUrl = getProductUrl(slug);
+                window.history.pushState({}, '', targetUrl);
                 openProductPage(found, true);
             }
             return false;
@@ -986,13 +993,13 @@
         function goHome(e) {
             e.preventDefault();
             closeVerifyModal();
-            window.history.pushState({}, '', '/');
+            const base = getBaseDir();
+            window.history.pushState({}, '', base);
             renderHomeGrid(storeData.products || []);
             window.scrollTo(0, 0);
             return false;
         }
 
-        // Automatically close verification overlay if user clicks Browser Back button
         window.addEventListener('popstate', () => {
             closeVerifyModal();
             renderApp();
@@ -1041,6 +1048,7 @@
             document.getElementById('home-view').style.display = 'none';
             document.getElementById('lp-view').style.display = 'block';
             document.title = `${p.name} - Super Shop BD`;
+            updateFavicon(storeData.settings?.logoUrl || 'supershop-logo.png');
 
             document.getElementById('lp-thumb-wrap').innerHTML = `<img src="${p.thumb}" alt="${p.name}">`;
             document.getElementById('lp-cat-badge').innerText = p.category || 'প্রিমিয়াম সাবস্ক্রিপশন';
@@ -1051,7 +1059,6 @@
             renderVariantPills();
             updateSelectedVariantUI();
 
-            // Full-Width Spec Section
             const specSec = document.getElementById('lp-spec-sec');
             const specGrid = document.getElementById('lp-spec-grid');
             if (p.specsEnabled !== false && p.specs && p.specs.length > 0) {
@@ -1066,7 +1073,6 @@
                 specSec.style.display = 'none';
             }
 
-            // Videos
             const validVideos = (p.videos || []).map(getYtEmbed).filter(Boolean);
             const vidSec = document.getElementById('lp-video-sec');
             if (p.videosEnabled && validVideos.length > 0) {
@@ -1078,7 +1084,6 @@
                 vidSec.style.display = 'none';
             }
 
-            // Features
             document.getElementById('lp-feat-grid').innerHTML = (p.features || []).map(f => {
                 const isImg = f.icon && (f.icon.startsWith('http') || f.icon.startsWith('/'));
                 return `
@@ -1089,7 +1094,6 @@
                 </div>`;
             }).join('');
 
-            // Screenshots
             const shotSec = document.getElementById('lp-shot-sec');
             if (p.screenshotsEnabled && p.screenshots && p.screenshots.length > 0) {
                 shotSec.style.display = 'block';
@@ -1103,7 +1107,6 @@
                 shotSec.style.display = 'none';
             }
 
-            // Separate Branded bKash & Nagad Cards with Copy Button (52 / 50 Switcher)
             const s = storeData.settings || DEFAULT_DATA.settings;
             let payHtml = '';
             if (s.activePayOption === '52') {
@@ -1171,7 +1174,6 @@
             }
         }
 
-        // 🔄 30-SECOND BLUR MODAL + TIMEOUT & ADMIN REJECT HANDLER
         async function submitOrder(e) {
             e.preventDefault();
             if (!currentProduct) return;
@@ -1209,7 +1211,6 @@
                 await fetch(`${DB_URL}/orders/${orderId}.json`, { method: 'PUT', body: JSON.stringify(orderObj) });
 
                 pollInterval = setInterval(async () => {
-                    // 1. Check Order Status (Approved or Rejected by Admin)
                     const ordRes = await fetch(`${DB_URL}/orders/${orderId}.json`);
                     const ordData = await ordRes.json();
                     if (ordData) {
@@ -1226,7 +1227,6 @@
                         }
                     }
 
-                    // 2. Check Incoming SMS Logs for Auto-Match
                     const smsRes = await fetch(`${DB_URL}/sms_logs.json`);
                     const smsLogs = await smsRes.json() || {};
                     let matchedKey = null;
@@ -1293,7 +1293,6 @@
                     const offset = 345 - (sec / 30) * 345;
                     ringEl.style.strokeDashoffset = offset;
                 } else {
-                    // Stop at 0 and show Timeout Support Message (Never loop back to 30!)
                     secEl.innerText = 0;
                     ringEl.style.strokeDashoffset = 345;
                     showFailInModal(
